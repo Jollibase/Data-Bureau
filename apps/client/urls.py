@@ -1,12 +1,8 @@
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularRedocView,
-    SpectacularSwaggerView,
-)
 from django.urls import path
+from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
+                                   SpectacularSwaggerView)
 
 from apps.client import views
-
 
 urlpatterns = [
     path("signup/", views.LenderSignupView.as_view(), name="lender_signup"),
