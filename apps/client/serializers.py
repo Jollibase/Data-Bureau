@@ -20,7 +20,11 @@ class CreateLenderSerializer(BaseLenderSerializer):
     def create(self, validated_data):
         validated_user_obj = validated_data.pop("user")
         lender = super().create({**validated_data})
-        user = User.objects.create_user(**validated_user_obj, role=User.LENDER)
+        user = User.objects.create_user(
+            **validated_user_obj, role=User.LENDER, company=lender
+        )
+        user.is_active = False
+        user.save()
         # Assign user 'Lender's Admin' permission
         user.groups.add(Group.objects.get(name="Lender's Admin"))
         default_package = Package.objects.first()
