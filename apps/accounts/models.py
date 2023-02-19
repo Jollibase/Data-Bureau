@@ -29,6 +29,9 @@ class User(AbstractUser):
     last_name = models.CharField("last name", max_length=150, blank=False)
     email = models.EmailField(unique=True, blank=False)
     role = models.PositiveSmallIntegerField(choices=ROLES, blank=False, null=False)
+    company = models.ForeignKey(
+        "Lender", on_delete=models.SET_NULL, default=None, null=True
+    )
 
     def save(self, *args, **kwargs):
         if not self.id:
