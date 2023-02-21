@@ -5,6 +5,9 @@ from .models import Lender, User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    is_lender_admin = serializers.SerializerMethodField()
+    password = serializers.CharField(required=False)
+
     class Meta:
         model = User
         fields = (
@@ -15,8 +18,20 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "is_active",
+            "company",
+            "is_lender_admin",
         )
         extra_kwargs = {"password": {"write_only": True}}
+
+    def get_is_lender_admin(self, instance):
+        return instance.groups.filter(name="Lender's Admin").exists()
+
+    def create(self, validated_data):
+        # If there are no passwords, create user with .create
+        lender = self.context.get("company", None)
+        if validated_data.get("password"):
+            return super().create(validated_data)
+        return User.objects.create(**validated_data, role=User.LENDER, company=lender)
 
 
 class LoginSerializer(serializers.Serializer):

@@ -11,6 +11,7 @@ class DatetimeMixin(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ("created",)
 
 
 class User(AbstractUser):
