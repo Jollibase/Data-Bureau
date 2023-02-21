@@ -14,14 +14,14 @@ class BaseLenderSerializer(serializers.ModelSerializer):
         exclude = ("uuid", "created", "updated", "secret")
 
 
-class CreateLenderSerializer(BaseLenderSerializer):
-    user = UserSerializer()
+class BaseLenderSerializerWithUsers(BaseLenderSerializer):
+    user = UserSerializer(source="user_set", many=True)
 
     def create(self, validated_data):
-        validated_user_obj = validated_data.pop("user")
+        validated_user_obj = validated_data.pop("user_set")
         lender = super().create({**validated_data})
         user = User.objects.create_user(
-            **validated_user_obj, role=User.LENDER, company=lender
+            **validated_user_obj[0], role=User.LENDER, company=lender
         )
         user.is_active = False
         user.save()

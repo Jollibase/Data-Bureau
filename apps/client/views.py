@@ -1,17 +1,18 @@
 from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode
 from drf_spectacular.utils import extend_schema
-from rest_framework import generics, permissions, status, views
+from rest_framework import generics, status, views
 from rest_framework.response import Response
 
 from apps.accounts.models import Lender
-from apps.accounts.serializers import LoginSerializer
+from apps.accounts.serializers import LoginSerializer, UserSerializer
 from apps.accounts.views import account_activation_token
-from apps.client.serializers import (BaseLenderSerializer,
-                                     CreateLenderSerializer)
 from apps.lib.utils import get_token_for_user, send_mail_user
+
+from .permissions import isLenderAdminUser, isLenderUser
+from .serializers import BaseLenderSerializerWithUsers
 
 User = get_user_model()
 
@@ -19,18 +20,18 @@ User = get_user_model()
 class LenderSignupView(views.APIView):
     """Lender can only signup once with a user; next they have to add users instead"""
 
-    serializer_class = CreateLenderSerializer
+    serializer_class = BaseLenderSerializerWithUsers
 
-    @extend_schema(responses=({"201": CreateLenderSerializer}))
+    @extend_schema(responses=({"201": BaseLenderSerializerWithUsers}))
     def post(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         lender = serializer.save()
-        user = lender.user_set.first()
+        user = lender.user_set.first()  # Or filter by admin permission
         # Do something with verification of email
         current_site = get_current_site(request)
-        email = {
+        email_kwargs = {
             "subject": "Verification Mail",
             "template": "verify_email.html",
             "message_context": {
@@ -41,7 +42,7 @@ class LenderSignupView(views.APIView):
             },
             "to": [user.email],
         }
-        send_mail_user(**email)
+        send_mail_user(**email_kwargs)
         return Response({}, status=status.HTTP_201_CREATED)
 
 
@@ -57,6 +58,31 @@ class LenderLoginView(views.APIView):
 
 
 class LenderProfileView(generics.RetrieveAPIView):
-    permission_classes = [permissions.AllowAny]
-    serializer_class = BaseLenderSerializer
+    permission_classes = [isLenderUser]
+    serializer_class = BaseLenderSerializerWithUsers
     queryset = Lender.objects.all()
+
+
+class LenderAddUserView(views.APIView):
+    permission_classes = [isLenderAdminUser]
+    serializer_class = UserSerializer
+
+    def post(self, request):
+        lender = request.user.company
+        data = request.data
+        users_serializer = self.serializer_class(
+            data=data, many=True, context={"company": lender}
+        )
+        users_serializer.is_valid(raise_exception=True)
+        users = users_serializer.save()
+        current_site = get_current_site(request)
+        email_kwargs = {
+            "subject": "Change Password Alert",
+            "template": "change_password.html",
+            "message_context": {
+                "domain": current_site.domain,
+            },
+            "to": users,
+        }
+        # Use celery to send messages
+        return Response(status=status.HTTP_200_OK)
