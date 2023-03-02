@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+  web_backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: data_bureau_web_backend
+    command: ./start.sh
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+      - postgres
+      - celery_worker
+      - celery_beat
+      - flower
+
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=data_bureau
+      - POSTGRES_PASSWORD=data_bureau123
+    healthcheck:
+      test: "echo 'SELECT 1;' | psql data_bureau data_bureau"
+      timeout: 5s
+      interval: 5s
+      retries: 30
+
+  redis:
+    image: redis:7-alpine
+    command: --port ${REDIS_PORT}
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    expose:
+      - "${REDIS_PORT}"
+
+  celery_worker:
+    command: ./start-celery.sh
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: data_bureau_celery_worker
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+      - postgres
+
+  celery_beat:
+    command: ./start-beat.sh
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: data_bureau_celery_beat
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+      - postgres
+
+  flower:
+    command: ./start-flower.sh
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: celery_flower
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    ports:
+      - 5555:5555
+    depends_on:
+      - redis
+      - postgres
+
+volumes:
+  postgres_data:

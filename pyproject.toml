@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["NerdPraise <praiseajayi2@gmail.com>"]
 readme = "README.md"
-packages = [{include = "data_bureau"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -23,11 +22,12 @@ python-dotenv = "^0.21.1"
 rsa = "^4.9"
 celery = "^5.2.7"
 redis = "^4.5.1"
+flower = "^1.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
 phonenumbers = "^8.13.6"
-black = {version = "^23.1.0", allow-prereleases = true}
+black = { version = "^23.1.0", allow-prereleases = true }
 
 [build-system]
 requires = ["poetry-core"]
