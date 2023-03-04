@@ -8,7 +8,7 @@ urlpatterns = [
     path("signup/", views.LenderSignupView.as_view(), name="lender_signup"),
     path("login/", views.LenderLoginView.as_view(), name="lender_login"),
     path("me/<int:pk>/", views.LenderProfileView.as_view(), name="lender_profile"),
-    path("me/add/", views.LenderAddUserView.as_view(), name="lender_add_user"),
+    path("me/add_user/", views.LenderAddUserView.as_view(), name="lender_add_user"),
     # YOUR PATTERNS
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:

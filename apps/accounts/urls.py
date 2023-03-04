@@ -8,4 +8,9 @@ urlpatterns = [
         views.ActivateUserView.as_view(),
         name="activate",
     ),
+    path(
+        "accounts/change_password/",
+        views.ChangePasswordView.as_view(),
+        name="change_password",
+    ),
 ]

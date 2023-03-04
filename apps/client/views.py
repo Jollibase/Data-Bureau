@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from apps.accounts.models import Lender
 from apps.accounts.serializers import LoginSerializer, UserSerializer
 from apps.accounts.views import account_activation_token
-from apps.lib.utils import get_token_for_user, send_mail_user
+from apps.lib.utils import get_token_for_user, send_mail_async
 
 from .permissions import isLenderAdminUser, isLenderUser
 from .serializers import BaseLenderSerializerWithUsers
@@ -35,14 +35,14 @@ class LenderSignupView(views.APIView):
             "subject": "Verification Mail",
             "template": "verify_email.html",
             "message_context": {
-                "user": user,
+                "username": user.username,
                 "domain": current_site.domain,
                 "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                 "token": account_activation_token.make_token(user),
             },
             "to": [user.email],
         }
-        send_mail_user(**email_kwargs)
+        send_mail_async.delay(**email_kwargs)
         return Response({}, status=status.HTTP_201_CREATED)
 
 
@@ -82,7 +82,9 @@ class LenderAddUserView(views.APIView):
             "message_context": {
                 "domain": current_site.domain,
             },
-            "to": users,
+            "to": [user.email for user in users],
         }
         # Use celery to send messages
+        send_mail_async.delay(**email_kwargs, mass=True)
+
         return Response(status=status.HTTP_200_OK)
