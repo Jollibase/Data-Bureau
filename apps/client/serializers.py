@@ -27,7 +27,7 @@ class BaseLenderSerializerWithUsers(BaseLenderSerializer):
         user.save()
         # Assign user 'Lender's Admin' permission
         user.groups.add(Group.objects.get(name="Lender's Admin"))
-        default_package = Package.objects.first()
+        default_package = Package.objects.get(name="Basic")
         p_map = LenderPackageMap.objects.create(
             lender=lender,
             package=default_package,
