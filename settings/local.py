@@ -18,7 +18,7 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     "TITLE": "Data Bureau",
     "DESCRIPTION": "Your data everywhere",
-    "VERSION": "1.0.0",
+    "VERSION": "1.0.00",
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

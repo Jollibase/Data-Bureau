@@ -31,3 +31,8 @@ class ActivateUserView(APIView):
             )
         else:
             return Response("Activation link is invalid!")
+
+
+class ChangePasswordView(APIView):
+    def get(self, request):
+        return Response("Good!")

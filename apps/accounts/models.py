@@ -35,7 +35,7 @@ class User(AbstractUser):
     )
 
     def save(self, *args, **kwargs):
-        if not self.id:
+        if not self.id and not self.username:
             self.username = self.email
         return super().save(*args, **kwargs)
 
