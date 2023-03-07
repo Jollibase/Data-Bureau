@@ -21,6 +21,10 @@ services:
       - celery_worker
       - celery_beat
       - flower
+    links:
+      - postgres:postgres
+    networks:
+      - djangonetwork
 
   postgres:
     image: postgres:latest
@@ -34,6 +38,8 @@ services:
       timeout: 5s
       interval: 5s
       retries: 30
+    networks:
+      - djangonetwork
 
   redis:
     image: redis:7-alpine
@@ -89,3 +95,7 @@ services:
 
 volumes:
   postgres_data:
+
+networks:
+      djangonetwork:
+          driver: bridge
