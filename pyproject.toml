@@ -24,6 +24,7 @@ celery = "5.2.7"
 redis = "4.5.1"
 flower = "1.2.0"
 watchfiles = "0.18.1"
+django-hijack = "3.2.6"
 
 
 [tool.poetry.group.dev.dependencies]

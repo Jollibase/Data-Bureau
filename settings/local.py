@@ -34,24 +34,6 @@ DATABASES = {
     }
 }
 
-INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "rest_framework",
-    "drf_spectacular",
-    "phonenumber_field",
-    "apps.accounts",
-    "apps.client",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    # 'allauth.socialaccount.providers.google',
-]
-
 ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = "accounts.User"
 

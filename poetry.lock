@@ -594,6 +594,24 @@ requests = "*"
 requests-oauthlib = ">=0.3.0"
 
 [[package]]
+name = "django-hijack"
+version = "3.2.6"
+description = "django-hijack allows superusers to hijack (=login as) and work on behalf of another user."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-hijack-3.2.6.tar.gz", hash = "sha256:a6df02875c6a653eeb2c0768391587c3ffe711613b8f6cd9e56b9ba62f0b44d9"},
+    {file = "django_hijack-3.2.6-py3-none-any.whl", hash = "sha256:c453d9d37208d7cd78f9b679831ec60ff03160c88bb87e9ac1f49e5c4ada3874"},
+]
+
+[package.dependencies]
+django = ">=2.2"
+
+[package.extras]
+test = ["pytest", "pytest-cov", "pytest-django"]
+
+[[package]]
 name = "django-phonenumber-field"
 version = "7.0.2"
 description = "An international phone number field for django models."
@@ -1520,4 +1538,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "c83024758126d4421c00e5655e756296349f80604630db90bf6e43b7b116a96b"
+content-hash = "cd6fe6f398c430e5d9ea8875d11f6f300069494ac81966572ae2d983cae8b85c"
