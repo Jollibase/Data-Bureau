@@ -5,7 +5,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: data_bureau_web_backend
+    container_name: web_backend
     command: ./start.sh
     volumes:
       - .:/app
@@ -21,13 +21,31 @@ services:
       - celery_worker
       - celery_beat
       - flower
+      - frontend
     links:
       - postgres:postgres
     networks:
       - djangonetwork
 
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: web_frontend
+    ports:
+      - "80:3000"
+    working_dir: /app/
+    entrypoint:
+      - bash
+    command:
+      - -c
+      - | 
+        cd SPA/ && 
+        npm start
+
   postgres:
     image: postgres:latest
+    container_name: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
@@ -54,7 +72,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: data_bureau_celery_worker
+    container_name: celery_worker
     volumes:
       - .:/app
     env_file:
@@ -68,7 +86,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: data_bureau_celery_beat
+    container_name: celery_beat
     volumes:
       - .:/app
     env_file:
@@ -82,7 +100,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: celery_flower
+    container_name: celery_flower
     volumes:
       - .:/app
     env_file:
