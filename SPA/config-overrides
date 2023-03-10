@@ -1,0 +1,56 @@
+const { override, addWebpackModuleRule } = require('customize-cra')
+
+module.exports = override(
+  addWebpackModuleRule({
+    test: /\.styl$/,
+    exclude: /(node_modules)/,
+    use: [
+      'style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          modules: {
+            mode: 'global',
+          },
+          importLoaders: 2,
+        },
+      },
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            plugins: [
+              require('precss')({
+                /* ...options */
+              }),
+              require('autoprefixer')({
+                grid: true,
+              }),
+            ],
+          },
+          sourceMap: true,
+        },
+      },
+      {
+        loader: 'stylus-loader',
+        options: {
+          sourceMap: true,
+        },
+      },
+    ],
+  }),
+  addWebpackModuleRule({
+    test: /\.css$/,
+    use: [
+      'style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          modules: false,
+        },
+      },
+    ],
+  }),
+)
