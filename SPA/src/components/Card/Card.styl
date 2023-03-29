@@ -1,0 +1,44 @@
+:local(.Card)
+  padding 13px
+  border-radius 8px
+  box-shadow -10px -10px 30px rgba(224, 224, 224, 0.05), 10px 10px 30px rgba(84, 84, 84, 0.1)
+
+:local(.Testimonial)
+  display flex
+  justify-content space-between
+  flex-wrap wrap
+  .testimonial
+    &__cards
+      padding 18px
+      color rgba(13, 31, 60, 0.6)
+      margin 0 0 32px 0
+      flex-basis 26%
+
+      &__description
+        text-align left
+        font-size 13px
+      &__profile
+        display flex
+        margin-top 20px
+        align-items flex-start 
+        &__image
+          margin-right 12px
+          height 50px
+          width 50px
+          border none
+          > img
+            border-radius 50%
+            width 100%
+        &__description
+          > p
+            font-size 14px
+            margin-bottom -4px
+            color #171717
+            font-weight 500
+            &:nth-of-type(2)
+              font-weight 400
+              color #737373
+  @media screen and (max-width: 750px)
+    .testimonial
+      &__cards
+        flex-basis 100%

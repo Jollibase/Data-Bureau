@@ -1,4 +1,15 @@
-const { override, addWebpackModuleRule } = require('customize-cra')
+const {
+  override,
+  addWebpackModuleRule,
+  addWebpackAlias,
+} = require('customize-cra')
+const path = require('path')
+
+const ROOT_PATH = path.resolve(__dirname)
+const SRC_PATH = path.resolve(ROOT_PATH, './src')
+const ASSETS_PATH = path.resolve(SRC_PATH, 'assets')
+const MODULE_PATH = path.resolve(SRC_PATH, 'modules')
+const IMG_PATH = path.resolve(ASSETS_PATH, 'img')
 
 module.exports = override(
   addWebpackModuleRule({
@@ -52,5 +63,11 @@ module.exports = override(
         },
       },
     ],
+  }),
+  addWebpackAlias({
+    '@Home': SRC_PATH,
+    '@Images': IMG_PATH,
+    '@Assets': ASSETS_PATH,
+    '@Modules': MODULE_PATH,
   }),
 )

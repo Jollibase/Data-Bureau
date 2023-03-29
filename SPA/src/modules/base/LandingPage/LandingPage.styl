@@ -1,0 +1,220 @@
+@import "@Assets/global_style"
+
+:local(.LP)
+  position relative
+  overflow-x hidden
+  
+  .lp__hero
+    background $primary_darker
+    padding 70px 100px 190px
+    position relative
+    .lp__dot
+      position absolute
+      top 0
+      right 0
+    .lp__C
+      position absolute
+      bottom 0
+      left 0
+      z-index 2
+      animation 2s infinite boppingUp reverse
+    .lp__circle
+      position absolute
+      top -30px
+      left 22%
+      animation 2s infinite boppingLeft
+    .lp__eclipse
+      position absolute
+      bottom -150px
+      left -10px
+      scale 0.9
+
+    .lp__circle_
+      border-radius 50%
+      background $primary_darker
+      position absolute
+    
+      &.m
+        height 50px
+        width 50px
+        bottom -200px
+        left 20px
+
+      &.d
+        height 70px
+        width 70px
+        bottom -150px
+        right 30px
+
+    .elipse_green
+      bottom -300px
+      right -12px
+      scale 0.8
+      position absolute
+
+    .lp__hero__elems
+      display flex
+      justify-content space-between
+      position relative
+      align-items center
+      z-index 5
+      
+      .lp__hero__right
+        flex-basis 40%
+        svg 
+          max-width 100%
+          max-height 100%
+      .lp__hero__left
+        flex-basis 60%
+        min-width 500px
+        margin-right 15px
+        .protect
+          color $jolly_purple
+          margin-bottom 15px
+        .heading-text
+          color $color_white
+          margin-top 0
+          margin-bottom 30px
+          font-size 58px
+          line-height 70px
+        > p
+          color $color_white
+          opacity 0.7
+          font-weight 300
+        .lp__hero__input-group
+          display flex
+          margin-top 40px
+          > input
+              flex-basis 50%
+              margin-right 10px
+      
+  
+  .lp__feature, .lp__testimonial
+    padding 0 100px
+    margin-top 30px
+    .lp__feature__heading, .lp__testimonial__heading
+      margin-bottom 60px
+      display flex
+      align-items center
+      flex-direction column
+      h3 
+        font-weight 500
+    .lp__feature__boxes
+      display flex
+      justify-content center
+      flex-wrap wrap
+      .lp__feature_cards
+        flex 1 1 25%
+        padding 18px
+        margin 25px
+        margin-bottom 50px
+        color rgba(13, 31, 60, 0.6)
+        &:nth-of-type(8), &:nth-of-type(7)
+          flex 0 1 30%
+
+        p
+          font-size 13px
+          text-align center
+         & .title
+            font-weight bold
+            margin-bottom 10px
+
+  .lp__testimonial
+    background $ashh_grey
+    padding-bottom 50px
+    padding-top 30px
+
+    .lp__testimonial__boxes
+      justify-content space-between
+
+  .lp__waitlist
+    background #F0ECE1
+    padding 48px 100px
+    display flex
+    max-height 600px
+    justify-content space-between
+
+    &__image
+      height 550px
+      max-height 100%
+      max-width 100%
+      position relative
+      > img
+        max-width 100%
+        height 100%
+        width 100%
+      &__C
+        position absolute
+        bottom 0
+        right -40px
+        transform rotate(30deg)
+        scale 0.7
+        z-index 2
+    &__text
+      color $special_dark_blue
+
+  .lp__insights
+    background $milky_white
+    padding 60px 100px
+    background $color_white
+    display flex
+    justify-content space-between
+    align-items center
+
+    &__text
+      flex-basis 70%
+      div 
+        h3
+          margin 4px 0 16px 0
+          font-size 35px
+          font-weight 700
+        > p
+          &:nth-of-type(1)
+            font-weight 600
+            letter-spacing 1px
+            color $jolly_purple
+          &:nth-of-type(2)
+            color $sky_grey
+
+    &__numbers
+      flex-basis 20%
+      display flex
+      flex-direction column
+      > div 
+        display flex
+        flex-direction column
+        margin-bottom 55px
+        align-items center
+        > p
+          &:nth-of-type(1)
+            font-weight 600
+            font-size 32px
+          &:nth-of-type(2)
+            font-weight 400
+            font-size 14px
+            color $sky_grey
+  @media screen and (max-width: 900px) 
+    .lp__hero, .lp__feature, .lp__waitlist, .lp__insights, .lp__testimonial
+      padding-left 50px
+      padding-right 50px
+    .lp__feature
+      .lp__feature__boxes
+        .lp__feature_cards
+          flex-basis 100%
+    .lp__waitlist__image > img:first-of-type
+      display: none
+
+      
+  @media screen and (max-width: 600px) 
+    .lp__hero, .lp__feature, .lp__waitlist
+      padding-left 16px
+      padding-right 16px
+    .lp__feature
+      .lp__feature__boxes
+        .lp__feature_cards
+          flex-basis 100%
+    .lp__waitlist__image > img:first-of-type
+      display: none
+    .lp__waitlist__image__C
+      right -20px
+      scale 0.5

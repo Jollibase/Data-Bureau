@@ -1,15 +1,11 @@
 {
+  "extends": "./tsconfig.path.json",
   "compilerOptions": {
-    "baseUrl": "src",
-    "paths":{
-        "Home": ["./*"],
-        "Assets": ["./assets/*"]
-      },
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "allowJs": false,
-    "target": "ES5"    
+    "target": "ES5"
   },
   "include": ["src"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }
