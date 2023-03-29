@@ -1,7 +1,9 @@
-import style from './App.styl'
+import { createBrowserRouter } from 'react-router-dom'
 
-function App() {
-  return <div className={style.App}></div>
-}
+import Routes from './routes'
+
+import './App.css'
+
+const App = createBrowserRouter(Routes)
 
 export default App

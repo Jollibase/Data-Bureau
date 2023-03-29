@@ -1,0 +1,105 @@
+@import "@Assets/global_style"
+
+:local(.Footer)
+  display flex
+  background $dark_green
+  padding 69px 82px
+  justify-content space-between
+  flex-wrap wrap
+  .footer 
+    &__routes
+      margin-bottom 65px
+      flex-basis 20%
+      &__heading
+        color $color_white
+        margin-bottom 15px
+        font-weight 500
+      ul 
+        list-style-type none
+        li 
+          min-width 200px
+          margin-bottom 12px
+          cursor pointer
+          a 
+            color rgba(255, 255, 255, 0.7)
+            font-size 14px
+            padding-bottom 5px
+            &:hover
+              border-bottom 1px solid rgba(255, 255, 255, 0.7)
+              color $color_white
+    &__description
+      margin-bottom 65px
+      flex-basis 35%
+      &__logo
+        display flex
+        align-items center
+        height 39px
+        width 120px
+        font-size 18px
+        color $color_white
+        margin-bottom 24px
+        svg 
+          font-size 18px
+          margin-right 8px
+          width 100%
+          height 100%
+      &__text
+        font-size 14px
+        color rgba(255, 255, 255, 0.7)
+        margin-bottom 24px
+      &__input_group
+        display flex
+        &__input
+          background $color_white
+          color #A3A3A3
+          &__button
+            flex 40%
+            margin-left 8px
+            padding 10px
+            font-size 14px
+    &__bottom
+      width 100%
+      padding-top 25px
+      margin-bottom 16px
+      border-top 1px solid $whitish_grey
+      p
+        color rgba(255, 255, 255, 0.7)
+        font-size 14px
+
+      &__desktop 
+        display flex
+        justify-content space-between
+        &__links
+          display flex
+          justify-content space-between
+          flex-basis 40%
+          width 100%
+          > p 
+            margin-right 10px
+            a 
+              color rgba(255, 255, 255, 0.7)
+
+      &__mobile
+        display none
+    @media screen and (max-width: 900px)
+      &__routes
+        flex-basis 50%
+
+      &__description
+        flex-basis 50%
+
+    @media screen and (max-width: 600px)
+      &__routes
+        flex-basis 100%
+
+      &__description
+        display none
+
+      &__bottom
+        &__desktop 
+          display none
+        &__mobile
+          display flex
+          flex-direction column
+          align-items center
+          width 100%
