@@ -2,7 +2,7 @@
 
 
 :local(.Button)
-    padding 20px
+    padding 15px
     display flex
     align-items center
     justify-content center
@@ -13,9 +13,15 @@
     font-size 16px
     color $color_white
     transition 0.3s ease-in
+    cursor pointer
+    &.inverse
+        background transparent
+
+    @media screen and (max-width: 1000px) {
+        padding 12px
+    }
 
 :local(.Primary)
-    color $primary_normal
     &:hover 
         background $primary_normal_hover
         border 1px solid $primary_normal_hover
@@ -25,22 +31,10 @@
         background $primary_normal_active
         border 1px solid $primary_normal_active
 
-    &.inverse
-        background transparent
-        &:active
-            background $primary_normal_active
-
-        &:hover
-            background $primary_normal_hover
-
-
 :local(.Secondary)
     border 1px solid $sec_normal 
     background $sec_normal
     color $sec_normal
-
-    &.inverse
-        background transparent
 
     &:hover 
         background $sec_normal_hover
