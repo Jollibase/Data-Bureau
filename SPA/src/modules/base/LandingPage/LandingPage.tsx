@@ -10,7 +10,7 @@ import {
   Card,
   Footer,
   TestimonialCard,
-} from '@Home/components'
+} from '@Components'
 import { ReactComponent as LpDot } from '@Images/lp-dots.svg'
 import { ReactComponent as LpCircle } from '@Images/lp-round.svg'
 import { ReactComponent as LpC } from '@Images/lp-c.svg'
@@ -22,14 +22,6 @@ import { ReactComponent as EclipseGreen } from '@Images/eclispe_green.svg'
 import { ReactComponent as ElipseGreen } from '@Images/elipse_mini.svg'
 import styles from './LandingPage.styl'
 
-const ROUTES = {
-  Products: '/products',
-  Pricing: '/pricing',
-  Resources: '/resources',
-  'About Us': '/about-us',
-  Blog: '/blog',
-}
-
 const CAROUSEL_IMAGES = [HeroImg1, HeroImg2, HeroImg3]
 
 export const LandingPage = () => {
@@ -40,7 +32,7 @@ export const LandingPage = () => {
         <LpCircle className="lp__circle" />
         <LpC className="lp__C" fill="#003B33" />
         <EclipseGreen className="lp__eclipse" />
-        <Menu routes={ROUTES} />
+        <Menu showButton />
         <div className="lp__hero__elems">
           <div className="lp__hero__left">
             <h5 className="protect">PROTECT YOUR BUSINESS</h5>
@@ -61,6 +53,7 @@ export const LandingPage = () => {
                 text="Join our Waitlist"
                 classname="hero-btn"
                 onclick={() => null}
+                primary
               />
             </div>
           </div>

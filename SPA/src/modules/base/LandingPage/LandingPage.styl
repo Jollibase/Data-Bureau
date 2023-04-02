@@ -2,11 +2,12 @@
 
 :local(.LP)
   position relative
+  overflow-y auto
   overflow-x hidden
   
   .lp__hero
     background $primary_darker
-    padding 70px 100px 190px
+    padding 49px 100px 190px 80px 
     position relative
     .lp__dot
       position absolute
@@ -197,22 +198,21 @@
     .lp__hero, .lp__feature, .lp__waitlist, .lp__insights, .lp__testimonial
       padding-left 50px
       padding-right 50px
+      .lp__hero__elems .lp__hero__left .heading-text
+        font-size 43px
     .lp__feature
       .lp__feature__boxes
         .lp__feature_cards
           flex-basis 100%
+          &:nth-of-type(8), &:nth-of-type(7)
+            flex 1 1 100%
     .lp__waitlist__image > img:first-of-type
       display: none
-
       
   @media screen and (max-width: 600px) 
     .lp__hero, .lp__feature, .lp__waitlist
       padding-left 16px
       padding-right 16px
-    .lp__feature
-      .lp__feature__boxes
-        .lp__feature_cards
-          flex-basis 100%
     .lp__waitlist__image > img:first-of-type
       display: none
     .lp__waitlist__image__C

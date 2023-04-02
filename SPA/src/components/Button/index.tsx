@@ -3,7 +3,7 @@ import ClassName from 'classnames'
 import styles from './Button.styl'
 
 interface ButtonProps {
-  text: string
+  text: React.ReactNode
   onclick: VoidFunction
   classname?: string
   primary?: boolean

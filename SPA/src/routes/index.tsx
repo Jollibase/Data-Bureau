@@ -1,10 +1,11 @@
 import { LandingPage } from '@Modules/base/LandingPage'
+import { ErrorPage } from '@Modules/base/ErrorPage'
 
 const routes = [
   {
     path: '/',
     element: <LandingPage />,
-    errorElement: <div>Error</div>,
+    errorElement: <ErrorPage />,
   },
 ]
 
