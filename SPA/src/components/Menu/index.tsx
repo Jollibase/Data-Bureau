@@ -1,5 +1,5 @@
 import ClassNames from 'classnames'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { ROUTES } from '@Home/routes/constants'
 
@@ -15,7 +15,9 @@ interface MenuProps {
 }
 
 export const Menu = ({ routes, showButton, classname }: MenuProps) => {
+  const location = useLocation()
   const MenuRoutes = routes || ROUTES
+
   return (
     <div className={ClassNames(styles.Menu, classname)}>
       <div className="menu__logo">
@@ -28,7 +30,11 @@ export const Menu = ({ routes, showButton, classname }: MenuProps) => {
         <ul>
           {Object.entries(MenuRoutes).map(([k, v]) => {
             return (
-              <li key={k} className="list-item">
+              <li
+                key={k}
+                className={ClassNames('list-item', {
+                  active: location.pathname === v,
+                })}>
                 <Link to={v}>{k}</Link>
               </li>
             )
