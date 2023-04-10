@@ -1,0 +1,103 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.linear_model import LogisticRegression
+
+# Step 1: Data Collection
+data = pd.read_csv('customer_data.csv')
+
+# Step 2: Data Cleaning
+data.drop_duplicates(inplace=True)
+data.dropna(inplace=True)
+
+# Step 3: Feature Engineering
+data['payment_behavior'] = data['num_missed_payments'] / data['num_payments']
+data['avg_order_value'] = data['total_spent'] / data['num_orders']
+
+# Step 4: Data Exploration and Visualization
+plt.scatter(data['payment_behavior'], data['flight_risk'])
+plt.xlabel('Payment Behavior')
+plt.ylabel('Flight Risk')
+plt.show()
+
+# Step 5: Model Selection
+X = data[['payment_behavior', 'avg_order_value']]
+y = data['flight_risk']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = LogisticRegression()
+
+# Step 6: Model Training
+model.fit(X_train, y_train)
+
+# Step 7: Model Evaluation
+y_pred = model.predict(X_test)
+print('Accuracy:', accuracy_score(y_test, y_pred))
+print('Precision:', precision_score(y_test, y_pred))
+print('Recall:', recall_score(y_test, y_pred))
+print('F1-score:', f1_score(y_test, y_pred))
+
+# Step 8: Model Deployment
+# Here you can write a function that takes in customer data, preprocesses it,
+# and uses the trained model to predict flight risk for each customer.
+# You can then send alerts or take other actions based on the predicted flight risk.
+
+# Step 9: Model Monitoring
+# Continuously monitor the performance of the deployed model and update it as necessary.
+
+###################################################################
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report
+
+# Step 1: Data Collection
+data = pd.read_csv("customer_data.csv")
+
+# Step 2: Data Cleaning
+# Drop duplicates and missing values
+data = data.drop_duplicates()
+data = data.dropna()
+
+# Step 3: Feature Engineering
+data["payment_behavior"] = np.where(data["num_missed_payments"] > 0, "Late", "On time")
+data["average_order_value"] = data["total_spent"] / data["num_purchases"]
+data["purchases_per_month"] = data["num_purchases"] / (data["time_on_platform"] / 30)
+
+# Step 4: Data Exploration and Visualization
+plt.hist(data["average_order_value"])
+plt.xlabel("Average Order Value")
+plt.ylabel("Count")
+plt.show()
+
+# Step 5: Model Selection
+X = data[["average_order_value", "purchases_per_month", "credit_score"]]
+y = data["flight_risk"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+clf = LogisticRegression(random_state=42).fit(X_train, y_train)
+
+# Step 6: Model Training
+y_pred = clf.predict(X_test)
+
+# Step 7: Model Evaluation
+print(confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+# Step 8: Model Deployment
+new_data = pd.read_csv("new_customer_data.csv")
+new_data["payment_behavior"] = np.where(new_data["num_missed_payments"] > 0, "Late", "On time")
+new_data["average_order_value"] = new_data["total_spent"] / new_data["num_purchases"]
+new_data["purchases_per_month"] = new_data["num_purchases"] / (new_data["time_on_platform"] / 30)
+
+new_X = new_data[["average_order_value", "purchases_per_month", "credit_score"]]
+new_data["flight_risk"] = clf.predict(new_X)
+
+# Step 9: Model Monitoring
+# Continuously monitor the performance of the model and update it as necessary to ensure it remains accurate and effective in preventing customer flight risk.
+

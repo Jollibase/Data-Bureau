@@ -1,6 +1,5 @@
 @import "@Assets/global_style"
 
-
 :local(.Input)
     padding 20px
     width 100%
@@ -9,3 +8,10 @@
     border-radius 10px
     color white
     font-size 16px
+    box-sizing border-box
+    &::placeholder 
+        color $light_grey
+        font-weight 300
+        font-size 14px
+    &:focus
+        outline none

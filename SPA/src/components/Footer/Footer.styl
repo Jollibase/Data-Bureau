@@ -47,16 +47,22 @@
         font-size 14px
         color rgba(255, 255, 255, 0.7)
         margin-bottom 24px
-      &__input_group
-        display flex
-        &__input
-          background $color_white
-          color #A3A3A3
-          &__button
-            flex 40%
-            margin-left 8px
-            padding 10px
-            font-size 14px
+      &__input_group 
+        form
+          display flex
+          width 100%
+        &__container
+          width 100%
+          input
+            width 100%
+            background $color_white
+            color #A3A3A3
+        &__button
+          margin-left 8px
+          padding 10px
+          font-size 14px
+          min-width 120px
+          max-width 100%
     &__bottom
       width 100%
       padding-top 25px

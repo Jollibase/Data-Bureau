@@ -1,0 +1,17 @@
+@import "@Assets/global_style"
+
+:local(.Select)
+  padding 20px
+  width 100%
+  background rgba(255, 255, 255, 0.15)
+  border-radius 10px
+  font-size 16px
+  box-sizing border-box 
+  font-size 14px
+  &:invalid, option:first-child, option[value=''], option:disabled
+    color blue
+    font-size 14px
+
+  &:focus
+      outline none
+

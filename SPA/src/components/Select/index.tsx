@@ -3,11 +3,9 @@ import { useField } from 'formik'
 
 import { InputError } from '../InputError'
 
-import styles from './Input.styl'
+import styles from './Select.styl'
 
-interface InputProps {
-  type: 'text' | 'number' | 'email' | 'password' | 'phone'
-  placeholder?: string
+interface SelectProps {
   value?: string | number
   defaultValue?: string | number
   onChange?: (e: React.ChangeEvent<any>) => void
@@ -16,34 +14,40 @@ interface InputProps {
   name?: string
   label?: string
   containerClassName?: string
+  options: {
+    label: string
+    value: string
+  }[]
 }
 
-export const Input = ({
-  type,
+export const Select = ({
   value,
   name,
   defaultValue,
-  placeholder,
   onChange,
   onBlur,
   label,
   classname,
   containerClassName,
-}: InputProps) => {
-  const [field, meta] = useField({ type, value, onChange, onBlur, name })
+  options,
+}: SelectProps) => {
+  const [field, meta] = useField({ value, onChange, onBlur, name })
 
   return (
     <>
       <div className={containerClassName}>
         {label && <label htmlFor={name}>{label}</label>}
-        <input
-          className={ClassNames(styles.Input, classname)}
+        <select
+          className={ClassNames(styles.Select, classname)}
           {...field}
           {...meta}
-          type={type}
-          defaultValue={defaultValue}
-          placeholder={placeholder}
-        />
+          defaultValue={defaultValue}>
+          {options.map(({ label, value }, index) => (
+            <option disabled={index === 0} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
       </div>
       <InputError {...meta} />
     </>

@@ -1,4 +1,5 @@
-import { FEATURE_CARDS_INFO, TESTIMONIALS } from './constants'
+import { Formik } from 'formik'
+// import * as Yup from 'yup'
 
 import WaitlistBoth from '@Images/waitlistboth.png'
 import WaitlistTwo from '@Images/waitlist2.png'
@@ -11,6 +12,9 @@ import {
   Footer,
   TestimonialCard,
 } from '@Components'
+
+import { FEATURE_CARDS_INFO, TESTIMONIALS } from './constants'
+
 import { ReactComponent as LpDot } from '@Images/lp-dots.svg'
 import { ReactComponent as LpCircle } from '@Images/lp-round.svg'
 import { ReactComponent as LpC } from '@Images/lp-c.svg'
@@ -48,13 +52,34 @@ export const LandingPage = () => {
               decisions and drive growth for your business.
             </p>
             <div className="lp__hero__input-group">
-              <Input type="email" placeholder="Enter Email Address here..." />
-              <Button
-                text="Join our Waitlist"
-                classname="hero-btn"
-                onclick={() => null}
-                primary
-              />
+              <Formik
+                initialValues={{ email: '' }}
+                onSubmit={() => {}}
+                // validationSchema={Yup.object({
+                //   email: Yup.string()
+                //     .email('Email address is invalid')
+                //     .required('Email is required'),
+                // })}
+              >
+                {({ getFieldProps, isSubmitting, handleSubmit }) => (
+                  <form>
+                    <Input
+                      containerClassName="lp__hero__input-group__container"
+                      type="email"
+                      placeholder="Enter Email Address here..."
+                      {...getFieldProps('email')}
+                    />
+                    <Button
+                      text={isSubmitting ? 'Joining....' : 'Join our Waitlist'}
+                      classname="hero-btn"
+                      onclick={handleSubmit}
+                      disabled={isSubmitting}
+                      loading={isSubmitting}
+                      secondary
+                    />
+                  </form>
+                )}
+              </Formik>
             </div>
           </div>
           <div className="lp__hero__right">
@@ -98,17 +123,45 @@ export const LandingPage = () => {
         </div>
       </div>
 
-      <div className="lp__waitlist">
-        <div className="lp__waitlist__text">
-          <h2>Join the</h2>
-          <h2>Waitlist</h2>
-          <div className="lp__waitlist__input_group"></div>
-          <Button text="Join our waitlist" onclick={() => null} />
+      <div className="lp__waitlist" id="join">
+        <div className="lp__waitlist__form">
+          <div className="lp__waitlist__form__text">
+            <h2>Join the</h2>
+            <h2>Waitlist</h2>
+          </div>
+          <div className="lp__waitlist__form__group">
+            <Formik
+              onSubmit={() => null}
+              initialValues={{ name: '', email: '' }}>
+              {({ isSubmitting, handleSubmit, getFieldProps }) => (
+                <form>
+                  <Input
+                    placeholder="Full name *"
+                    type="text"
+                    classname="lp__waitlist__form__group__input"
+                    {...getFieldProps('name')}
+                  />
+                  <Input
+                    placeholder="Email *"
+                    type="email"
+                    classname="lp__waitlist__form__group__input"
+                    {...getFieldProps('email')}
+                  />
+                  <Button
+                    text="Join our waitlist"
+                    classname="lp__waitlist__form__group__button"
+                    secondary
+                    onclick={handleSubmit}
+                  />
+                </form>
+              )}
+            </Formik>
+          </div>
         </div>
         <div className="lp__waitlist__image">
           <img src={WaitlistBoth} alt="" className="desktop_view" />
           <img src={WaitlistTwo} alt="" className="mobile_view" />
-          <LpCLight className="lp__waitlist__image__C" />
+          <LpCLight className="lp__waitlist__image__C desktop_view" />
         </div>
       </div>
 

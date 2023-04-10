@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
+import { Formik } from 'formik'
 
 import { Input } from '../Input'
-import { useState } from 'react'
 import { Button } from '../Button'
 
 import { ReactComponent as Logo } from '@Images/logo_no_text.svg'
@@ -33,8 +33,6 @@ const FooterRoutes = {
 }
 
 export const Footer = () => {
-  const [inputValue, setInputValue] = useState<string>()
-
   return (
     <div className={styles.Footer}>
       {Object.entries(FooterRoutes).map(([key, value]) => {
@@ -63,20 +61,35 @@ export const Footer = () => {
           updates.
         </div>
         <div className="footer__description__input_group">
-          <Input
-            type="email"
-            placeholder="Enter Email..."
-            value={inputValue}
-            onchange={e => setInputValue(e.target.value)}
-            classname="footer__description__input_group__input"
-          />
-          <Button
-            secondary
-            inverse
-            classname="footer__description__input_group__input__button"
-            text="Join our Waitlist"
-            onclick={() => null}
-          />
+          <Formik
+            initialValues={{ email: '' }}
+            onSubmit={() => {}}
+            // validationSchema={Yup.object({
+            //   email: Yup.string()
+            //     .email('Email address is invalid')
+            //     .required('Email is required'),
+            // })}
+          >
+            {({ getFieldProps, isSubmitting, handleSubmit }) => (
+              <form>
+                <Input
+                  containerClassName="footer__description__input_group__container"
+                  type="email"
+                  placeholder="Enter Email Address here..."
+                  {...getFieldProps('email')}
+                />
+                <Button
+                  secondary
+                  inverse
+                  onclick={handleSubmit}
+                  disabled={isSubmitting}
+                  loading={isSubmitting}
+                  classname="footer__description__input_group__button"
+                  text={isSubmitting ? 'Joining....' : 'Join our Waitlist'}
+                />
+              </form>
+            )}
+          </Formik>
         </div>
       </div>
 

@@ -33,14 +33,15 @@ services:
       dockerfile: Dockerfile.frontend
     container_name: web_frontend
     ports:
-      - "80:3000"
-    working_dir: /app/
+      - "3000:3000"
+    working_dir: /app/SPA
+    volumes:
+      - .:/app
     entrypoint:
       - bash
     command:
       - -c
       - | 
-        cd SPA/ && 
         npm start
 
   postgres:
