@@ -1,6 +1,6 @@
 import { Formik } from 'formik'
 
-import { Input, Menu, Select, Textarea, Button, Footer } from '@Home/components'
+import { Input, Menu, Textarea, Button, Footer } from '@Home/components'
 
 import { ReactComponent as Mail } from '@Images/mail.svg'
 import { ReactComponent as Whatsapp } from '@Images/whatsapp.svg'
