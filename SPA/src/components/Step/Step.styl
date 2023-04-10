@@ -1,0 +1,65 @@
+@import "@Assets/global_style"
+
+:local(.Step)
+  display flex
+  width 100%
+  flex-direction column
+  align-items center
+  > div
+    display flex
+    width 100%
+  .step
+    transition 0.3 ease-in
+    flex-direction column
+    display flex
+    &__header
+      display flex
+      justify-content space-evenly
+      &__item
+        &__current
+          .step__header__item__title
+            color green !important
+    &__items
+      width 100%
+      justify-content center
+      display flex
+      &__child
+        display none
+        &__current
+          display flex
+
+:local(.StepTitle)
+  flex 1 1
+  height 170px
+  width 100%
+  display flex
+  flex-direction column
+  align-items center
+  justify-content center
+  .step-title
+    height 100%
+    &__logo
+      height 60px
+      width 60px
+      border-radius 50%
+      display flex
+      align-items center
+      justify-content center
+      background #cccccc59
+      margin-bottom 15px
+      svg
+        fill #ccc
+        width 25px
+        height 28px
+    &__text
+      color #ccc
+      font-weight 500
+      font-size 13px
+  &.active
+    .step-title
+      &__logo
+        background #f2984a76
+        svg
+          fill $primary_dark
+      &__text
+        color $primary_dark

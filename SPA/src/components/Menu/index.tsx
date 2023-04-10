@@ -35,7 +35,9 @@ export const Menu = ({ routes, showButton, classname }: MenuProps) => {
           })}
         </ul>
         {showButton && (
-          <Button text="Join our Waitlist" primary onclick={() => null} />
+          <a href="#join">
+            <Button text="Join our Waitlist" secondary onclick={() => null} />
+          </a>
         )}
       </div>
     </div>

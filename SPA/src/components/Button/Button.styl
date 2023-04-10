@@ -14,12 +14,20 @@
     color $color_white
     transition 0.3s ease-in
     cursor pointer
+    &.disabled, &.disabled:hover
+        cursor not-allowed
+        background #cccccc
+        border 1px solid #cccccc
     &.inverse
         background transparent
 
     @media screen and (max-width: 1000px) {
         padding 12px
     }
+    svg
+        width 23px
+        height 23px
+        padding-left 7px
 
 :local(.Primary)
     &:hover 
@@ -34,7 +42,6 @@
 :local(.Secondary)
     border 1px solid $sec_normal 
     background $sec_normal
-    color $sec_normal
 
     &:hover 
         background $sec_normal_hover

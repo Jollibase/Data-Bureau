@@ -4,6 +4,7 @@
   position relative
   overflow-y auto
   overflow-x hidden
+  scroll-behavior smooth
   
   .lp__hero
     background $primary_darker
@@ -26,7 +27,7 @@
       animation 2s infinite boppingLeft
     .lp__eclipse
       position absolute
-      bottom -150px
+      bottom -121px
       left -10px
       scale 0.9
 
@@ -82,12 +83,13 @@
           color $color_white
           opacity 0.7
           font-weight 300
-        .lp__hero__input-group
-          display flex
-          margin-top 40px
-          > input
-              flex-basis 50%
-              margin-right 10px
+        .lp__hero__input-group 
+          form
+            display flex
+            margin-top 40px
+          &__container
+            flex-basis 50%
+            margin-right 10px
       
   
   .lp__feature, .lp__testimonial
@@ -133,11 +135,14 @@
     padding 48px 100px
     display flex
     max-height 600px
+    min-height 300px
+    height auto
     justify-content space-between
+    align-items center
 
     &__image
+      display flex
       height 550px
-      max-height 100%
       max-width 100%
       position relative
       > img
@@ -151,8 +156,44 @@
         transform rotate(30deg)
         scale 0.7
         z-index 2
-    &__text
-      color $special_dark_blue
+    &__form
+      min-width 260px
+      max-width 500px
+      width 100%
+      margin-right 15px
+      &__group
+        div
+          position relative
+          &:nth-of-type(2)
+            margin-bottom 30px
+          input:-webkit-autofill 
+            -webkit-background-clip text
+        &__input
+          border none
+          width 100%
+          background transparent
+          border-bottom 1px solid $storm_green
+          border-radius 0
+          padding 9px
+          margin-bottom 20px
+          color $color_black
+          &::placeholder
+            font-size 15px
+            position absolute
+            bottom 6px
+            transition 0.3s ease-in
+            color $dark_green
+          &:focus
+            &::placeholder
+              font-size 10px
+              bottom 19px
+        &__button
+          width fit-content
+      &__text
+        margin-bottom 55px
+        width fit-content
+        color $dark_green
+        text-align center
 
   .lp__insights
     background $milky_white
@@ -213,8 +254,35 @@
     .lp__hero, .lp__feature, .lp__waitlist
       padding-left 16px
       padding-right 16px
-    .lp__waitlist__image > img:first-of-type
-      display: none
+      .lp__eclipse
+        scale 0.5
+        bottom -146px
+        left -37px
+      .lp__feature__heading
+        p 
+          font-size 14px
+          text-align center
+    .lp__waitlist
+      height auto
+    .lp__waitlist__image
+      align-items center
+      height auto
+      > img
+        height auto
     .lp__waitlist__image__C
       right -20px
       scale 0.5
+  @media screen and (max-width: 530px) 
+    .lp__hero
+      .lp__hero__elems .lp__hero__left
+        min-width fit-content
+        width: 100%
+        .heading-text
+          font-size 25px
+          line-height 31px
+    .lp__feature__heading
+      h3 
+        font-size 20px
+      p 
+        font-size 14px
+        text-align center
