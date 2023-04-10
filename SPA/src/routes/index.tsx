@@ -1,6 +1,7 @@
 import { LandingPage } from '@Modules/base/LandingPage'
 import { ErrorPage } from '@Modules/base/ErrorPage'
 import { LenderSetup } from '@Home/modules/authentication/LenderSetup'
+import { ContactPage } from '@Home/modules/base/ContactPage'
 
 const routes = [
   {
@@ -11,7 +12,10 @@ const routes = [
   {
     path: '/lender/signup',
     element: <LenderSetup />,
-    // errorElement: <ErrorPage />,
+  },
+  {
+    path: '/contact-us',
+    element: <ContactPage />,
   },
 ]
 

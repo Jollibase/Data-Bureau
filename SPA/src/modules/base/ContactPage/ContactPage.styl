@@ -1,0 +1,114 @@
+@import "@Assets/global_style"
+
+:local(.ContactPage)
+  width 100%
+  overflow-y auto
+  .contact_page
+    display flex
+    flex-direction column
+    align-items center
+    h2
+      color $primary_normal
+      max-width 700px
+      text-align center
+      margin-bottom 54px
+      padding 0 14px
+    &__menu
+      padding 49px 80px 0 
+      .menu__list
+        li a
+          color $menu_grey
+    &__form
+      padding 50px 50px
+      width calc(100% - 160px)
+      margin 0 auto 50px
+      display flex
+      flex-direction column
+      align-items center
+      box-shadow -10px -10px 30px rgba(224, 224, 224, 0.05), 10px 10px 30px rgba(84, 84, 84, 0.1)
+      &__text
+        text-align center
+        margin-bottom 60px
+        p
+          font-size 16px
+          font-weight 400
+          margin-top 20px
+      form 
+        min-width 30px
+        width 100%
+        max-width 650px
+        margin-bottom 25px
+        label 
+          font-size 14px
+        .half
+          display flex
+          justify-content space-between
+          > div 
+            flex-basis 48%
+        .contact_page__form__input
+          border none
+          border-bottom 1px solid $whitish_grey
+          margin-bottom 30px
+          padding 12px 0
+          border-radius 0
+          color $color_black
+        .contact_page__form__textarea
+          border 1px solid $whitish_grey
+          margin-top 5px
+          margin-bottom 40px
+        .contact_page__form__finish_up
+          display flex
+          justify-content space-between
+          p
+            font-weight 400
+            font-size 12.4833px
+            line-height 21px
+            color $sky_grey
+            margin-left 24px
+                        
+          .contact_page__form__btn
+            height 100%
+            width fit-content
+            padding 6px 20px
+            border-radius 7px
+            font-size 14px
+    &__info
+      padding 56px
+      width 100%
+      background $primary_light
+      display flex
+      align-items center
+      flex-direction column
+      h4
+        margin-bottom 45px
+      p 
+        display flex
+        align-items center
+        margin-bottom 10px
+        max-width 240px
+        width 100%
+        &:first-of-type
+          color $primary_normal
+        > svg
+          margin-right 20px
+        &:nth-of-type(3)
+          margin-top 35px
+          color $sky_grey
+          font-size 17px
+          line-height 22px
+          max-width 350px
+          text-align center
+  @media screen and (max-width: 600px)
+    .contact_page__menu
+      padding-left 16px 
+      padding-right 16px 
+    .contact_page__form
+      width calc(100% - 14px)
+      margin 0 auto 50px
+      form .contact_page__form__finish_up
+        flex-direction column
+        .contact_page__form__btn
+          margin-bottom 15px
+          width 100%
+        p
+          margin-left 0px
