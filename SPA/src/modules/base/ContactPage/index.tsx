@@ -82,11 +82,11 @@ export const ContactPage = () => {
                     logo={<BtnArrowRight fill="white" />}
                   />
                   <p>
-                    By pressing the submit button, I agree to Jolibase
+                    By pressing the submit button, I agree to Jollibase
                     contacting me by email and/or phone to share opportunities
                     exclusively available to Select or Enterprise customers. I
                     also understand that any information I’ve shared in this
-                    form is subject to Jolibase Privacy Policy.
+                    form is subject to Jollibase Privacy Policy.
                   </p>
                 </div>
               </form>

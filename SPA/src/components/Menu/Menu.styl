@@ -8,27 +8,31 @@
   z-index 2
   position relative
 
-  .menu__list
-    display flex
-    align-items center
-    justify-content space-between
-    width 100%
-    flex-basis 65%
-    ul
+  .menu
+    &__logo
+      flex-basis 23%
+
+    &__list
       display flex
-      .list-item
-        cursor pointer
-        padding 10px
-        margin 10px
-        &.active
+      align-items center
+      justify-content space-between
+      width 100%
+      flex-basis 77%
+      ul
+        display flex
+        .list-item
+          cursor pointer
+          padding 10px
+          margin 5px
+          &.active
+            > a
+              color $sec_normal_active
           > a
-            color $sec_normal_active
-        > a
-          color $color_white
-          &:hover
-            padding-bottom 7px
-            border-bottom 2px solid $sec_normal_active
-            color $sec_normal_active
+            color $color_white
+            &:hover
+              padding-bottom 7px
+              border-bottom 2px solid $sec_normal_active
+              color $sec_normal_active
 
   @media screen and (max-width: 760px)
     .menu__list.desktop_view

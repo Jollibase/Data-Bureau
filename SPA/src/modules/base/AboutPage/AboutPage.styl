@@ -1,0 +1,158 @@
+@import "@Assets/global_style"
+
+:local(.AboutPage)
+  display block
+  overflow-y auto
+  width 100%
+  .about-us
+    &__hero-page
+      background $primary_darker
+      padding 49px 100px 190px 80px 
+      position relative
+      .lp__C
+        position absolute
+        bottom 0
+        left 0
+        z-index 10
+        animation 2s infinite boppingUp reverse
+        fill $primary_darker
+      .lp__circle
+        position absolute
+        top -30px
+        left 22%
+        animation 2s infinite boppingLeft
+      .s
+        width 480px
+        height auto
+        position absolute
+        bottom -122px
+        left -81px
+        .curve
+          max-width 100%
+      &__elems
+        display flex
+        align-items center
+        color $color_white
+        justify-content center
+        &__left
+          min-width 400px
+          max-width 700px
+          &__breadcrumbs
+            margin-bottom 33px
+            a 
+              color $sec_normal
+          h1
+            margin-bottom 20px
+          p
+            font-size 22px
+            line-height 35px
+            color rgba(255, 255, 255, 0.7)
+
+        &__right
+          width 100%
+          flex-basis 100%
+          height 100%
+          text-align right
+          margin-left 50px
+          svg
+            max-width 100%
+            max-height 100%
+
+
+    .description 
+      max-width 600px
+      min-width 300px
+      margin-right 50px
+      &__title
+        color $primary_normal
+        margin-bottom 18px
+      &__body
+        color rgba(68, 68, 68, 0.8)
+        font-size 18px
+        line-height 35px
+    .image
+      height 100%
+      width 100%
+      text-align center
+      svg 
+        max-width 100%
+        max-height 100%
+    &__breakdown
+      margin 68px 110px
+      &__mission, &__process, &__benefits
+        display flex
+        justify-content space-between
+        align-items center
+        margin-bottom 120px
+      &__process
+        .description
+          order 2
+      &__benefits
+        li span
+          font-weight 600
+    &__the-team
+      background $primary_light
+      display flex
+      flex-direction column 
+      align-items center
+      padding 64px 100px
+      width 100%
+      &__images
+        display flex
+        align-items center
+        justify-content space-between
+        > div
+          width 100%
+          flex-basis 32%
+          height 100%
+          img 
+            width 100%
+            max-width 100%
+            height auto
+          .full_name
+            font-size 14px
+            color $teal_black
+            font-weight 500
+          .role 
+            font-size 14px
+            color $sky_grey
+            margin-top -10px
+
+      > div:first-of-type 
+        display flex
+        flex-direction column 
+        align-items center
+        max-width 900px
+        margin-bottom 60px
+        > p
+          text-align center
+          font-size 14px
+          margin-top 10px
+  @media screen and (max-width: 650px) 
+    .about-us
+      &__breakdown
+        margin 38px 35px
+        &__mission, &__benefits, &__process
+          margin-bottom 25px
+          flex-direction column
+          justify-content center
+      .description
+        display flex
+        flex-direction column
+        align-items center
+        margin 0
+        order 2
+        &__body
+          text-align center
+        // alig
+        align-self center
+      .image
+        order 1
+        width 250px
+        height 250px
+      &__the-team
+        padding 34px 30px
+        &__images
+          flex-direction column
+          > div
+            margin-bottom 32px
