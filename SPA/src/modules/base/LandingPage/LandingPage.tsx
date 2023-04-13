@@ -26,7 +26,7 @@ import { ReactComponent as EclipseGreen } from '@Images/eclispe_green.svg'
 import { ReactComponent as ElipseGreen } from '@Images/elipse_mini.svg'
 import styles from './LandingPage.styl'
 
-const CAROUSEL_IMAGES = [HeroImg1, HeroImg2, HeroImg3]
+const CAROUSEL_IMAGES = [<HeroImg2 />, <HeroImg1 />, <HeroImg3 />]
 
 export const LandingPage = () => {
   return (

@@ -62,23 +62,29 @@
       z-index 5
       
       .lp__hero__right
-        flex-basis 40%
+        flex-basis 45%
+        text-align right
         svg 
           max-width 100%
           max-height 100%
       .lp__hero__left
-        flex-basis 60%
+        flex-basis 45%
         min-width 500px
-        margin-right 15px
+        margin-right 50px
+        max-width 700px
         .protect
           color $jolly_purple
           margin-bottom 15px
+          font-size 16px
+          font-weight 600
+          letter-spacing 2px
         .heading-text
           color $color_white
           margin-top 0
           margin-bottom 30px
           font-size 58px
           line-height 70px
+
         > p
           color $color_white
           opacity 0.7
@@ -87,24 +93,36 @@
           form
             display flex
             margin-top 40px
+            width 100%
           &__container
-            flex-basis 50%
             margin-right 10px
-      
+            width 100%
+            flex-basis 70%
+            > input 
+              &::placeholder
+                color $color_white
+          .hero-btn
+            width 100%
+            flex-basis 40%
+            font-size 18px
   
   .lp__feature, .lp__testimonial
     padding 0 100px
-    margin-top 30px
+    margin-top 50px
     .lp__feature__heading, .lp__testimonial__heading
       margin-bottom 60px
       display flex
       align-items center
       flex-direction column
+      color $feature_blue
       h3 
-        font-weight 500
+        font-weight 700
+      p 
+        margin-top 10px
     .lp__feature__boxes
       display flex
       justify-content center
+      align-items center
       flex-wrap wrap
       .lp__feature_cards
         flex 1 1 25%
@@ -125,7 +143,7 @@
   .lp__testimonial
     background $ashh_grey
     padding-bottom 50px
-    padding-top 30px
+    padding-top 50px
 
     .lp__testimonial__boxes
       justify-content space-between
@@ -134,7 +152,6 @@
     background #F0ECE1
     padding 48px 100px
     display flex
-    max-height 600px
     min-height 300px
     height auto
     justify-content space-between
@@ -142,12 +159,11 @@
 
     &__image
       display flex
-      height 550px
       max-width 100%
       position relative
       > img
         max-width 100%
-        height 100%
+        height 90%
         width 100%
       &__C
         position absolute
@@ -158,10 +174,11 @@
         z-index 2
     &__form
       min-width 260px
-      max-width 500px
+      max-width 700px
       width 100%
       margin-right 15px
       &__group
+        max-width 500px
         div
           position relative
           &:nth-of-type(2)
@@ -173,7 +190,7 @@
           border-bottom 1px solid $storm_green
           border-radius 0
           padding 9px
-          margin-bottom 20px
+          margin-bottom 40px
           color $color_black
           &::placeholder
             font-size 15px
@@ -192,6 +209,8 @@
         width fit-content
         color $dark_green
         text-align center
+        h2
+          font-size 40px
 
   .lp__insights
     background $milky_white
@@ -204,6 +223,7 @@
     &__text
       flex-basis 70%
       div 
+        max-width 850px
         h3
           margin 4px 0 16px 0
           font-size 35px
@@ -211,7 +231,9 @@
         > p
           &:nth-of-type(1)
             font-weight 600
-            letter-spacing 1px
+            font-size 16px
+            font-weight 600
+            letter-spacing 2px
             color $jolly_purple
           &:nth-of-type(2)
             color $sky_grey
@@ -226,6 +248,7 @@
         margin-bottom 55px
         align-items center
         > p
+          text-align center
           &:nth-of-type(1)
             font-weight 600
             font-size 32px
@@ -239,10 +262,13 @@
       padding-right 50px
       .lp__hero__elems .lp__hero__left .heading-text
         font-size 43px
+        line-height 50px
+
     .lp__feature
       .lp__feature__boxes
         .lp__feature_cards
           flex-basis 100%
+          margin-bottom 10px
           &:nth-of-type(8), &:nth-of-type(7)
             flex 1 1 100%
     .lp__waitlist__image > img:first-of-type

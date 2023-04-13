@@ -57,7 +57,7 @@ export const Footer = () => {
           Jollibase
         </div>
         <div className="footer__description__text">
-          Get the latest updates about Jolibase’s new features and product
+          Get the latest updates about Jollibase’s new features and product
           updates.
         </div>
         <div className="footer__description__input_group">
