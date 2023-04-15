@@ -6,7 +6,8 @@
       "@Assets/*": ["./assets/*"],
       "@Images/*": ["./assets/img/*"],
       "@Modules/*": ["./modules/*"],
-      "@Components": ["./components/index"]
+      "@Components": ["./components/index"],
+      "@Lib/*": ["./lib/*"]
     }
 }
 }

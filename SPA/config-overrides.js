@@ -10,6 +10,7 @@ const SRC_PATH = path.resolve(ROOT_PATH, './src')
 const ASSETS_PATH = path.resolve(SRC_PATH, 'assets')
 const MODULE_PATH = path.resolve(SRC_PATH, 'modules')
 const COMPONENT_PATH = path.resolve(SRC_PATH, 'components/index')
+const LIB_PATH = path.resolve(SRC_PATH, 'lib')
 const IMG_PATH = path.resolve(ASSETS_PATH, 'img')
 
 module.exports = override(
@@ -71,5 +72,6 @@ module.exports = override(
     '@Assets': ASSETS_PATH,
     '@Modules': MODULE_PATH,
     '@Components': COMPONENT_PATH,
+    '@Lib': LIB_PATH,
   }),
 )

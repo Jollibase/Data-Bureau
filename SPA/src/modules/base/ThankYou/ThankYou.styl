@@ -1,0 +1,76 @@
+@import "@Assets/global_style"
+
+:local(.ThankYou)
+  width 100%
+  overflow-y auto
+  .thank-you
+    rfs-padding-left(25px)
+    rfs-padding-right(25px)
+    margin-bottom 50px
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    &__logo
+      margin-top 30px
+      height 80px
+    &__clap
+      width 300px
+      height 280px
+      margin 15px 0
+    &__text
+      text-align center
+      > h2
+        margin 10px 0
+        color #006557
+      > p
+        font-weight 300
+        font-size 22px
+        margin-bottom 18px
+        color #4E613A
+    &__banner
+      &__with__logo
+        display flex
+        flex-direction column
+        align-items center
+        justify-content center
+        rfs(220px, min-height)
+        width 100%
+        padding 20px 0
+        rfs-padding-left(180px)
+        rfs-padding-right(180px)
+        background url('@Images/banner1.svg') no-repeat center 
+        background-size cover
+        background-origin: border-box;
+        h3
+          rfs-font-size(32px)
+          color #595959
+          margin-bottom 8px
+          text-align center
+          span
+            color $sec_normal
+        p
+          text-align center
+          color $sky_grey
+    &__priority
+      text-align center
+      min-width 500px
+      p:first-of-type 
+        color $sky_grey
+        font-weight 500
+        rfs-font-size(22px)
+        margin 18px 0 15px
+      p:nth-of-type(2)
+        color #4E613A
+        font-weight 300
+        rfs-font-size(20px)
+        margin-bottom 30px
+      &__socials
+        display flex
+        justify-content space-between
+        div[role=button]
+          display flex
+          padding 10px 13px
+          span 
+            order 2
+            margin-left 14px

@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import Routes from './routes'
 
-import './App.css'
+import './App.styl'
 
 const App = createBrowserRouter(Routes)
 

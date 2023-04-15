@@ -1,3 +1,5 @@
+import { isValidElement, cloneElement } from 'react'
+
 import { ReactComponent as Loader } from '@Images/loading.svg'
 
 import ClassName from 'classnames'
@@ -13,7 +15,9 @@ interface ButtonProps {
   inverse?: boolean
   disabled?: boolean
   loading?: boolean
-  logo?: React.ReactElement
+  logo?:
+    | React.ReactElement
+    | React.FunctionComponent<React.SVGProps<SVGSVGElement>>
 }
 
 export const Button = ({
@@ -27,6 +31,17 @@ export const Button = ({
   loading,
   logo,
 }: ButtonProps) => {
+  const renderLogo = () => {
+    const Logo = logo
+    if (logo) {
+      return isValidElement(Logo) ? (
+        cloneElement(Logo as React.ReactElement, { className: 'btn__logo' })
+      ) : (
+        <Logo className="btn__logo" />
+      )
+    }
+    return ''
+  }
   return (
     <div
       role="button"
@@ -38,7 +53,7 @@ export const Button = ({
       })}
       onClick={onclick}>
       {text}
-      {!loading && logo}
+      {!loading && renderLogo()}
       {loading && <Loader />}
     </div>
   )
