@@ -43,7 +43,7 @@ export const AboutPage = () => {
                 clients' financial health.
               </p>
             </div>
-            <div className="about-us__hero-page__elems__right">
+            <div className="about-us__hero-page__elems__right desktop_view">
               <Girl />
             </div>
           </div>
