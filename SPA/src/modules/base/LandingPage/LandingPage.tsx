@@ -1,5 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 // import * as Yup from 'yup'
+
+import { useLocalStorage } from '@Home/lib/hooks/useLocalStorage'
 
 import WaitlistBoth from '@Images/waitlistboth.png'
 import WaitlistTwo from '@Images/waitlist2.png'
@@ -27,8 +30,19 @@ import { ReactComponent as ElipseGreen } from '@Images/elipse_mini.svg'
 import styles from './LandingPage.styl'
 
 const CAROUSEL_IMAGES = [<HeroImg2 />, <HeroImg1 />, <HeroImg3 />]
+const WaitListInitialValues = { name: '', email: '' }
 
 export const LandingPage = () => {
+  const navigate = useNavigate()
+  const storage = useLocalStorage()
+
+  const onSubmit = (values: typeof WaitListInitialValues) => {
+    // Api call here
+
+    storage('isWaitlisted', values)
+
+    return navigate('/thank-you')
+  }
   return (
     <div className={styles.LP}>
       <div className="lp__hero">
@@ -53,8 +67,8 @@ export const LandingPage = () => {
             </p>
             <div className="lp__hero__input-group">
               <Formik
-                initialValues={{ email: '' }}
-                onSubmit={() => {}}
+                initialValues={WaitListInitialValues}
+                onSubmit={onSubmit}
                 // validationSchema={Yup.object({
                 //   email: Yup.string()
                 //     .email('Email address is invalid')
@@ -130,9 +144,7 @@ export const LandingPage = () => {
             <h2>Waitlist</h2>
           </div>
           <div className="lp__waitlist__form__group">
-            <Formik
-              onSubmit={() => null}
-              initialValues={{ name: '', email: '' }}>
+            <Formik onSubmit={onSubmit} initialValues={WaitListInitialValues}>
               {({ isSubmitting, handleSubmit, getFieldProps }) => (
                 <form>
                   <Input

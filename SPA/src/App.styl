@@ -1,0 +1,84 @@
+@import "~rfs/stylus"
+
+* 
+  font-family 'Inter', sans-serif
+  margin 0
+  box-sizing border-box
+
+
+body 
+  overflow-y hidden
+  margin 0
+
+
+ul 
+  list-style none
+
+
+a 
+  text-decoration none
+
+
+#root 
+  max-height 100vh
+  display flex
+
+
+a 
+  color white
+
+h1 
+  rfs-font-size(40px)
+  line-height 48px
+
+h2 
+  rfs-font-size(36px)
+  line-height 44px
+
+
+h3 
+  rfs-font-size(32px)
+  line-height 40px
+
+
+h4 
+  rfs-font-size(28px)
+  line-height 36px
+
+
+h5 
+  rfs-font-size(24px)
+  line-height 32px
+
+
+h6 
+  rfs-font-size(20px)
+  line-height 28px
+
+
+p 
+  rfs-font-size(18px)
+  line-height 28px
+
+
+.desktop_view 
+  display flex !important
+
+
+.mobile_view 
+  display none !important
+
+
+svg 
+  max-width 100%
+  max-height 100%
+
+
+@media screen and (max-width: 600px) 
+  .mobile_view 
+    display flex !important
+  
+  .desktop_view 
+    display none !important
+  
+

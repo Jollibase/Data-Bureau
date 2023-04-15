@@ -31,7 +31,7 @@ export const AboutPage = () => {
           <div className="about-us__hero-page__elems">
             <div className="about-us__hero-page__elems__left">
               <div className="about-us__hero-page__elems__left__breadcrumbs">
-                <Link to="/">Home</Link> / About{' '}
+                <Link to="/">Home</Link> / About
               </div>
               <h1>INTRODUCTION</h1>
               <p>
