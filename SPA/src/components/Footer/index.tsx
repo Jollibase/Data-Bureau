@@ -22,7 +22,7 @@ const FooterRoutes = {
     Features: '',
     Pricing: '',
     'API & Integration': '',
-    'Sign In': '/lender/signup',
+    'Sign Up': '/lender/signup',
   },
   About: {
     'Our Story': '/',

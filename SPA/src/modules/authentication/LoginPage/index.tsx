@@ -1,9 +1,9 @@
 import ClassNames from 'classnames'
 import * as Yup from 'yup'
-
-import { Button, Input } from '@Home/components'
 import { Formik } from 'formik'
 import { Link } from 'react-router-dom'
+
+import { Button, Input } from '@Home/components'
 
 import { ReactComponent as Data } from '@Images/data.svg'
 

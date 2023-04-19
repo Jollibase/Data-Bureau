@@ -1,13 +1,14 @@
-import { Step } from '@Components'
+import { Link } from 'react-router-dom'
 
 import { useAppSelector, useAppDispatch } from '@Home/lib/hooks/redux'
+import { Step } from '@Components'
 
 import { updateCurrentStep } from './redux/action'
-
 import { LenderSignup } from './LenderSignup'
 import { CreateAdminUser } from './CreateAdminUser'
 import { AccountVerification } from './AccountVerification'
 import { FinishingUp } from './FinishingUp'
+import { LoginPage } from '../LoginPage'
 
 import { ReactComponent as Home } from '@Images/home_pillars.svg'
 import { ReactComponent as Man } from '@Images/man.svg'
@@ -16,7 +17,6 @@ import { ReactComponent as Flag } from '@Images/flag.svg'
 import { ReactComponent as Arrow } from '@Images/arrow.svg'
 import { ReactComponent as LogoGreen } from '@Images/logo_green.svg'
 import styles from './LenderSetup.styl'
-import { LoginPage } from '../LoginPage'
 
 const LenderSetupComponents = [
   {
@@ -64,7 +64,9 @@ export const LenderSetup = () => {
   return (
     <div className={styles.LenderSetup}>
       <div className="lender-setup__logo">
-        <LogoGreen />
+        <Link to="/">
+          <LogoGreen />
+        </Link>
       </div>
 
       <Step
