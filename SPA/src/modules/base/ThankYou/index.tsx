@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { Button } from '@Home/components'
 
 import { ReactComponent as Twitter } from '@Images/twitter.svg'
@@ -13,7 +15,9 @@ export const ThankYou = () => {
     <div className={style.ThankYou}>
       <div className="thank-you">
         <div className="thank-you__logo">
-          <LogoGreen />
+          <Link to="/">
+            <LogoGreen />
+          </Link>
         </div>
         <div className="thank-you__clap">
           <ThankYouClap />
