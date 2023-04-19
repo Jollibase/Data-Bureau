@@ -22,7 +22,7 @@ const FooterRoutes = {
     Features: '',
     Pricing: '',
     'API & Integration': '',
-    'Sign In': '',
+    'Sign In': '/lender/signup',
   },
   About: {
     'Our Story': '/',
@@ -61,15 +61,7 @@ export const Footer = () => {
           updates.
         </div>
         <div className="footer__description__input_group">
-          <Formik
-            initialValues={{ email: '' }}
-            onSubmit={() => {}}
-            // validationSchema={Yup.object({
-            //   email: Yup.string()
-            //     .email('Email address is invalid')
-            //     .required('Email is required'),
-            // })}
-          >
+          <Formik initialValues={{ email: '' }} onSubmit={() => {}}>
             {({ getFieldProps, isSubmitting, handleSubmit }) => (
               <form>
                 <Input

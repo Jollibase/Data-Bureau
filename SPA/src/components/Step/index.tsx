@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import ClassNames from 'classnames'
 
 import { ProgressBar } from '../ProgressBar'
@@ -14,6 +13,13 @@ interface StepProps {
     }
     component: (props) => React.ReactElement
   }[]
+  currentStep: number
+  updateStep: VoidFunction
+}
+
+export interface StepComponentsExtraProps {
+  classname: string
+  updateStep: () => void
 }
 
 interface StepTitleProps {
@@ -22,9 +28,16 @@ interface StepTitleProps {
   cssStyle?: React.CSSProperties
   className?: string
   current: boolean
+  isFirstStep: boolean
 }
 
-const StepTitle = ({ logo, text, current, cssStyle }: StepTitleProps) => {
+const StepTitle = ({
+  logo,
+  text,
+  current,
+  cssStyle,
+  isFirstStep,
+}: StepTitleProps) => {
   const Logo = logo
   return (
     <div
@@ -32,6 +45,17 @@ const StepTitle = ({ logo, text, current, cssStyle }: StepTitleProps) => {
       style={cssStyle}>
       <div className="step-title__logo">{<Logo />}</div>
       <div className="step-title__text">{text}</div>
+      <div className="step-title__progress_bar">
+        {!isFirstStep && (
+          <ProgressBar
+            className="step-title__progress"
+            percent={current ? 100 : 0}
+            color="#00A991"
+            stroke={4.5}
+          />
+        )}
+        <div className="step-title__ball"></div>
+      </div>
     </div>
   )
 }
@@ -47,15 +71,12 @@ const render = (
   return <Child key={key} classname={classname} updateStep={updateStep} />
 }
 
-export const Step = ({ classname, stepComponents }: StepProps) => {
-  const [currentStep, setCurrentStep] = useState<number>(1)
-
-  const updateStep = () => {
-    if (currentStep < stepComponents.length) {
-      setCurrentStep(prevStep => prevStep + 1)
-    }
-  }
-
+export const Step = ({
+  currentStep,
+  updateStep,
+  classname,
+  stepComponents,
+}: StepProps) => {
   return (
     <div className={ClassNames(style.Step, classname)}>
       <div className="step">
@@ -67,15 +88,11 @@ export const Step = ({ classname, stepComponents }: StepProps) => {
                 text={child.title.text}
                 logo={child.title.logo}
                 current={index <= currentStep - 1}
+                isFirstStep={index === 0}
               />
             )
           })}
         </div>
-
-        <ProgressBar
-          percent={(currentStep / stepComponents.length) * 100}
-          stroke={3}
-        />
 
         <div className="step__items">
           {stepComponents.map((child, index) => {

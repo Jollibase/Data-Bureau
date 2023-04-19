@@ -6,7 +6,7 @@ import { InputError } from '../InputError'
 import styles from './Input.styl'
 
 interface InputProps {
-  type: 'text' | 'number' | 'email' | 'password' | 'phone'
+  type: 'text' | 'number' | 'email' | 'password' | 'phone' | 'checkbox'
   placeholder?: string
   value?: string | number
   defaultValue?: string | number
@@ -44,8 +44,8 @@ export const Input = ({
           defaultValue={defaultValue}
           placeholder={placeholder}
         />
+        <InputError {...meta} />
       </div>
-      <InputError {...meta} />
     </>
   )
 }

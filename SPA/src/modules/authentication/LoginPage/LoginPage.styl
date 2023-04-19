@@ -1,0 +1,61 @@
+@import "@Assets/global_style"
+
+:local(.LoginPage)
+  width 100%
+  display flex
+  justify-content center
+  margin-top 40px
+  .login
+    display flex
+    width 100%
+    max-width 1100px
+    justify-content space-between
+    align-items center
+    &__image
+      max-height 450px
+      height 100%
+    &__form 
+      width 100%
+      max-width 500px
+      padding 0 30px
+      > form 
+        > div:first-of-type
+          margin-bottom 20px
+        > div:nth-of-type(2)
+          margin-bottom 5px
+      &__header
+        text-align center
+        margin-bottom 30px
+        h4 
+          color $pale_black
+        p 
+          font-size 15px
+          font-weight 300
+          margin-top 5px
+      label 
+        margin-bottom 15px
+        font-size 13px
+      &__input
+        border 1px solid $whitish_grey
+        color $color_black
+        padding 15px 12px
+        margin-top 8px
+        &__checkbox
+          margin 18px 0
+          display flex 
+          label 
+            order 2
+            margin 0 12px 0
+          input 
+            width 15px
+      &__btn
+        margin-top 30px
+      small 
+        color $primary_normal
+      &__signup
+        margin-top 30px
+        text-align center
+        color #5E6366
+        font-size 14px
+        span
+          color $primary_normal
