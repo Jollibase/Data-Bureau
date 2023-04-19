@@ -4,16 +4,14 @@ import ClassNames from 'classnames'
 import * as Yup from 'yup'
 
 import { Button, Input, Select } from '@Home/components'
+import { StepComponentsExtraProps } from '@Home/components/Step'
 
 import { BUSINESS_TYPE_OPTIONS } from '../constants'
 
 import { ReactComponent as BtnArrowRight } from '@Images/btn_arrow_right.svg'
 import styles from './LenderSignup.styl'
 
-interface LenderSignupProps {
-  updateStep: () => void
-  classname: string
-}
+interface LenderSignupProps extends StepComponentsExtraProps {}
 
 const initialFormValues = {
   lenderName: '',
@@ -29,7 +27,9 @@ const initialFormValues = {
 const INPUT_PLACEHOLDER = 'xxxx-xxxx-xxxx'
 const validateSchema = Yup.object({
   lenderName: Yup.string().required('Company name is required'),
-  phone: Yup.string().required('Company name is required'),
+  phone: Yup.string()
+    .matches(/^[0]{1}[7-9]{1}[0-1]{1}[0-9]{8}$/, 'Invalid Phone number')
+    .required('Phone is required'),
   address: Yup.string().required('Address is required'),
   city: Yup.string().required('City is required'),
   state: Yup.string().required('State is required'),
@@ -42,17 +42,13 @@ const validateSchema = Yup.object({
 
 export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
   const onSubmit = () => {
-    setTimeout(() => null, 4000)
     updateStep()
   }
   return (
     <div className={ClassNames(styles.LenderSignup, classname)}>
       <div className="lender-signup__title">
         <h4>Lender Account Creation</h4>
-        <p>
-          Some new words that will act like a tagline, underneath like some
-          loren ipsum loren ipsum loren ipsum
-        </p>
+        <p>Welcome to the future of lending - create your account now</p>
       </div>
       <Formik
         initialValues={initialFormValues}
@@ -149,20 +145,11 @@ export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
                 {...getFieldProps('industry')}
               />
             </div>
-            <div className="input__group">
-              <Input
-                containerClassName="input__group__container"
-                label="Business Industry"
-                placeholder={INPUT_PLACEHOLDER}
-                type="text"
-                {...getFieldProps('industry')}
-              />
-            </div>
 
             <Button
               text={<p>Continue</p>}
               logo={<BtnArrowRight fill="white" />}
-              secondary
+              primary
               classname="form__btn"
               disabled={isSubmitting}
               onclick={handleSubmit}

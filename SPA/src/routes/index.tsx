@@ -6,6 +6,7 @@ import { LenderSetup } from '@Home/modules/authentication/LenderSetup'
 import { ContactPage } from '@Home/modules/base/ContactPage'
 import { AboutPage } from '@Home/modules/base/AboutPage'
 import { ThankYou } from '@Home/modules/base/ThankYou'
+import { LoginPage } from '@Home/modules/authentication/LoginPage'
 
 const routes = [
   {
@@ -24,6 +25,10 @@ const routes = [
   {
     path: '/about-us',
     element: <AboutPage />,
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
   },
   {
     path: '/thank-you',

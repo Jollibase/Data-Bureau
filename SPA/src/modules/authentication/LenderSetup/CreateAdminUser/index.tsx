@@ -3,6 +3,7 @@ import ClassNames from 'classnames'
 import * as Yup from 'yup'
 import YupPassword from 'yup-password'
 
+import { StepComponentsExtraProps } from '@Home/components/Step'
 import { Button, Input } from '@Home/components'
 
 import { ReactComponent as BtnArrowRight } from '@Images/btn_arrow_right.svg'
@@ -10,10 +11,7 @@ import styles from './CreateAdminUser.styl'
 
 YupPassword(Yup)
 
-interface CreateAdminUserpProps {
-  updateStep: () => void
-  classname: string
-}
+interface CreateAdminUserProps extends StepComponentsExtraProps {}
 
 const initialFormValues = {
   firstName: '',
@@ -49,8 +47,10 @@ const validateSchema = Yup.object({
 export const CreateAdminUser = ({
   classname,
   updateStep,
-}: CreateAdminUserpProps) => {
-  const onSubmit = (values: typeof initialFormValues) => {}
+}: CreateAdminUserProps) => {
+  const onSubmit = (values: typeof initialFormValues) => {
+    updateStep()
+  }
 
   return (
     <div className={ClassNames(styles.CreateAdminUser, classname)}>
@@ -134,7 +134,7 @@ export const CreateAdminUser = ({
             <Button
               text={<p>{isSubmitting ? 'Submitting' : 'Continue'}</p>}
               logo={<BtnArrowRight fill="white" />}
-              secondary
+              primary
               classname="form__btn"
               disabled={isSubmitting}
               onclick={handleSubmit}
