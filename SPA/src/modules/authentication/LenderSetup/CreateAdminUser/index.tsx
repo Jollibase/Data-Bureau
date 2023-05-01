@@ -119,7 +119,7 @@ export const CreateAdminUser = ({
             <div className="input__group">
               <Input
                 containerClassName="input__group__container"
-                label="Admin User Password Again"
+                label="Confirm Admin User Password"
                 placeholder={INPUT_PLACEHOLDER}
                 type="password"
                 {...getFieldProps('password2')}

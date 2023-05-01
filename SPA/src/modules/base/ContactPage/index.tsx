@@ -94,7 +94,7 @@ export const ContactPage = () => {
           </Formik>
         </div>
         <div className="contact_page__info">
-          <h4>Our Contact Information</h4>
+          <h3>Our Contact Information</h3>
           <p>
             <Mail fill="#999999" /> team@jolibase.com
           </p>

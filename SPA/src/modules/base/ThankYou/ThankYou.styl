@@ -12,12 +12,12 @@
     justify-content center
     align-items center
     &__logo
-      margin-top 30px
-      height 80px
+      margin-top 20px
+      height 68px
     &__clap
       width 300px
       height 280px
-      margin 15px 0
+      margin 25px 0
     &__text
       text-align center
       > h2
@@ -29,14 +29,15 @@
         margin-bottom 18px
         color #4E613A
     &__banner
+      margin-top 35px
       &__with__logo
         display flex
         flex-direction column
         align-items center
         justify-content center
-        rfs(220px, min-height)
         width 100%
         padding 20px 0
+        rfs(220px, min-height)
         rfs-padding-left(180px)
         rfs-padding-right(180px)
         background url('@Images/banner1.svg') no-repeat center 
@@ -44,7 +45,7 @@
         background-origin: border-box;
         h3
           rfs-font-size(32px)
-          color #595959
+          color $color_black
           margin-bottom 8px
           text-align center
           span
@@ -55,6 +56,7 @@
     &__priority
       text-align center
       min-width 500px
+      margin-top 10px
       p:first-of-type 
         color $sky_grey
         font-weight 500
@@ -69,8 +71,21 @@
         display flex
         justify-content space-between
         div[role=button]
+          margin 12px
           display flex
           padding 10px 13px
           span 
             order 2
-            margin-left 14px
+            margin-left 12px
+            rfs-font-size(15px)
+  @media screen and (max-width: 600px) 
+    .thank-you
+      &__priority
+        min-width 0
+        p:first-of-type 
+          margin-bottom 10px
+          justify-content center
+        &__socials
+          flex-wrap wrap
+          div[role=button]
+            flex 1 1

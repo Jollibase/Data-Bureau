@@ -107,10 +107,11 @@
             font-size 18px
   
   .lp__feature, .lp__testimonial
-    padding 0 100px
+    rfs-padding-right(80px)
+    rfs-padding-left(80px)
     margin-top 50px
     .lp__feature__heading, .lp__testimonial__heading
-      margin-bottom 60px
+      margin-bottom 30px
       display flex
       align-items center
       flex-direction column
@@ -119,6 +120,7 @@
         font-weight 700
       p 
         margin-top 10px
+        text-align center
     .lp__feature__boxes
       display flex
       justify-content center
@@ -275,9 +277,12 @@
       display: none
       
   @media screen and (max-width: 600px) 
+    
     .lp__hero, .lp__feature, .lp__waitlist
       padding-left 16px
       padding-right 16px
+      .lp__hero__elems .lp__hero__left
+        margin-right 0px
       .lp__eclipse
         scale 0.5
         bottom -146px
@@ -298,6 +303,7 @@
       scale 0.5
   @media screen and (max-width: 530px) 
     .lp__hero
+      padding-top 30px
       .lp__hero__elems .lp__hero__left
         min-width fit-content
         width: 100%
