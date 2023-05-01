@@ -95,18 +95,19 @@
       &__description
         flex-basis 50%
 
-    @media screen and (max-width: 600px)
-      &__routes
-        flex-basis 100%
+  @media screen and (max-width: 600px)
+    padding 50px 40px
+    &__routes 
+      flex-basis 100%
 
-      &__description
+    &__description
+      display none
+
+    &__bottom
+      &__desktop 
         display none
-
-      &__bottom
-        &__desktop 
-          display none
-        &__mobile
-          display flex
-          flex-direction column
-          align-items center
-          width 100%
+      &__mobile
+        display flex
+        flex-direction column
+        align-items center
+        width 100%

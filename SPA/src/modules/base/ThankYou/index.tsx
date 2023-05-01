@@ -29,7 +29,7 @@ export const ThankYou = () => {
         <div className="thank-you__banner">
           <div className="thank-you__banner__with__logo">
             <h3>
-              <span>200</span> companies are ahead of you
+              <span>200</span> Companies are ahead of you
             </h3>
             <p>This reservation is held for femi.harley@GlobalMoney.com</p>
           </div>

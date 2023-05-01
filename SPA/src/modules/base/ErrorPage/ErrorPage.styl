@@ -4,6 +4,7 @@
   background $sec_light
   overflow-y hidden
   height 100vh
+  width 100%
   padding 49px 30px 49px 80px
   position relative
   .error__menu
@@ -29,8 +30,8 @@
         color $bloody_red
         font-style normal
         font-weight 700
-        font-size 50px
-        line-height 70px
+        rfs-font-size(50px)
+        rfs(70px, line-height)
         text-align center
         margin-bottom 60px
 
@@ -78,9 +79,10 @@
   @media screen and (max-width: 670px)
     margin-bottom 50px
     overflow-y auto
-    padding-right 21px
-    padding-left 21px
+    padding-right 16px
+    padding-left 16px
     .error
+      padding 0
       flex-direction column
       &__image
         height 300px
@@ -92,8 +94,6 @@
         order 2
         padding-top 10px
         > h2
-          font-size 40px
-          line-height 55px
           margin-bottom 30px
         &__btns 
           > div, .btn_previous .btn_text
@@ -101,3 +101,19 @@
             font-weight 600
           
 
+  @media screen and (max-width: 600px)
+    padding-top 30px
+    .error
+      &__text
+        min-width 0
+        &__btns
+          justify-content center
+          flex-wrap wrap
+          > div
+            margin 10px 0
+   @media screen and (max-width: 400px)
+      .error
+        &__text
+          &__btns
+            .btn_inverse
+              margin-right 0

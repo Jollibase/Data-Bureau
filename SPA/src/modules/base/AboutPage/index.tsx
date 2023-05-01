@@ -55,7 +55,7 @@ export const AboutPage = () => {
           <div className="about-us__breakdown__mission">
             <div className="description">
               <div className="description__title">
-                <h5>MISSION/VISION</h5>
+                <h4>MISSION/VISION</h4>
               </div>
               <div className="description__body">
                 Welcome to Jollibase, the data analytics solution that helps
@@ -73,7 +73,7 @@ export const AboutPage = () => {
           <div className="about-us__breakdown__process">
             <div className="description">
               <div className="description__title">
-                <h5>OUR PROCESS</h5>
+                <h4>OUR PROCESS</h4>
               </div>
               <div className="description__body">
                 Our platform utilizes advanced data analytics and machine
@@ -97,7 +97,7 @@ export const AboutPage = () => {
           <div className="about-us__breakdown__benefits">
             <div className="description">
               <div className="description__title">
-                <h5>OUR BENEFITS</h5>
+                <h4>OUR BENEFITS</h4>
               </div>
               <div className="description__body">
                 By using Jollibase financial institutions can enjoy a number of
@@ -130,7 +130,7 @@ export const AboutPage = () => {
         </div>
         <div className="about-us__the-team">
           <div>
-            <h4>Meet our team</h4>
+            <h3>MEET OUR TEAM</h3>
             <p>
               At Jolibase, we are proud to have a team of experienced data
               analysts, developers, designers and financial experts who are

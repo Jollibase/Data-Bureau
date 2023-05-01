@@ -34,7 +34,7 @@ export const LoginPage = ({ classname }: LoginPageProps) => {
           </div>
           <Formik
             onSubmit={() => null}
-            initialValues={{ email: '', password: '' }}
+            initialValues={{ email: '', password: '', remember: false }}
             validationSchema={validateSchema}>
             {({ handleSubmit, getFieldProps, isSubmitting }) => (
               <form>
@@ -57,7 +57,7 @@ export const LoginPage = ({ classname }: LoginPageProps) => {
                   type="checkbox"
                   label="Remember me"
                   containerClassName="login__form__input__checkbox"
-                  {...getFieldProps('remember')}
+                  name="remember"
                 />
                 <Button
                   text="Login"
