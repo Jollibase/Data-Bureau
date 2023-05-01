@@ -4,7 +4,6 @@ import os
 from dotenv import load_dotenv
 
 from ._base import *
-from .celery import *
 
 load_dotenv()
 

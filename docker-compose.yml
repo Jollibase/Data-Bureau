@@ -43,6 +43,8 @@ services:
       - -c
       - | 
         npm start
+    networks:
+      - djangonetwork
 
   postgres:
     image: postgres:latest
@@ -67,6 +69,7 @@ services:
       - "${REDIS_PORT}:${REDIS_PORT}"
     expose:
       - "${REDIS_PORT}"
+    
 
   celery_worker:
     command: ./start-celery.sh
@@ -81,6 +84,8 @@ services:
     depends_on:
       - redis
       - postgres
+    networks:
+      - djangonetwork
 
   celery_beat:
     command: ./start-beat.sh
@@ -95,6 +100,8 @@ services:
     depends_on:
       - redis
       - postgres
+    networks:
+      - djangonetwork
 
   flower:
     command: ./start-flower.sh
@@ -111,6 +118,8 @@ services:
     depends_on:
       - redis
       - postgres
+    networks:
+      - djangonetwork
 
 volumes:
   postgres_data:
