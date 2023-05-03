@@ -9,7 +9,7 @@ User = get_user_model()
 
 def send_mail_user(subject, template, message_context, to, from_user=None):
     body = render_to_string(template, message_context)
-    send_mail(subject, body, from_user, to, fail_silently=False)
+    send_mail(subject, body, from_user, to, fail_silently=False, html_message=body)
 
 
 @shared_task(bind=True)

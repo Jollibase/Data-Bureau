@@ -1,0 +1,33 @@
+{% extends "./base_email.html" %}
+
+{% block body %}
+<table role="presentation"
+    style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+    <tr>
+        <td style="padding:10px 20px;" align="">
+            <h2 style="color:#F2994A;padding:10px 0 35px;font-weight:600; text-align:center;">Thank you for
+                joining our email list
+            </h2>
+            <p style="margin-bottom: 20px">Hi <span style="color:#00A991;">{{ username }} </span>, we're glad you're
+                here!</p>
+            <p style="color:#737373;font-size:15px; line-height:24px;">
+                Welcome to Jolibase! We're excited to have you as part of our community. Our mission is to empower
+                financial institutions with data-driven insights to make informed lending decisions and mitigate risk.
+                Ready to learn more about Jolibase? Visit our website for more information.
+                Thanks once again for joining our community! If you have any questions or need help, feel free to
+                contact us
+                at info@jollibase.com
+            </p>
+            <p style="color:#737373;font-size:15px; padding:20px 0 0;line-height:24px;">
+                Best regards,
+            </p>
+            <p style="color:#737373;font-size:15px; line-height:24px;">
+                The Team,
+            </p>
+            <p style="color:#737373;font-size:15px; line-height:24px;">
+                Jollibase Ltd.
+            </p>
+        </td>
+    </tr>
+</table>
+{% endblock body %}
