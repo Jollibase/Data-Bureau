@@ -32,8 +32,8 @@ class LenderSignupView(views.APIView):
         # Do something with verification of email
         current_site = get_current_site(request)
         email_kwargs = {
-            "subject": "Verification Mail",
-            "template": "verify_email.html",
+            "subject": "Verify your email address",
+            "template": "email/verify_email.html",
             "message_context": {
                 "username": user.username,
                 "domain": current_site.domain,

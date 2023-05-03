@@ -69,6 +69,8 @@ services:
       - "${REDIS_PORT}:${REDIS_PORT}"
     expose:
       - "${REDIS_PORT}"
+    networks:
+      - djangonetwork
     
 
   celery_worker:
@@ -125,5 +127,5 @@ volumes:
   postgres_data:
 
 networks:
-      djangonetwork:
-          driver: bridge
+  djangonetwork:
+      driver: bridge
