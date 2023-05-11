@@ -5,6 +5,8 @@ from django.utils.http import urlsafe_base64_decode
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .serializers import EmailWaitListSerializer
+
 User = get_user_model()
 
 
@@ -36,3 +38,14 @@ class ActivateUserView(APIView):
 class ChangePasswordView(APIView):
     def get(self, request):
         return Response("Good!")
+
+
+class EmailWaitListView(APIView):
+    serializer_class = EmailWaitListSerializer
+
+    def post(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)

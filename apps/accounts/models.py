@@ -143,3 +143,11 @@ class Auth:
 
 
 User.auth = property(Auth)
+
+
+class EmailWaitList(models.Model):
+    name = models.CharField(max_length=120, blank=False, null=False)
+    email = models.EmailField(null=False, blank=False, unique=True)
+
+    def __str__(self) -> str:
+        return self.email

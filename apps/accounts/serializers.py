@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import Lender, User
+from .models import Lender, User, EmailWaitList
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -51,3 +51,9 @@ class LoginSerializer(serializers.Serializer):
 
 # Check when last borrower borrowed
 # Borrower info only needs to be updated, they don't need to login
+
+
+class EmailWaitListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmailWaitList
+        fields = "__all__"
