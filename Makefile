@@ -1,5 +1,6 @@
 # Makefile
 
+BACKEND_CONTAINER=web_backend
 # make start
 #             Build and start containers 
 # 
@@ -27,3 +28,9 @@ stop:
 
 backend-format:
 	@poetry run isort . && poetry run black *.py
+
+makemigrations:
+	@docker exec $(BACKEND_CONTAINER) python manage.py makemigrations
+
+migrate:
+	@docker exec $(BACKEND_CONTAINER) python manage.py migrate
