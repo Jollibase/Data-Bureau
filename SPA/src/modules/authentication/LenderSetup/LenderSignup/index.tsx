@@ -5,28 +5,20 @@ import * as Yup from 'yup'
 
 import { Button, Input, Select } from '@Home/components'
 import { StepComponentsExtraProps } from '@Home/components/Step'
+import { useAppDispatch } from '@Home/lib/hooks/redux'
 
-import { BUSINESS_TYPE_OPTIONS } from '../constants'
+import { BUSINESS_TYPE_OPTIONS, INDUSTRY_OPTIONS } from '../constants'
+import { initialLenderAccountFormValues } from '../redux/reducer'
 
 import { ReactComponent as BtnArrowRight } from '@Images/btn_arrow_right.svg'
 import styles from './LenderSignup.styl'
+import { createLenderAccount } from '../redux/actions'
 
 interface LenderSignupProps extends StepComponentsExtraProps {}
 
-const initialFormValues = {
-  lenderName: '',
-  phone: '',
-  email: '',
-  address: '',
-  city: '',
-  state: '',
-  businessType: '',
-  industry: '',
-}
-
 const INPUT_PLACEHOLDER = 'xxxx-xxxx-xxxx'
 const validateSchema = Yup.object({
-  lenderName: Yup.string().required('Company name is required'),
+  name: Yup.string().required('Company name is required'),
   phone: Yup.string()
     .matches(/^[0]{1}[7-9]{1}[0-1]{1}[0-9]{8}$/, 'Invalid Phone number')
     .required('Phone is required'),
@@ -41,9 +33,14 @@ const validateSchema = Yup.object({
 })
 
 export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
-  const onSubmit = () => {
+  const dispatch = useAppDispatch()
+  const createLenderSetup = values => dispatch(createLenderAccount(values))
+
+  const onSubmit = (values: typeof initialLenderAccountFormValues) => {
+    createLenderSetup({ ...values, phone: `+234${values.phone.slice(1)}` })
     updateStep()
   }
+
   return (
     <div className={ClassNames(styles.LenderSignup, classname)}>
       <div className="lender-signup__title">
@@ -51,7 +48,7 @@ export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
         <p>Welcome to the future of lending - create your account now</p>
       </div>
       <Formik
-        initialValues={initialFormValues}
+        initialValues={initialLenderAccountFormValues}
         onSubmit={onSubmit}
         validationSchema={validateSchema}>
         {({ handleSubmit, isSubmitting, getFieldProps }) => (
@@ -62,7 +59,7 @@ export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
                 label="Business Name"
                 placeholder={INPUT_PLACEHOLDER}
                 type="text"
-                {...getFieldProps('lenderName')}
+                {...getFieldProps('name')}
               />
             </div>
             <div className="half">
@@ -126,22 +123,24 @@ export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
             <div className="input__group">
               <Select
                 options={[
-                  { label: 'Select your business type', value: '' },
+                  { label: 'Select business type', value: '' },
                   ...BUSINESS_TYPE_OPTIONS,
                 ]}
                 containerClassName="input__group__container"
                 label="Business Type"
                 name="businessType"
                 {...getFieldProps('businessType')}
-                defaultValue=""
               />
             </div>
             <div className="input__group">
-              <Input
+              <Select
+                options={[
+                  { label: 'Select industry sector', value: '' },
+                  ...INDUSTRY_OPTIONS,
+                ]}
                 containerClassName="input__group__container"
+                name="industry"
                 label="Business Industry"
-                placeholder={INPUT_PLACEHOLDER}
-                type="text"
                 {...getFieldProps('industry')}
               />
             </div>

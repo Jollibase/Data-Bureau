@@ -44,7 +44,7 @@ const StepTitle = ({
       className={ClassNames(style.StepTitle, { active: current })}
       style={cssStyle}>
       <div className="step-title__logo">{<Logo />}</div>
-      <div className="step-title__text">{text}</div>
+      <div className="step-title__text desktop_view">{text}</div>
       <div className="step-title__progress_bar">
         {!isFirstStep && (
           <ProgressBar

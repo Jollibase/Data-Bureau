@@ -34,7 +34,7 @@ const routes = [
     loader: async () => {
       return AuthenticatedAPI.get('client/me/')
         .catch(null)
-        .then(err => {
+        .then(response => {
           return redirect('/dashboard')
         })
     },
