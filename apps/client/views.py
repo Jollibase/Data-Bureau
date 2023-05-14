@@ -57,10 +57,14 @@ class LenderLoginView(views.APIView):
         return Response(get_token_for_user(user), status=status.HTTP_200_OK)
 
 
-class LenderProfileView(generics.RetrieveAPIView):
+class LenderProfileView(views.APIView):
     permission_classes = [isLenderUser]
     serializer_class = BaseLenderSerializerWithUsers
-    queryset = Lender.objects.all()
+
+    def get(self, request):
+        lender = request.user.company
+        serializer = BaseLenderSerializerWithUsers(lender)
+        return Response(serializer.data)
 
 
 class LenderAddUserView(views.APIView):
