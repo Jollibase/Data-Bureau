@@ -8,12 +8,15 @@ import { Button, Input } from '@Home/components'
 
 import { ReactComponent as BtnArrowRight } from '@Images/btn_arrow_right.svg'
 import styles from './CreateAdminUser.styl'
+import { createAdminUser } from '../redux/actions'
+import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
+import { useEffect } from 'react'
 
 YupPassword(Yup)
 
 interface CreateAdminUserProps extends StepComponentsExtraProps {}
 
-const initialFormValues = {
+const initialCreateAdminFormValues = {
   firstName: '',
   lastName: '',
   phone: '',
@@ -21,7 +24,6 @@ const initialFormValues = {
   password: '',
   password2: '',
 }
-
 const INPUT_PLACEHOLDER = 'xxxx-xxxx-xxxx'
 
 const validateSchema = Yup.object({
@@ -48,9 +50,23 @@ export const CreateAdminUser = ({
   classname,
   updateStep,
 }: CreateAdminUserProps) => {
-  const onSubmit = (values: typeof initialFormValues) => {
-    updateStep()
+  const { statusCode } = useAppSelector(state => state.lenderSetup)
+  const dispatch = useAppDispatch()
+  const dispatchedCreateAdminUser = values => dispatch(createAdminUser(values))
+
+  const onSubmit = (values: typeof initialCreateAdminFormValues) => {
+    delete values['password2']
+    dispatchedCreateAdminUser({
+      ...values,
+      username: values.firstName,
+      phone: `+234${values.phone.slice(1)}`,
+    })
+    // updateStep()
   }
+
+  // useEffect(() => {
+  //   statusCode === 201 && updateStep()
+  // }, [statusCode])
 
   return (
     <div className={ClassNames(styles.CreateAdminUser, classname)}>
@@ -62,7 +78,7 @@ export const CreateAdminUser = ({
         </p>
       </div>
       <Formik
-        initialValues={initialFormValues}
+        initialValues={initialCreateAdminFormValues}
         onSubmit={onSubmit}
         validationSchema={validateSchema}>
         {({ handleSubmit, isSubmitting, getFieldProps }) => (

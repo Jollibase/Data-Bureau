@@ -16,6 +16,7 @@ class BaseLenderSerializer(serializers.ModelSerializer):
 
 class BaseLenderSerializerWithUsers(BaseLenderSerializer):
     users = UserSerializer(source="user_set", many=True)
+    public = serializers.ReadOnlyField()
 
     def create(self, validated_data):
         validated_user_obj = validated_data.pop("user_set")

@@ -15,10 +15,6 @@
     &__header
       display flex
       justify-content space-evenly
-      &__item
-        &__current
-          .step__header__item__title
-            color green !important
     &__items
       height 700px
       flex-direction column
@@ -30,6 +26,12 @@
         display none
         &__current
           display flex
+  @media screen and (max-width: 600px)
+    .step
+      &__items
+        &__child
+          &__current
+            padding-top 0px
 
 :local(.StepTitle)
   flex 1 1
@@ -40,6 +42,7 @@
   align-items center
   justify-content center
   position relative
+  padding-bottom 30px
   .step-title
     &__logo
       height 64px
@@ -71,7 +74,7 @@
       z-index 10
       background $ash
       position absolute
-      bottom 0
+      bottom 20px
     &__progress_bar
       height auto
       width 100%
@@ -81,7 +84,7 @@
     &__progress
       position absolute
       left calc(-50% + 17.5px)
-      bottom 6px
+      bottom 26px
       width calc(100% - 35px)
   &.active
     .step-title
@@ -94,6 +97,9 @@
       &__ball
         background $primary_normal
   @media screen and (max-width: 699px) 
+    &.active
+      .step-title
+        display none
     .step-title
       &__logo
         height 45px
@@ -101,13 +107,16 @@
         svg
           width 19px
           height 20px
+      &__progress_bar
+        margin-top 0px
       &__ball
-          height 20px
-          width 20px
-       &__progress
-          bottom -2px
-          left calc(-50% + 10px)
-          width calc(100% - 20px)
+        height 20px
+        width 20px
+        bottom 36px
+      &__progress
+        bottom 33px
+        left calc(-50% + 10px)
+        width calc(100% - 20px)
 
 
       

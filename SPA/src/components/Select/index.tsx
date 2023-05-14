@@ -40,10 +40,9 @@ export const Select = ({
         <select
           className={ClassNames(styles.Select, classname)}
           {...field}
-          {...meta}
           defaultValue={defaultValue}>
           {options.map(({ label, value }, index) => (
-            <option disabled={index === 0} value={value}>
+            <option disabled={index === 0} key={value} value={value}>
               {label}
             </option>
           ))}

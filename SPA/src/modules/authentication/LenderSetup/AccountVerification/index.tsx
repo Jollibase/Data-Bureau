@@ -11,8 +11,9 @@ interface AccountVerificationProps extends StepComponentsExtraProps {}
 
 export const AccountVerification = ({
   classname,
-  updateStep,
 }: AccountVerificationProps) => {
+  const handleClick = () => {}
+
   return (
     <div className={ClassNames(style.AccountVerification, classname)}>
       <h4>Account Verification</h4>
@@ -30,7 +31,7 @@ export const AccountVerification = ({
         <Button
           text="Resend verification link"
           primary
-          onclick={updateStep}
+          onclick={handleClick}
           logo={<BtnArrowRight fill="white" />}
         />
       </div>
