@@ -594,6 +594,21 @@ requests = "*"
 requests-oauthlib = ">=0.3.0"
 
 [[package]]
+name = "django-cors-headers"
+version = "4.0.0"
+description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django_cors_headers-4.0.0-py3-none-any.whl", hash = "sha256:e3cbd247a1a835da4cf71a70d4214378813ea7e08337778b82cb2c1bc19d28d6"},
+    {file = "django_cors_headers-4.0.0.tar.gz", hash = "sha256:a971cd4c75b29974068cc36b5c595698822f1e0edd5f1b32ea42ea37326ad4aa"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "django-hijack"
 version = "3.2.6"
 description = "django-hijack allows superusers to hijack (=login as) and work on behalf of another user."
@@ -1538,4 +1553,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "cd6fe6f398c430e5d9ea8875d11f6f300069494ac81966572ae2d983cae8b85c"
+content-hash = "03910ecaa9dffd72a89c70a39ba73990091d5ff02f4ef0095c42c48b42cca9a9"

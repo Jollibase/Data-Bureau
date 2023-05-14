@@ -52,7 +52,7 @@ const routes = [
   },
   {
     path: '/dashboard',
-    element: <ThankYou />,
+    element: <div />,
     loader: async () => {
       return AuthenticatedAPI.get('client/me/')
         .catch(err => {

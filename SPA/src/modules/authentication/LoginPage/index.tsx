@@ -1,17 +1,15 @@
+import { useEffect } from 'react'
 import ClassNames from 'classnames'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
 import { loginAction } from '@Home/store/commonActions/user'
-
 import { Button, Input } from '@Home/components'
 
 import { ReactComponent as Data } from '@Images/data.svg'
-
 import style from './LoginPage.styl'
-import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
-import { useEffect } from 'react'
 
 interface LoginPageProps {
   classname?: string
