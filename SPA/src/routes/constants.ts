@@ -3,5 +3,5 @@ export const ROUTES = {
   Pricing: '/pricing',
   'About Us': '/about-us',
   Contact: '/contact-us',
-  Blog: '/blog',
+  Docs: '/docs',
 }

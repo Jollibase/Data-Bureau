@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import { LenderSetupActions } from './action'
+import { LenderSetupActions } from './actions'
 
 interface LenderSetupState {
   currentStep: number

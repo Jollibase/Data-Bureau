@@ -1,18 +1,23 @@
 import ClassNames from 'classnames'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { loginAction } from '@Home/store/commonActions/user'
 
 import { Button, Input } from '@Home/components'
 
 import { ReactComponent as Data } from '@Images/data.svg'
 
 import style from './LoginPage.styl'
+import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
+import { useEffect } from 'react'
 
 interface LoginPageProps {
   classname?: string
 }
 
+const initialValues = { email: '', password: '', remember: false }
 const validateSchema = Yup.object({
   email: Yup.string()
     .email('Email address is invalid')
@@ -21,6 +26,22 @@ const validateSchema = Yup.object({
 })
 
 export const LoginPage = ({ classname }: LoginPageProps) => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const { isLoggedIn, errorMessage, statusCode } = useAppSelector(
+    state => state.user,
+  )
+  const login = value => dispatch(loginAction(value))
+
+  const handleSubmit = (values: typeof initialValues) => {
+    login(values)
+  }
+  useEffect(() => {
+    isLoggedIn && navigate('/dashboard')
+  }, [isLoggedIn])
+
+  const isLoading = !errorMessage || !statusCode
+
   return (
     <div className={ClassNames(style.LoginPage, classname)}>
       <div className="login">
@@ -33,8 +54,8 @@ export const LoginPage = ({ classname }: LoginPageProps) => {
             <p>Your decisive power awaits</p>
           </div>
           <Formik
-            onSubmit={() => null}
-            initialValues={{ email: '', password: '', remember: false }}
+            onSubmit={handleSubmit}
+            initialValues={initialValues}
             validationSchema={validateSchema}>
             {({ handleSubmit, getFieldProps, isSubmitting }) => (
               <form>
@@ -60,15 +81,17 @@ export const LoginPage = ({ classname }: LoginPageProps) => {
                   name="remember"
                 />
                 <Button
+                  primary
                   text="Login"
                   onclick={handleSubmit}
-                  primary
-                  loading={isSubmitting}
+                  loading={isSubmitting && isLoading}
+                  disabled={isSubmitting && isLoading}
                   classname="login__form__btn"
                 />
               </form>
             )}
           </Formik>
+          {errorMessage && <p className="login__form__error">{errorMessage}</p>}
           <p className="login__form__signup">
             Don't have an account?
             <Link to="/sign-up">
