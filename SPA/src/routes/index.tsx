@@ -1,5 +1,7 @@
 import { redirect } from 'react-router-dom'
 
+import { AuthenticatedAPI } from '@Lib/api'
+
 import { LandingPage } from '@Modules/base/LandingPage'
 import { ErrorPage } from '@Modules/base/ErrorPage'
 import { LenderSetup } from '@Home/modules/authentication/LenderSetup'
@@ -29,6 +31,13 @@ const routes = [
   {
     path: '/login',
     element: <LoginPage />,
+    loader: async () => {
+      return AuthenticatedAPI.get('client/me/')
+        .catch(null)
+        .then(err => {
+          return redirect('/dashboard')
+        })
+    },
   },
   {
     path: '/thank-you',
@@ -39,6 +48,17 @@ const routes = [
         return redirect('/')
       }
       return null
+    },
+  },
+  {
+    path: '/dashboard',
+    element: <ThankYou />,
+    loader: async () => {
+      return AuthenticatedAPI.get('client/me/')
+        .catch(err => {
+          return redirect('/login')
+        })
+        .then(null)
     },
   },
 ]

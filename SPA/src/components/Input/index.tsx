@@ -39,7 +39,6 @@ export const Input = ({
         <input
           className={ClassNames(styles.Input, classname)}
           {...field}
-          {...meta}
           type={type}
           defaultValue={defaultValue}
           placeholder={placeholder}

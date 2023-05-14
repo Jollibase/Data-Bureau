@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '@Home/lib/hooks/redux'
 import { Step } from '@Components'
 
-import { updateCurrentStep } from './redux/action'
+import { updateCurrentStep } from './redux/actions'
 import { LenderSignup } from './LenderSignup'
 import { CreateAdminUser } from './CreateAdminUser'
 import { AccountVerification } from './AccountVerification'

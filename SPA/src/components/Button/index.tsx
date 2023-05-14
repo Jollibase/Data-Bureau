@@ -51,7 +51,7 @@ export const Button = ({
         inverse,
         disabled,
       })}
-      onClick={onclick}>
+      onClick={!disabled ? onclick : null}>
       {text}
       {!loading && renderLogo()}
       {loading && <Loader />}
