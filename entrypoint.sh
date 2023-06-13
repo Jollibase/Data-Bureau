@@ -34,4 +34,17 @@ until postgres_ready; do
 done
 >&2 echo 'PostgreSQL is available'
 
+
+# rabbitmq_ready() {
+#     echo "Waiting for rabbitmq..."
+
+#     while ! nc -z rabbitmq 15672; do
+#       sleep 1
+#     done
+
+#     echo "rabbitmq started"
+# }
+
+# rabbitmq_ready
+
 exec "$@"

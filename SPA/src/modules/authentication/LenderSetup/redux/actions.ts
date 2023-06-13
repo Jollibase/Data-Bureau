@@ -1,5 +1,5 @@
 import { API } from '@Home/lib/api'
-import { snakify } from '@Home/lib/utils'
+import { camelize, snakify } from '@Home/lib/utils'
 import { AppDispatch, RootState } from '@Home/store'
 import { createAction } from '@reduxjs/toolkit'
 
@@ -19,7 +19,7 @@ export const createLenderAccount = createAction<{ [key: string]: string }>(
 
 export const createAdminUser =
   values => (dispatch: AppDispatch, getState: () => RootState) => {
-    const lenderAccount = getState().lenderSetup.lenderAccount
+    const { lenderAccount } = getState().lenderSetup
 
     const data = snakify({
       users: [values],
@@ -31,7 +31,7 @@ export const createAdminUser =
           type: LenderSetupActions.CREATE_ADMIN_USER,
           payload: {
             statusCode: response.status,
-            data: response.data,
+            data: camelize(response.data),
           },
         })
       })

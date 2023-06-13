@@ -2,6 +2,7 @@ import datetime
 import os
 
 from dotenv import load_dotenv
+from kombu import Queue
 
 from ._base import *
 
@@ -49,7 +50,16 @@ SIMPLE_JWT = {
 REDIS_HOST = os.getenv("REDIS_HOST", "redis")
 REDIS_PORT = os.getenv("REDIS_PORT", "6379")
 
+# CELERY
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://127.0.0.1:6379/0")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://127.0.0.1:6379/0")
+CELERY_TASK_DEFAULT_QUEUE = "default"
+CELERY_TASK_CREATE_MISSING_QUEUES = False
+CELERY_TASK_QUEUES = (
+    # need to define default queue here or exception would be raised
+    Queue("default"),
+    Queue("high_priority"),
+    Queue("low_priority"),
+)
 
 CORS_ORIGIN_ALLOW_ALL = True

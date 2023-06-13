@@ -1,79 +1,54 @@
-{% extends "./base_email.html" %}
+{% extends './base_email.html' %}
 
 {% block display_image %}
-<tr>
-    <td align="center" bgcolor="#F4F4F4"
-        background="https://res.cloudinary.com/nerdpraise/image/upload/v1683078816/new_email_f4ue27.png" width="100%"
-        height="250" valign="top" style="background:
+  <tr>
+    <td align="center" bgcolor="#F4F4F4" background="https://res.cloudinary.com/nerdpraise/image/upload/v1683078816/new_email_f4ue27.png" width="100%" height="250" valign="top" style="background:
                             url('https://res.cloudinary.com/nerdpraise/image/upload/v1683078816/new_email_f4ue27.png')
                             center / contain no-repeat #F4F4F4; width:100%;">
-        <!--[if gte mso 9]>
+      <!-- [if gte mso 9]>
             <v:image xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style=" border: 0;display: inline-block; width: 480pt; height: 300pt;" src="https://res.cloudinary.com/nerdpraise/image/upload/v1683078816/new_email_f4ue27.png" />                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style=" border: 0;display: inline-block;position: absolute; width: 480pt; height:300pt;">
             <v:fill  opacity="0%" color="#000000”  />
             <v:textbox inset="0,0,0,0">
-            <![endif]-->
-        <div>
-            <div style="font-size: 0;width:100%; padding: 0 15px">
-                <table role=" presentation" width="100%" style="width:100%;" cellpadding="0" cellspacing="0" border="0"
-                    align="center">
-                    <tr>
-                        <td height="250" style="padding:0; color:white" width="350">
-                        </td>
-
-                    </tr>
-                </table>
-            </div>
+            <![endif] -->
+      <div>
+        <div style="font-size: 0;width:100%; padding: 0 15px">
+          <table role=" presentation" width="100%" style="width:100%;" cellpadding="0" cellspacing="0" border="0" align="center">
+            <tr>
+              <td height="250" style="padding:0; color:white" width="350"></td>
+            </tr>
+          </table>
         </div>
-        <!--[if gte mso 9]>
+      </div>
+      <!-- [if gte mso 9]>
             </v:textbox>
             </v:fill>
             </v:rect>
             </v:image>
-        <![endif]-->
+        <![endif] -->
     </td>
-</tr>
-{% endblock display_image %}
+  </tr>
+{% endblock %}
 
 {% block body %}
-<table role="presentation"
-    style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+  <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
     <tr>
-        <td style="padding:10px 20px;" align="">
-            <h2 style="color:#F2994A;padding:10px 0 25px;font-weight:600; text-align:center;">Thank you for
-                trying out Jollibase
-            </h2>
-            <p style="margin-bottom: 10px">Hi <span style="color:#00A991;">{{ username }} </span></p>
-            <p style="color:#737373;font-size:15px; line-height:24px;">
-                Welcome to Jollibase! We are excited to have you join us on this journey.
-                Our mission at
-                Jollibase is to empower
-                financial
-                institutions with
-                data-driven insights to make informed lending decisions and mitigate risk.
-                It's perfectly natural to have some questions about your new software to get
-                started.
-            </p>
-            <p style="color:#737373;font-size:15px; padding:10px 0;line-height:24px;">
-                Most of your questions are probably answered in the
-                knowledge base:
-            </p>
-            <button style="background:#F2994A; width:100%; border:none; padding:
+      <td style="padding:10px 20px;" align="">
+        <h2 style="color:#F2994A;padding:10px 0 25px;font-weight:600; text-align:center;">Thank you for trying out Jollibase</h2>
+        <p style="margin-bottom: 10px">
+          Hi <span style="color:#00A991;">{{ username }}</span>
+        </p>
+        <p style="color:#737373;font-size:15px; line-height:24px;">Welcome to Jollibase! We are excited to have you join us on this journey. Our mission at Jollibase is to empower financial institutions with data-driven insights to make informed lending decisions and mitigate risk. It's perfectly natural to have some questions about your new software to get started.</p>
+        <p style="color:#737373;font-size:15px; padding:10px 0;line-height:24px;">Most of your questions are probably answered in the knowledge base:</p>
+        <button style="background:#F2994A; width:100%; border:none; padding:
                                             13px;border-radius:4px; font-size:14px; margin:10px 0; color:#595959;font-weight:bold;
-                                            cursor:pointer;">All
-                Tutorials
-            </button>
-            <p style="color:#737373;font-size:15px;padding:10px 0;">
-                But you are also welcome to ask us directly – just reply to this e-mail.
-            </p>
-            <p style="color:#737373;font-size:15px;padding:5px 0;">
-                You can also request a live demo!
-            </p>
-            <div style="border: 1px solid rgba(120, 120, 120, 0.5); margin:10px; width:100%;text-align:center;">
-            </div>
-            <p style="color:#737373;font-size:16px;padding:10px 0;font-weight:600; text-align:center;">
-                Top <span style="color:#F2994A">tips</span> to get you started:
-            </p>
-        </td>
+                                            cursor:pointer;">All Tutorials</button>
+        <p style="color:#737373;font-size:15px;padding:10px 0;">But you are also welcome to ask us directly – just reply to this e-mail.</p>
+        <p style="color:#737373;font-size:15px;padding:5px 0;">You can also request a live demo!</p>
+        <div style="border: 1px solid rgba(120, 120, 120, 0.5); margin:10px; width:100%;text-align:center;"></div>
+        <p style="color:#737373;font-size:16px;padding:10px 0;font-weight:600; text-align:center;">
+          Top <span style="color:#F2994A">tips</span> to get you started:
+        </p>
+      </td>
     </tr>
-</table>
-{% endblock body %}
+  </table>
+{% endblock %}

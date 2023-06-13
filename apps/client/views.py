@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
+from django.db import transaction
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from drf_spectacular.utils import extend_schema
@@ -42,8 +43,12 @@ class LenderSignupView(views.APIView):
             },
             "to": [user.email],
         }
-        send_mail_async.delay(**email_kwargs)
-        return Response({}, status=status.HTTP_201_CREATED)
+        transaction.on_commit(
+            lambda: send_mail_async.apply_async(
+                kwargs=email_kwargs, queue="high_priority"
+            )
+        )
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class LenderLoginView(views.APIView):

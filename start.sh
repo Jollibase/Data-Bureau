@@ -4,5 +4,9 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
+python /app/manage.py collectstatic --noinput
+python /app/manage.py migrate
+
+# python manage.py runserver 
+
+gunicorn data_bureau.asgi:application -k uvicorn.workers.UvicornWorker --reload -w 2 --bind 0.0.0.0:8000 --chdir=/app

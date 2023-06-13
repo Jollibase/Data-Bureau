@@ -9,6 +9,7 @@ import { ContactPage } from '@Home/modules/base/ContactPage'
 import { AboutPage } from '@Home/modules/base/AboutPage'
 import { ThankYou } from '@Home/modules/base/ThankYou'
 import { LoginPage } from '@Home/modules/authentication/LoginPage'
+import { AuthDashboardLayout } from '@Home/modules/dashboard/AuthDashboardLayout/AuthDashboardLayout'
 
 const routes = [
   {
@@ -52,13 +53,14 @@ const routes = [
   },
   {
     path: '/dashboard',
-    element: <div />,
+    element: <AuthDashboardLayout />,
     loader: async () => {
       return AuthenticatedAPI.get('client/me/')
-        .catch(err => {
-          return redirect('/login')
-        })
-        .then(null)
+
+      // .catch(err => {
+      //   return redirect('/login')
+      // })
+      // .then(null)
     },
   },
 ]

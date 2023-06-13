@@ -37,8 +37,8 @@ RUN apt-get update \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
     && rm -rf /var/lib/apt/lists/* 
 # deps for building python deps
-# copy project requirement files here to ensure they will be cached.
 
+# copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
 
@@ -47,6 +47,7 @@ RUN poetry install --no-dev
 
 # `development` image is used during development / testing
 FROM python-base as development
+
 WORKDIR $PYSETUP_PATH
 
 # copy in our built poetry + venv
@@ -60,8 +61,19 @@ COPY ./*.sh ./
 RUN sed -i 's/\r$//g' ./*.sh
 RUN chmod +x ./*.sh
 
+RUN mkdir /app
+RUN mkdir /app/staticfiles
+RUN mkdir /app/mediafiles
 WORKDIR /app
 
-ENV DJANGO_SETTINGS_MODULE=settings.local
+# copy project code
+COPY . .
+
+RUN addgroup --system django \
+    && adduser --system --ingroup django django
+
+RUN chown -R django:django /app
+
+USER django
 
 ENTRYPOINT ["./entrypoint.sh"]
