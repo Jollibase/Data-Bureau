@@ -11,7 +11,7 @@ User = get_user_model()
 class BaseLenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lender
-        exclude = ("uuid", "created", "updated", "secret")
+        exclude = ("created", "updated", "secret")
 
 
 class BaseLenderSerializerWithUsers(BaseLenderSerializer):
@@ -20,6 +20,7 @@ class BaseLenderSerializerWithUsers(BaseLenderSerializer):
 
     def create(self, validated_data):
         validated_user_obj = validated_data.pop("user_set")
+        print(validated_data)
         lender = super().create({**validated_data})
         user = User.objects.create_user(
             **validated_user_obj[0], role=User.LENDER, company=lender

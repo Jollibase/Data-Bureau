@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import Lender, User, EmailWaitList
+from .models import EmailWaitList, Lender, User
 
 
 class UserSerializer(serializers.ModelSerializer):

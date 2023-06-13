@@ -13,6 +13,7 @@ until worker_ready; do
 done
 >&2 echo 'Celery workers is available'
 
-celery -A data_bureau --broker="${CELERY_BROKER}" flower
-
-
+exec celery -A data_bureau \
+    --broker="${CELERY_BROKER}" \
+    flower \
+    --basic_auth="${CELERY_FLOWER_USER}:${CELERY_FLOWER_PASSWORD}"

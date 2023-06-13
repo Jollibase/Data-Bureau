@@ -1,7 +1,11 @@
 # Makefile
 
 BACKEND_CONTAINER=web_backend
+TARGET=$(target)
 # make start
+#             Start containers 
+# 
+# make build
 #             Build and start containers 
 # 
 # make log
@@ -18,10 +22,13 @@ BACKEND_CONTAINER=web_backend
 # 
 
 start: 
+	@docker compose up -d 
+
+build_p: 
 	@docker compose up -d --build
 
-log:
-	@docker logs -f
+logs:
+	@docker compose logs -f $(TARGET)
 
 stop:
 	@docker compose stop
@@ -34,3 +41,6 @@ makemigrations:
 
 migrate:
 	@docker exec $(BACKEND_CONTAINER) python manage.py migrate
+
+shell:
+	@docker exec -it $(BACKEND_CONTAINER) python manage.py shell

@@ -2,7 +2,7 @@ FROM node:19.7 AS frontend-development
 
 WORKDIR /app/SPA
 
-COPY ./SPA/package.json ./SPA/package-lock.json ./SPA/.env ./SPA/.npmrc ./SPA/config-overrides.js /app/SPA/
+COPY ./SPA/package.json ./SPA/package-lock.json /app/SPA/
 
 RUN npm install
 COPY ./SPA /app/SPA
@@ -11,4 +11,4 @@ RUN npm run build
 
 WORKDIR /app/SPA
 
-ENTRYPOINT ["node"]
+ENTRYPOINT ["npm", "start"]

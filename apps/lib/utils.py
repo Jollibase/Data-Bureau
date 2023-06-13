@@ -1,4 +1,5 @@
 from celery import shared_task
+from celery.signals import task_postrun
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail, send_mass_mail
 from django.template.loader import render_to_string
@@ -10,17 +11,6 @@ User = get_user_model()
 def send_mail_user(subject, template, message_context, to, from_user=None):
     body = render_to_string(template, message_context)
     send_mail(subject, body, from_user, to, fail_silently=False, html_message=body)
-
-
-@shared_task(bind=True)
-def send_mail_async(self, subject, template, message_context, to, mass=False):
-    try:
-        if mass:
-            send_mass_mail_user(subject, template, message_context, to)
-        else:
-            send_mail_user(subject, template, message_context, to)
-    except Exception as e:
-        raise self.retry(exc=e, countdown=5)
 
 
 def send_mass_mail_user(subject, template, message_context, to, from_user=None):
@@ -49,3 +39,20 @@ def get_token_for_user(user):
         "refresh": str(refresh),
         "access": str(refresh.access_token),
     }
+
+
+@shared_task(
+    bind=True,
+    autoretry_for=(Exception,),
+    retry_kwargs={"max_retries": 5, "countdown": 5},
+)
+def send_mail_async(self, subject, template, message_context, to, mass=False):
+    if mass:
+        send_mass_mail_user(subject, template, message_context, to)
+    else:
+        send_mail_user(subject, template, message_context, to)
+
+
+@shared_task(bind=True)
+def divide(self, a, b):
+    return a / b

@@ -45,15 +45,11 @@ class Lender(DatetimeMixin):
     """Holds company lender information"""
 
     name = models.CharField(max_length=150, blank=False, null=False)
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    public = models.UUIDField(
+        "Public key for encrypting user data", default=uuid.uuid4, editable=False
+    )
     address = models.TextField(blank=False)
     phone = PhoneNumberField()
-    public = models.CharField(
-        "Public key for encrypting user data",
-        max_length=150,
-        blank=False,
-        null=False,
-    )
     secret = models.CharField(
         "Secret key for decrypting user data passed across",
         max_length=150,

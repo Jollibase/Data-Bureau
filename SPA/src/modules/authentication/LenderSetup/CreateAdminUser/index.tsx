@@ -1,6 +1,7 @@
 import { Formik } from 'formik'
 import ClassNames from 'classnames'
 import * as Yup from 'yup'
+import { isNull } from 'lodash'
 import YupPassword from 'yup-password'
 
 import { StepComponentsExtraProps } from '@Home/components/Step'
@@ -50,7 +51,9 @@ export const CreateAdminUser = ({
   classname,
   updateStep,
 }: CreateAdminUserProps) => {
-  const { statusCode } = useAppSelector(state => state.lenderSetup)
+  const { lenderDetails, statusCode } = useAppSelector(
+    state => state.lenderSetup,
+  )
   const dispatch = useAppDispatch()
   const dispatchedCreateAdminUser = values => dispatch(createAdminUser(values))
 
@@ -61,12 +64,13 @@ export const CreateAdminUser = ({
       username: values.firstName,
       phone: `+234${values.phone.slice(1)}`,
     })
-    // updateStep()
   }
 
-  // useEffect(() => {
-  //   statusCode === 201 && updateStep()
-  // }, [statusCode])
+  useEffect(() => {
+    if (!isNull(lenderDetails) && statusCode === 201) {
+      updateStep()
+    }
+  }, [statusCode])
 
   return (
     <div className={ClassNames(styles.CreateAdminUser, classname)}>

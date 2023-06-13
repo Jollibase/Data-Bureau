@@ -7,30 +7,34 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-django = "4.1.7"
-djangorestframework = "3.14.0"
-django-allauth = "0.52.0"
 black = "23.1.0"
+celery = "5.2.7"
+channels = "4.0.0"
+channels-redis = "4.1.0"
+coreapi = "2.3.3"
+django = "4.1.7"
+django-allauth = "0.52.0"
+django-cors-headers = "4.0.0"
+django-hijack = "3.2.6"
+django-phonenumber-field = "7.0.2"
+djangorestframework = "3.14.0"
+djangorestframework-simplejwt = "5.2.2"
+drf-spectacular = "0.25.1"
+flower = "1.2.0"
+gunicorn = "20.1.0"
 isort = "5.12.0"
 psycopg2-binary = "2.9.5"
-djangorestframework-simplejwt = "5.2.2"
-django-phonenumber-field = "7.0.2"
-coreapi = "2.3.3"
-pyyaml = "6.0"
-drf-spectacular = "0.25.1"
 python-dotenv = "0.21.1"
+pyyaml = "6.0"
+redis = "4.5.5"
 rsa = "4.9"
-celery = "5.2.7"
-redis = "4.5.1"
-flower = "1.2.0"
+uvicorn = { extras = ["standard"], version = "0.22.0" }
 watchfiles = "0.18.1"
-django-hijack = "3.2.6"
-django-cors-headers = "^4.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
-phonenumbers = "8.13.6"
 black = { version = "23.1.0", allow-prereleases = true }
+phonenumbers = "8.13.6"
 
 [build-system]
 requires = ["poetry-core"]

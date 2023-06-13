@@ -6,8 +6,8 @@ import { LenderSetupActions } from './actions'
 import {
   createAdminUserActionType,
   createLenderActionType,
+  LenderDetails,
 } from './actionTypes'
-import { camelize } from '@Home/lib/utils'
 
 export const initialLenderAccountFormValues = {
   name: '',
@@ -24,14 +24,14 @@ interface LenderSetupState {
   currentStep: number
   lenderAccount?: typeof initialLenderAccountFormValues
   statusCode?: number
-  lenderDetails: {}
+  lenderDetails: LenderDetails | null
 }
 
 const initialState: LenderSetupState = {
   currentStep: 1,
   lenderAccount: undefined,
   statusCode: 0,
-  lenderDetails: undefined,
+  lenderDetails: null,
 }
 
 const LenderSetupReducer = createReducer(initialState, builder => {
@@ -55,7 +55,7 @@ const LenderSetupReducer = createReducer(initialState, builder => {
     .addCase(
       LenderSetupActions.CREATE_ADMIN_USER,
       (state, action: createAdminUserActionType) => {
-        state.lenderDetails = camelize(action.payload.data)
+        state.lenderDetails = action.payload.data
         state.statusCode = action.payload.statusCode
       },
     )
