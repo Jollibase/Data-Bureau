@@ -1,5 +1,5 @@
 import { isPlainObject, has } from 'lodash'
-import { useLoaderData, Navigate, Link } from 'react-router-dom'
+import { useLoaderData, Navigate } from 'react-router-dom'
 
 import { useAppSelector } from '@Home/lib/hooks/redux'
 
@@ -9,9 +9,7 @@ export const AuthDashboardLayout = () => {
 
   if ((isPlainObject(user) && has(user, 'name')) || isLoggedIn) {
     return (
-      <div style={{ background: 'blue', height: '100vh', width: '100px' }}>
-        <Link to="/login">asdjsjd</Link>
-      </div>
+      <div style={{ background: 'blue', height: '100vh', width: '100%' }}></div>
     )
   }
 
