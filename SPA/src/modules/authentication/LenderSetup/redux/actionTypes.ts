@@ -25,10 +25,12 @@ export interface createLenderActionType<T> {
 }
 
 export interface createAdminUserActionType {
-  type: LenderSetupActions.CREATE_ADMIN_USER
+  type:
+    | LenderSetupActions.CREATE_ADMIN_USER_START
+    | LenderSetupActions.CREATE_ADMIN_USER_DONE
   payload: {
     data?: LenderDetails
-    errorMessage: string
+    errorMessage?: string
     statusCode: number
   }
 }

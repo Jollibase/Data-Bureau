@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.9"
 black = "23.1.0"
 celery = "5.2.7"
-channels = "4.0.0"
+channels = {extras = ["daphne"], version = "^4.0.0"}
 channels-redis = "4.1.0"
 coreapi = "2.3.3"
 django = "4.1.7"

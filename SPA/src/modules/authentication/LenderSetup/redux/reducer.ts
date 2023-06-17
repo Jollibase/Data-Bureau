@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage'
 
 import { LenderSetupActions } from './actions'
 import {
-  createAdminUserActionType,
+  // createAdminUserActionType,
   createLenderActionType,
   LenderDetails,
 } from './actionTypes'
@@ -53,8 +53,15 @@ const LenderSetupReducer = createReducer(initialState, builder => {
       },
     )
     .addCase(
-      LenderSetupActions.CREATE_ADMIN_USER,
-      (state, action: createAdminUserActionType) => {
+      LenderSetupActions.CREATE_ADMIN_USER_START,
+      (state, action: any) => {
+        // Fix this
+        state.statusCode = action.payload.statusCode
+      },
+    )
+    .addCase(
+      LenderSetupActions.CREATE_ADMIN_USER_DONE,
+      (state, action: any) => {
         state.lenderDetails = action.payload.data
         state.statusCode = action.payload.statusCode
       },

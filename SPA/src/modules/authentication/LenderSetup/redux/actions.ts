@@ -6,7 +6,8 @@ import { createAction } from '@reduxjs/toolkit'
 export const enum LenderSetupActions {
   UPDATE_STEP = 'LENDER_SETUP_ACTIONS/UPDATE_STEP',
   CREATE_LENDER = 'LENDER_SETUP_ACTIONS/CREATE_LENDER',
-  CREATE_ADMIN_USER = 'LENDER_SETUP_ACTIONS/CREATE_ADMIN_USER',
+  CREATE_ADMIN_USER_START = 'LENDER_SETUP_ACTIONS/CREATE_ADMIN_USER_START',
+  CREATE_ADMIN_USER_DONE = 'LENDER_SETUP_ACTIONS/CREATE_ADMIN_USER_DONE',
 }
 
 export const updateCurrentStep = createAction<undefined>(
@@ -19,16 +20,22 @@ export const createLenderAccount = createAction<{ [key: string]: string }>(
 
 export const createAdminUser =
   values => (dispatch: AppDispatch, getState: () => RootState) => {
-    const { lenderAccount } = getState().lenderSetup
+    dispatch({
+      type: LenderSetupActions.CREATE_ADMIN_USER_START,
+      payload: {
+        statusCode: 0,
+      },
+    })
 
+    const { lenderAccount } = getState().lenderSetup
     const data = snakify({
-      users: [values],
+      user: values,
       ...lenderAccount,
     })
     API.post('client/signup/', JSON.stringify(data))
       .then(response => {
         dispatch({
-          type: LenderSetupActions.CREATE_ADMIN_USER,
+          type: LenderSetupActions.CREATE_ADMIN_USER_DONE,
           payload: {
             statusCode: response.status,
             data: camelize(response.data),
@@ -37,7 +44,7 @@ export const createAdminUser =
       })
       .catch(err => {
         dispatch({
-          type: LenderSetupActions.CREATE_ADMIN_USER,
+          type: LenderSetupActions.CREATE_ADMIN_USER_DONE,
           payload: {
             statusCode: err.response.status,
             errorMessage: err.response

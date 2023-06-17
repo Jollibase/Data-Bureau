@@ -66,7 +66,11 @@ const render = (
   classname: string,
   child: (props) => React.ReactElement,
   key: string,
+  isCurrent,
 ) => {
+  if (!isCurrent) {
+    return null
+  }
   const Child = child
   return <Child key={key} classname={classname} updateStep={updateStep} />
 }
@@ -103,6 +107,7 @@ export const Step = ({
               }),
               child.component,
               child.title.text,
+              currentStep === index + 1,
             )
           })}
         </div>

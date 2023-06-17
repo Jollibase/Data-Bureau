@@ -56,10 +56,10 @@ THIRD_PARTY_APPS = [
     "hijack",
     "hijack.contrib.admin",
     "corsheaders",
-    "channels",
+    "daphne",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = THIRD_PARTY_APPS+ DJANGO_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -92,7 +92,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = "data_bureau.wsgi.application"
+# WSGI_APPLICATION = "data_bureau.wshgi.application"
 
 ASGI_APPLICATION = "data_bureau.asgi.application"
 CHANNEL_LAYERS = {
@@ -140,10 +140,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-MEDIA_URL = "/media/"
+MEDIA_URL = "/mediafiles/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 # Default primary key field type
@@ -152,4 +152,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "/"
- 

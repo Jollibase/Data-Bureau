@@ -1,15 +1,15 @@
 import { redirect } from 'react-router-dom'
 
-import { AuthenticatedAPI } from '@Lib/api'
-
 import { LandingPage } from '@Modules/base/LandingPage'
 import { ErrorPage } from '@Modules/base/ErrorPage'
-import { LenderSetup } from '@Home/modules/authentication/LenderSetup'
-import { ContactPage } from '@Home/modules/base/ContactPage'
-import { AboutPage } from '@Home/modules/base/AboutPage'
-import { ThankYou } from '@Home/modules/base/ThankYou'
-import { LoginPage } from '@Home/modules/authentication/LoginPage'
-import { AuthDashboardLayout } from '@Home/modules/dashboard/AuthDashboardLayout/AuthDashboardLayout'
+import { LenderSetup } from '@Modules/authentication/LenderSetup'
+import { ContactPage } from '@Modules/base/ContactPage'
+import { AboutPage } from '@Modules/base/AboutPage'
+import { ThankYou } from '@Modules/base/ThankYou'
+import { AuthDashboardLayout } from '@Modules/dashboard/AuthDashboardLayout/AuthDashboardLayout'
+import { UserLogin } from '@Modules/authentication/UserLogin'
+
+import { getUser } from './loader'
 
 const routes = [
   {
@@ -20,6 +20,7 @@ const routes = [
   {
     path: '/lender/signup',
     element: <LenderSetup />,
+    loader: getUser,
   },
   {
     path: '/contact-us',
@@ -31,14 +32,8 @@ const routes = [
   },
   {
     path: '/login',
-    element: <LoginPage />,
-    loader: async () => {
-      return AuthenticatedAPI.get('client/me/')
-        .catch(null)
-        .then(response => {
-          return redirect('/dashboard')
-        })
-    },
+    element: <UserLogin />,
+    loader: getUser,
   },
   {
     path: '/thank-you',
@@ -54,14 +49,7 @@ const routes = [
   {
     path: '/dashboard',
     element: <AuthDashboardLayout />,
-    loader: async () => {
-      return AuthenticatedAPI.get('client/me/')
-
-      // .catch(err => {
-      //   return redirect('/login')
-      // })
-      // .then(null)
-    },
+    loader: getUser,
   },
 ]
 

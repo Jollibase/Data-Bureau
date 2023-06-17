@@ -1,9 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from rest_framework import serializers
+from phonenumber_field.serializerfields import PhoneNumberField
 
-from apps.accounts.models import Lender, LenderPackageMap, Package
-from apps.accounts.serializers import UserSerializer
+from apps.accounts.models import Lender, LenderPackageMap, Package, UserProfile
+from apps.accounts.serializers import UserSerializer, UserProfileSerializer
 
 User = get_user_model()
 
@@ -15,16 +16,22 @@ class BaseLenderSerializer(serializers.ModelSerializer):
 
 
 class BaseLenderSerializerWithUsers(BaseLenderSerializer):
-    users = UserSerializer(source="user_set", many=True)
+    users = UserProfileSerializer(source="userprofile_set", many=True)
     public = serializers.ReadOnlyField()
 
+
+class RequestLenderSerializer(serializers.Serializer):
+    user = UserSerializer()
+    address = serializers.CharField()
+    name = serializers.CharField()
+    phone = PhoneNumberField()
+
     def create(self, validated_data):
-        validated_user_obj = validated_data.pop("user_set")
-        print(validated_data)
-        lender = super().create({**validated_data})
-        user = User.objects.create_user(
-            **validated_user_obj[0], role=User.LENDER, company=lender
-        )
+        validated_user = validated_data.pop("user")
+        lender = Lender.objects.create(**validated_data)
+        # CREATE USER
+        user = User.objects.create_user(**validated_user)
+        UserProfile.objects.create(user=user, role=UserProfile.LENDER, company=lender)
         user.is_active = False
         user.save()
         # Assign user 'Lender's Admin' permission
