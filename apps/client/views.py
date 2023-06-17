@@ -13,7 +13,7 @@ from apps.accounts.views import account_activation_token
 from apps.lib.utils import get_token_for_user, send_mail_async
 
 from .permissions import isLenderAdminUser, isLenderUser
-from .serializers import BaseLenderSerializerWithUsers
+from .serializers import BaseLenderSerializerWithUsers, RequestLenderSerializer
 
 User = get_user_model()
 
@@ -21,15 +21,16 @@ User = get_user_model()
 class LenderSignupView(views.APIView):
     """Lender can only signup once with a user; next they have to add users instead"""
 
-    serializer_class = BaseLenderSerializerWithUsers
+    serializer_class = RequestLenderSerializer
 
-    @extend_schema(responses=({"201": BaseLenderSerializerWithUsers}))
+    @extend_schema(responses=({"201": RequestLenderSerializer}))
+    @transaction.atomic
     def post(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         lender = serializer.save()
-        user = lender.user_set.first()  # Or filter by admin permission
+        user = lender.userprofile_set.first().user  # Or filter by admin permission
         # Do something with verification of email
         current_site = get_current_site(request)
         email_kwargs = {
@@ -48,7 +49,9 @@ class LenderSignupView(views.APIView):
                 kwargs=email_kwargs, queue="high_priority"
             )
         )
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(
+            BaseLenderSerializerWithUsers(lender).data, status=status.HTTP_201_CREATED
+        )
 
 
 class LenderLoginView(views.APIView):
@@ -67,7 +70,7 @@ class LenderProfileView(views.APIView):
     serializer_class = BaseLenderSerializerWithUsers
 
     def get(self, request):
-        lender = request.user.company
+        lender = request.user.userprofile.company
         serializer = BaseLenderSerializerWithUsers(lender)
         return Response(serializer.data)
 
@@ -77,7 +80,7 @@ class LenderAddUserView(views.APIView):
     serializer_class = UserSerializer
 
     def post(self, request):
-        lender = request.user.company
+        lender = request.user.userprofile.company
         data = request.data
         users_serializer = self.serializer_class(
             data=data, many=True, context={"company": lender}

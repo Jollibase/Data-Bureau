@@ -1,15 +1,15 @@
+import { useEffect, useState } from 'react'
 import ClassNames from 'classnames'
 import useWebSocket from 'react-use-websocket'
 
 import { Button } from '@Home/components'
+import { useAppSelector } from '@Home/lib/hooks/redux'
 import { StepComponentsExtraProps } from '@Home/components/Step'
 
 import { ReactComponent as GirlChair } from '@Images/girl_chair.svg'
 import { ReactComponent as BtnArrowRight } from '@Images/btn_arrow_right.svg'
-import style from './AccountVerification.styl'
-import { useEffect, useState } from 'react'
-import { useAppSelector } from '@Home/lib/hooks/redux'
 
+import style from './AccountVerification.styl'
 interface AccountVerificationProps extends StepComponentsExtraProps {}
 
 export const AccountVerification = ({
@@ -19,11 +19,10 @@ export const AccountVerification = ({
   const [error, setError] = useState<string>('')
   const [wsURL, setWsUrl] = useState<string>('')
   const lenderDetails = useAppSelector(state => state.lenderSetup.lenderDetails)
-  const { lastJsonMessage } = useWebSocket(wsURL)
-  console.log(lastJsonMessage)
+  const { lastJsonMessage } = useWebSocket(wsURL, {}, wsURL !== '')
 
   useEffect(() => {
-    setWsUrl('ws://127.0.0.1:8000/ws/verify/' + lenderDetails?.users?.[0]?.id)
+    setWsUrl(`ws://127.0.0.1:8000/ws/verify/${lenderDetails?.users?.[0]?.id}/`)
   }, [lenderDetails])
 
   const handleClick = () => {}

@@ -1,17 +1,16 @@
-import { useEffect } from 'react'
 import ClassNames from 'classnames'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
 import { loginAction } from '@Home/store/commonActions/user'
 import { Button, Input } from '@Home/components'
 
-import { ReactComponent as Data } from '@Images/data.svg'
-import style from './LoginPage.styl'
+import { ReactComponent as DataImg } from '@Images/data.svg'
+import style from './SetupLogins.styl'
 
-interface LoginPageProps {
+interface SetupLoginProps {
   classname?: string
 }
 
@@ -23,28 +22,28 @@ const validateSchema = Yup.object({
   password: Yup.string().required('Pasword is required'),
 })
 
-export const LoginPage = ({ classname }: LoginPageProps) => {
+export const SetupLogin = ({ classname }: SetupLoginProps) => {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
   const { isLoggedIn, errorMessage, statusCode } = useAppSelector(
     state => state.user,
   )
+
   const login = value => dispatch(loginAction(value))
 
   const handleSubmit = (values: typeof initialValues) => {
     login(values)
   }
-  useEffect(() => {
-    isLoggedIn && navigate('/dashboard')
-  }, [isLoggedIn])
 
-  const isLoading = !errorMessage || !statusCode
+  const noResultOnLoading = !errorMessage || !statusCode
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard" />
+  }
 
   return (
-    <div className={ClassNames(style.LoginPage, classname)}>
+    <div className={ClassNames(style.SetupLogin, classname)}>
       <div className="login">
         <div className="login__image">
-          <Data />
+          <DataImg />
         </div>
         <div className="login__form">
           <div className="login__form__header">
@@ -82,8 +81,8 @@ export const LoginPage = ({ classname }: LoginPageProps) => {
                   primary
                   text="Login"
                   onclick={handleSubmit}
-                  loading={isSubmitting && isLoading}
-                  disabled={isSubmitting && isLoading}
+                  loading={isSubmitting && noResultOnLoading}
+                  disabled={isSubmitting && noResultOnLoading}
                   classname="login__form__btn"
                 />
               </form>

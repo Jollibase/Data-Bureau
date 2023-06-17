@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import EmailWaitList, Lender, User
+from .models import EmailWaitList, Lender, User, UserProfile
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -18,7 +18,6 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "is_active",
-            "company",
             "is_lender_admin",
         )
         extra_kwargs = {"password": {"write_only": True}}
@@ -31,7 +30,17 @@ class UserSerializer(serializers.ModelSerializer):
         lender = self.context.get("company", None)
         if validated_data.get("password"):
             return super().create(validated_data)
-        return User.objects.create(**validated_data, role=User.LENDER, company=lender)
+        user = User.objects.create(**validated_data)
+        UserProfile.objects.create(role=User.LENDER, company=lender, user=user)
+        return user
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = UserProfile
+        fields = "__all__"
 
 
 class LoginSerializer(serializers.Serializer):

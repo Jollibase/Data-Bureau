@@ -4,17 +4,24 @@ from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
-
-class DatetimeMixin(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-        ordering = ("created",)
+from apps.lib.abstract_models import DatetimeMixin
 
 
 class User(AbstractUser):
+    REQUIRED_FIELDS = ["first_name", "last_name"]
+    USERNAME_FIELD = "email"
+
+    first_name = models.CharField("first name", max_length=150, blank=False)
+    last_name = models.CharField("last name", max_length=150, blank=False)
+    email = models.EmailField(unique=True, blank=False)
+
+    def save(self, *args, **kwargs):
+        if not self.id and not self.username:
+            self.username = self.email
+        return super().save(*args, **kwargs)
+
+
+class UserProfile(DatetimeMixin):
     LENDER = 0
     BUREAUER = 1
     BUREAUER_ADMIN = 2
@@ -23,22 +30,14 @@ class User(AbstractUser):
         (BUREAUER, "Bureauer"),
         (BUREAUER_ADMIN, "Admin"),
     )
-    REQUIRED_FIELDS = ["first_name", "last_name"]
-    USERNAME_FIELD = "email"
-
-    username = models.CharField(max_length=150)
-    first_name = models.CharField("first name", max_length=150, blank=False)
-    last_name = models.CharField("last name", max_length=150, blank=False)
-    email = models.EmailField(unique=True, blank=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.PositiveSmallIntegerField(choices=ROLES, blank=False, null=False)
     company = models.ForeignKey(
         "Lender", on_delete=models.SET_NULL, default=None, null=True
     )
 
-    def save(self, *args, **kwargs):
-        if not self.id and not self.username:
-            self.username = self.email
-        return super().save(*args, **kwargs)
+    def __str__(self):
+        return self.user.username
 
 
 class Lender(DatetimeMixin):
@@ -55,8 +54,9 @@ class Lender(DatetimeMixin):
         max_length=150,
         blank=False,
         null=False,
+        default="",
     )
-    # should hold sub domain prefix that would be used to validate against public access key
+    # add industry, busineess type
     # Hold signal for logging when certain changes
     # Decide how to create secret key and private key
 

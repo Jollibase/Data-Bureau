@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { Link, useLoaderData, Navigate } from 'react-router-dom'
+import { isPlainObject, has } from 'lodash'
 
 import { useAppSelector, useAppDispatch } from '@Home/lib/hooks/redux'
 import { Step } from '@Components'
@@ -8,7 +9,7 @@ import { LenderSignup } from './LenderSignup'
 import { CreateAdminUser } from './CreateAdminUser'
 import { AccountVerification } from './AccountVerification'
 import { FinishingUp } from './FinishingUp'
-import { LoginPage } from '../LoginPage'
+import { SetupLogin } from './SetupLogin'
 
 import { ReactComponent as Home } from '@Images/home_pillars.svg'
 import { ReactComponent as Man } from '@Images/man.svg'
@@ -52,7 +53,7 @@ const LenderSetupComponents = [
       logo: Arrow,
       text: 'Sign into Account',
     },
-    component: LoginPage,
+    component: SetupLogin,
   },
 ]
 
@@ -60,6 +61,11 @@ export const LenderSetup = () => {
   const currentStep = useAppSelector(state => state.lenderSetup.currentStep)
   const dispatch = useAppDispatch()
   const dispatchedUpdateStep = () => dispatch(updateCurrentStep())
+  const user = useLoaderData()
+
+  if (isPlainObject(user) && has(user, 'name')) {
+    return <Navigate to="/dashboard" />
+  }
 
   return (
     <div className={styles.LenderSetup}>

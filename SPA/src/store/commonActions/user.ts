@@ -7,9 +7,9 @@ export const enum UsersAction {
 }
 
 export const loginAction = (data: {
-  email: string
-  password: string
-  remember: boolean
+  email?: string
+  password?: string
+  accountID?: string
 }) => {
   return (dispatch: AppDispatch) => {
     dispatch({

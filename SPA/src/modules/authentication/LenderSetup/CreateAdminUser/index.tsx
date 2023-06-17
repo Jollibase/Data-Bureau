@@ -71,6 +71,8 @@ export const CreateAdminUser = ({
       updateStep()
     }
   }, [statusCode])
+  const error = statusCode > 399
+  console.log(error)
 
   return (
     <div className={ClassNames(styles.CreateAdminUser, classname)}>
@@ -156,9 +158,9 @@ export const CreateAdminUser = ({
               logo={<BtnArrowRight fill="white" />}
               primary
               classname="form__btn"
-              disabled={isSubmitting}
+              disabled={isSubmitting && !error}
               onclick={handleSubmit}
-              loading={isSubmitting}
+              loading={isSubmitting && !error}
             />
           </form>
         )}

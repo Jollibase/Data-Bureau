@@ -36,8 +36,11 @@ class ActivateUserView(APIView):
             user.is_active = True
             user.save()
             ws_message["data"]["verified"] = True
-        async_to_sync(channel_layer.group_send)(user.id, ws_message)
-        return Response({"message": "Activation"})
+        channel_name = f"channel-{user.id}"
+        async_to_sync(channel_layer.group_send)(channel_name, ws_message)
+        return Response(
+            {"message": "Activation Done"},
+        )
 
 
 class ChangePasswordView(APIView):
