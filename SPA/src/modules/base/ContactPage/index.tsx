@@ -8,6 +8,9 @@ import { ReactComponent as BtnArrowRight } from '@Images/btn_arrow_right.svg'
 import style from './ContactPage.styl'
 
 export const ContactPage = () => {
+  const onSubmit = () => {
+    return
+  }
   return (
     <div className={style.ContactPage}>
       <Menu classname="contact_page__menu" showButton />
@@ -19,7 +22,7 @@ export const ContactPage = () => {
             <p>Contact us regarding any concerns or inquiries.</p>
           </div>
           <Formik
-            onSubmit={() => null}
+            onSubmit={onSubmit}
             initialValues={{
               firstname: '',
               lastName: '',

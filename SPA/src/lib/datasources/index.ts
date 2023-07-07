@@ -25,7 +25,7 @@ export class BaseDatasource<Result> implements BaseDatasourceType {
   onSuccess: (response: Result) => void
   onFailure: (error: Error) => void
 
-  constructor(onSuccess, onFailure) {
+  constructor(onSuccess: VoidFunction, onFailure: VoidFunction) {
     this.onSuccess = onSuccess
     this.onFailure = onFailure
   }
@@ -58,7 +58,7 @@ export class BaseBackgroundDatasource<Result> extends BaseDatasource<Result> {
     if (!data || TASK_STATUSES_FAILURE.includes(data.status)) {
       this.onFailure(new Error('Internal Server Error'))
     } else if (TASK_STATUSES_SUCCESS.includes(data.status)) {
-      this.onSuccess(data.result)
+      this.onSuccess(data.result!)
     } else {
       taskDone = false
       this.scheduleNextTask()
@@ -95,7 +95,7 @@ export class BaseBackgroundDatasource<Result> extends BaseDatasource<Result> {
     this.scheduleNextTask()
   }
 
-  loadBackground(input, init) {
+  loadBackground(input: any, init: any) {
     this._fetch(input, init)!
       .then(this.onLoadBackgroundSuccess)
       .catch(this.onFetchFailure)

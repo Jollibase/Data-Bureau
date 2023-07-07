@@ -64,7 +64,7 @@ export const LenderSetup = () => {
   const user = useLoaderData()
 
   if (isPlainObject(user) && has(user, 'name')) {
-    return <Navigate to="/dashboard" />
+    return <Navigate to="/dashboards" />
   }
 
   return (

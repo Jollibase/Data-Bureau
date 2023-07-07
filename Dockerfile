@@ -57,6 +57,8 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 # quicker install as runtime deps are already installed
 RUN poetry install
 
+WORKDIR /app
+
 COPY ./*.sh ./
 RUN sed -i 's/\r$//g' ./*.sh
 RUN chmod +x ./*.sh
@@ -64,7 +66,6 @@ RUN chmod +x ./*.sh
 RUN mkdir /app
 RUN mkdir /app/staticfiles
 RUN mkdir /app/mediafiles
-WORKDIR /app
 
 # copy project code
 COPY . .

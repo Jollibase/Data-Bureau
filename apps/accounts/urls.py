@@ -8,6 +8,7 @@ urlpatterns = [
         views.ActivateUserView.as_view(),
         name="activate",
     ),
+    path("me/", views.UserProfileAPIView.as_view(), name="user_profile"),
     path(
         "change_password/",
         views.ChangePasswordView.as_view(),

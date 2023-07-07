@@ -7,7 +7,6 @@
     justify-content center
     text-align center
     border-radius 7px
-    border 1px solid $primary_normal 
     background $primary_normal
     font-size 16px
     color $color_white
@@ -40,7 +39,6 @@
         border 1px solid $primary_normal_active
 
 :local(.Secondary)
-    border 1px solid $sec_normal 
     background $sec_normal
     &.inverse
         color $sec_normal
@@ -55,3 +53,18 @@
     &:active
         background $sec_normal_active
         border 1px solid $sec_normal_active
+
+
+:local(.ExportButton)
+    background transparent
+    svg
+        padding-left 0px
+        margin-left 0px
+    &.disabled
+        background transparent
+        border none
+        &:hover
+            background transparent
+            border none
+        svg 
+            fill #ccc

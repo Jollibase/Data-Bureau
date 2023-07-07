@@ -41,22 +41,22 @@ export const ThankYou = () => {
             <Button
               text={<span>Tweet</span>}
               onclick={() => null}
-              logo={Twitter}
+              logo={<Twitter />}
             />
             <Button
               text={<span>Share</span>}
               onclick={() => null}
-              logo={Facebook}
+              logo={<Facebook />}
             />
             <Button
               text={<span>Email</span>}
               onclick={() => null}
-              logo={Mail}
+              logo={<Mail />}
             />
             <Button
               text={<span>Share</span>}
               onclick={() => null}
-              logo={Linkedin}
+              logo={<Linkedin />}
             />
           </div>
         </div>

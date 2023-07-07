@@ -17,13 +17,14 @@ YupPassword(Yup)
 
 interface CreateAdminUserProps extends StepComponentsExtraProps {}
 
-const initialCreateAdminFormValues = {
+const initialFormValues = {
   firstName: '',
   lastName: '',
   phone: '',
   email: '',
   password: '',
   password2: '',
+  username: '',
 }
 const INPUT_PLACEHOLDER = 'xxxx-xxxx-xxxx'
 
@@ -55,14 +56,16 @@ export const CreateAdminUser = ({
     state => state.lenderSetup,
   )
   const dispatch = useAppDispatch()
-  const dispatchedCreateAdminUser = values => dispatch(createAdminUser(values))
+  const dispatchedCreateAdminUser = (values: typeof initialFormValues) =>
+    dispatch(createAdminUser(values))
 
-  const onSubmit = (values: typeof initialCreateAdminFormValues) => {
-    delete values['password2']
+  const onSubmit = (
+    values: typeof initialFormValues & { username: string },
+  ) => {
     dispatchedCreateAdminUser({
       ...values,
-      username: values.firstName,
-      phone: `+234${values.phone.slice(1)}`,
+      username: `${values.firstName} ${values.lastName}`,
+      phone: `+234${values.phone?.slice(1)}`,
     })
   }
 
@@ -72,7 +75,6 @@ export const CreateAdminUser = ({
     }
   }, [statusCode])
   const error = statusCode > 399
-  console.log(error)
 
   return (
     <div className={ClassNames(styles.CreateAdminUser, classname)}>
@@ -84,7 +86,7 @@ export const CreateAdminUser = ({
         </p>
       </div>
       <Formik
-        initialValues={initialCreateAdminFormValues}
+        initialValues={initialFormValues}
         onSubmit={onSubmit}
         validationSchema={validateSchema}>
         {({ handleSubmit, isSubmitting, getFieldProps }) => (

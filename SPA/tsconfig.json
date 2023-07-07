@@ -4,8 +4,9 @@
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "allowJs": false,
+    "strict": true,
     "target": "ES5"
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

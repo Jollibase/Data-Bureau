@@ -6,7 +6,7 @@ from .models import EmailWaitList, Lender, User, UserProfile
 
 class UserSerializer(serializers.ModelSerializer):
     is_lender_admin = serializers.SerializerMethodField()
-    password = serializers.CharField(required=False)
+    password = serializers.CharField(required=False, write_only=True)
 
     class Meta:
         model = User
@@ -20,7 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
             "is_active",
             "is_lender_admin",
         )
-        extra_kwargs = {"password": {"write_only": True}}
 
     def get_is_lender_admin(self, instance):
         return instance.groups.filter(name="Lender's Admin").exists()
@@ -29,8 +28,9 @@ class UserSerializer(serializers.ModelSerializer):
         # If there are no passwords, create user with .create
         lender = self.context.get("company", None)
         if validated_data.get("password"):
-            return super().create(validated_data)
-        user = User.objects.create(**validated_data)
+            user = super().create(validated_data)
+        else:
+            user = User.objects.create(**validated_data)
         UserProfile.objects.create(role=User.LENDER, company=lender, user=user)
         return user
 
@@ -41,6 +41,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = "__all__"
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        user = representation.pop("user")
+        representation.update(user)
+        return representation
 
 
 class LoginSerializer(serializers.Serializer):

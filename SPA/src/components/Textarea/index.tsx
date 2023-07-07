@@ -10,7 +10,7 @@ interface TextareaProps {
   onChange?: (e: React.ChangeEvent<any>) => void
   classname?: string
   onBlur?: (e: React.FocusEvent<any>) => void
-  name?: string
+  name: string
   label?: string
   containerClassName?: string
   rows?: number

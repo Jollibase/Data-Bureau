@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { API } from '@Home/lib/api'
 import { camelize, snakify } from '@Home/lib/utils'
 import { AppDispatch, RootState } from '@Home/store'
@@ -19,13 +20,15 @@ export const createLenderAccount = createAction<{ [key: string]: string }>(
 )
 
 export const createAdminUser =
-  values => (dispatch: AppDispatch, getState: () => RootState) => {
+  (values: { [key: string]: string }) =>
+  (dispatch: AppDispatch, getState: () => RootState) => {
     dispatch({
       type: LenderSetupActions.CREATE_ADMIN_USER_START,
       payload: {
         statusCode: 0,
       },
     })
+    delete values['password2']
 
     const { lenderAccount } = getState().lenderSetup
     const data = snakify({

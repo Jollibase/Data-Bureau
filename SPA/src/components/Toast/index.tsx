@@ -6,7 +6,7 @@ import style from './Toast.styl'
 import { useEffect, useState } from 'react'
 
 interface ToastProps {
-  message: string
+  message: string | undefined
   level: 'alert' | 'success' | 'error'
 }
 

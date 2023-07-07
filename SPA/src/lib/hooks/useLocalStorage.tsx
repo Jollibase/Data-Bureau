@@ -4,7 +4,7 @@ export const useLocalStorage = () => {
       localStorage.setItem(name, JSON.stringify(data))
     }
     return {
-      results: data || JSON.parse(localStorage.getItem(name)),
+      results: data || JSON.parse(localStorage.getItem(name) as string),
     }
   }
 }

@@ -7,7 +7,7 @@ import type { loginFormData } from './d'
 import { Button } from '@Home/components'
 
 interface InitialUserFormProps {
-  handleChange?: (key: keyof loginFormData, value: string) => void
+  handleChange: (key: keyof loginFormData, value: string) => void
   updateStep: (value: number | ((e: number) => number)) => void
 }
 
@@ -37,7 +37,7 @@ export const InitialUserForm = ({
   updateStep,
 }: InitialUserFormProps) => {
   const [checkboxFormState, setCheckboxFormState] = useState(initialValues)
-  const onChangeCheckBox = (key: 'lender' | 'user') => {
+  const onChangeCheckBox = (key: string) => {
     setCheckboxFormState(prev => ({
       ...prev,
       lender: false,
@@ -62,20 +62,20 @@ export const InitialUserForm = ({
   return (
     <>
       <div className="user_login__content__form__checkpoint">
-        <form>
+        <form onSubmit={e => e.preventDefault()}>
           {data.map(item => (
             <div
               key={item.key}
               className={ClassNames(
                 'user_login__content__form__checkpoint__checkbox',
-                { selected: checkboxFormState[item.key] },
+                { selected: checkboxFormState[item.key as 'lender' | 'user'] },
               )}
               onClick={() => onChangeCheckBox(item.key as 'lender' | 'user')}>
               <input
                 type="checkbox"
                 readOnly
                 name="user"
-                checked={checkboxFormState[item.key]}
+                checked={checkboxFormState[item.key as 'lender' | 'user']}
               />
               <div className="title">{item.title}</div>
               <p>{item.description}</p>
@@ -94,7 +94,7 @@ export const InitialUserForm = ({
                   ? 'username@example.com'
                   : 'company-alias'
               }
-              type="text"
+              type={checkboxFormState.lender ? 'email' : 'text'} // Validate email
               value={checkboxFormState.data}
               onChange={e =>
                 setCheckboxFormState(prev => ({
@@ -102,6 +102,7 @@ export const InitialUserForm = ({
                   data: e.target.value,
                 }))
               }
+              name="email"
             />
           </div>
           <Button onclick={onSubmit} text="Next" />

@@ -20,15 +20,13 @@ export const enum StorageKeys {
 
 AuthenticatedAPI.interceptors.request.use((config: any) => {
   const accessToken = JSON.parse(
-    localStorage.getItem(StorageKeys.ACCESS_TOKEN_KEY),
+    localStorage.getItem(StorageKeys.ACCESS_TOKEN_KEY) as string,
   )
-  const newConfig = {
+  return {
     ...config,
     headers: {
       ...config.headers,
       Authorization: accessToken ? `Bearer ${accessToken}` : null,
     },
   }
-
-  return newConfig
 })

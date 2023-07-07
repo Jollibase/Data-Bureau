@@ -1,9 +1,20 @@
 import { UsersAction } from './user'
 
-export interface LoginActionType {
-  type: UsersAction.LOGIN
+export interface User {
+  id: number
+  username: string
+  email: string
+  password: string
+  firstName: string
+  lastName: string
+  isActive: boolean
+  company: number
+  isLenderAdmin: string
+}
+
+export interface LoginFailActionType {
+  type: UsersAction.LOGIN_FAIL
   payload: {
-    isLoggedIn: boolean
     statusCode: number
     errorMessage: string
   }

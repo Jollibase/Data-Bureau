@@ -1,14 +1,16 @@
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import views, generics
+from rest_framework.permissions import IsAuthenticated
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
-from .serializers import EmailWaitListSerializer
+from .serializers import EmailWaitListSerializer, UserProfileSerializer
+from .models import UserProfile
 
 User = get_user_model()
 
@@ -21,7 +23,7 @@ class TokenGenerator(PasswordResetTokenGenerator):
 account_activation_token = TokenGenerator()
 
 
-class ActivateUserView(APIView):
+class ActivateUserView(views.APIView):
     def get(self, request, uidb64, token):
         channel_layer = get_channel_layer()
         ws_message = {"type": "verify_user", "data": {"verified": False}}
@@ -43,12 +45,12 @@ class ActivateUserView(APIView):
         )
 
 
-class ChangePasswordView(APIView):
+class ChangePasswordView(views.APIView):
     def get(self, request):
         return Response("Good!")
 
 
-class EmailWaitListView(APIView):
+class EmailWaitListView(views.APIView):
     serializer_class = EmailWaitListSerializer
 
     def post(self, request):
@@ -57,3 +59,11 @@ class EmailWaitListView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+
+class UserProfileAPIView(generics.RetrieveAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return UserProfile.objects.get(user=self.request.user)

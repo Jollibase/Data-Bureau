@@ -1,0 +1,114 @@
+@import "@Assets/global_style"
+
+:local(.CustomDashboard)
+    display flex
+    width 100%
+    padding 10px
+    .custom-dash
+        width 100%
+        display flex
+        flex-direction column
+        .headers
+            display flex
+            align-items center
+            justify-content space-between
+            margin-bottom 18px
+            height 46px
+            .header-text
+                display inline-flex
+                .dash-name
+                    display flex
+                    align-content center
+                    padding-left 15px
+                    font-size 16px
+                    svg
+                        padding-right 5px
+                .title
+                    color $primary_normal
+                    font-size 16px
+                .dash-autosave
+                    font-size 12px
+                    display inline-flex
+                    align-items center
+                    padding-left 20px
+            .header-btn
+                display inline-flex
+                .btns
+                    padding 10px 12px
+                    font-size 14px
+                    border-radius 4px
+                    svg
+                        width 30px
+                        height 20px
+                        padding 0
+                    &.date
+                        border 1px solid $ash
+                        color $light_black
+                        margin-left 10px
+                    
+                    &.export
+                        margin-left 10px
+
+                    &.add
+                        color $primary_dark
+                        border 1px solid $primary_dark
+                        svg
+                            fill $primary_dark
+                            height 24px
+                        &:hover
+                            color $color_white
+                            background $primary_dark
+                            svg
+                                fill $color_white
+
+        .tabs
+            background $ashh_grey
+            padding 8px 12px
+            .add-tab
+                font-size 14px
+                color $pale_black
+                cursor pointer
+                font-weight: 500
+                width 100px
+                display inline-flex
+                align-items center
+                svg
+                    margin-right 10px
+
+        .body
+            height 100%
+            overflow-y auto
+        
+        .add-widget-container
+            display flex
+            height 100%
+            align-items center
+            justify-content center
+            .content  
+                display flex
+                max-width 465px
+                &-right
+                    h4
+                        color $dary_grey
+                    p
+                        color #595959cc
+                        rfs-font-size(14px)
+                        line-height 20px
+                    .add-btn
+                        margin-top 15px
+                        width 145px
+                        padding 10px
+                        font-size 14px
+                        color $primary_dark
+                        border 1px solid $primary_dark
+                        border-radius 4px
+                        svg
+                            fill $primary_dark
+                            height 24px
+                            padding 0
+                        &:hover
+                            color $color_white
+                            background $primary_dark
+                            svg
+                                fill $color_white
+                    

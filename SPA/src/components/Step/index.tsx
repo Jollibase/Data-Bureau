@@ -11,7 +11,7 @@ interface StepProps {
       logo: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
       text: string
     }
-    component: (props) => React.ReactElement
+    component: (props: any) => JSX.Element
   }[]
   currentStep: number
   updateStep: VoidFunction
@@ -64,9 +64,9 @@ const StepTitle = ({
 const render = (
   updateStep: () => void,
   classname: string,
-  child: (props) => React.ReactElement,
+  child: ({ ...props }) => React.ReactElement,
   key: string,
-  isCurrent,
+  isCurrent: boolean,
 ) => {
   if (!isCurrent) {
     return null
