@@ -1,38 +1,36 @@
 import { Link, Navigate } from 'react-router-dom'
-import { useState } from 'react'
 import type { loginFormData } from './d'
 
 import { loginAction } from '@Home/store/commonActions/user'
 import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
-import { Button } from '@Home/components'
+import { Button, Toast } from '@Home/components'
 
 import styles from './UserLogin.styl'
 
 interface VerfiedEmailLogInProps {
   values: { [key: string]: string }
-  handleChange?: (key: keyof loginFormData, value: string) => void
+  handleChange: (key: keyof loginFormData, value: string) => void
 }
 
 export const VerfiedEmailLogIn = ({
   values,
   handleChange,
 }: VerfiedEmailLogInProps) => {
-  const { isLoggedIn, errorMessage, statusCode } = useAppSelector(
+  const { isLoggedIn, errorMessage, statusCode, loading } = useAppSelector(
     state => state.user,
   )
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const onSubmit = () => {
-    setIsSubmitting(true)
     dispatch(loginAction(values))
   }
   const noResultOnLoading = !errorMessage || !statusCode
   if (isLoggedIn) {
-    return <Navigate to="/dashboard" />
+    return <Navigate to="/dashboards" />
   }
 
   return (
     <div className={styles.VerfiedEmailLogIn}>
+      <Toast message={errorMessage} level="error" />
       <div className="verified_email__alias">
         {values.accountId ? 'Account ID (Company Alias)' : 'Email'}: &nbsp;
         {values.accountId || values.email}
@@ -65,7 +63,8 @@ export const VerfiedEmailLogIn = ({
         <Button
           onclick={onSubmit}
           text="Sign in"
-          loading={isSubmitting && noResultOnLoading}
+          loading={loading && noResultOnLoading}
+          disabled={loading && noResultOnLoading}
         />
       </div>
       <div className="verified_email__sign_another">

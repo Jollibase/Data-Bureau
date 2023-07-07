@@ -18,7 +18,7 @@ const stepForm = (
   step: number,
   values: { [key: string]: string },
   handleChange: (key: keyof loginFormData, value: string) => void,
-  setStep: (value: number) => void,
+  setStep: React.Dispatch<React.SetStateAction<number>>,
 ) => {
   switch (step) {
     case 1:
@@ -43,8 +43,8 @@ export const UserLogin = () => {
     setValues(prev => ({ ...prev, [key]: value }))
   }
 
-  if (isPlainObject(user) && has(user, 'name')) {
-    return <Navigate to="/dashboard" />
+  if (isPlainObject(user) && has(user, 'id')) {
+    return <Navigate to="/dashboards" />
   }
 
   return (

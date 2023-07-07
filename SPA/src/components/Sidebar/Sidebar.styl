@@ -1,0 +1,132 @@
+@import "@Assets/global_style"
+
+:local(.Sidebar)
+    .sidebar
+        display flex
+        height 100vh
+        overflow-y auto
+        overflow-x hidden
+        flex-direction column
+        background $color_white 
+        max-width 260px
+        width 260px
+        transition 0.5s ease-out width
+        position relative
+        padding 0 10px
+        &.collapsed
+            width 65px
+            li a > div
+                    opacity 0
+                    visibility hidden
+                    width 0
+            .sidebar__menu
+                ul 
+                    padding 1px
+            .sidebar__extras
+                display none
+            .sidebar__contact, .sidebar__logout
+                position fixed
+                .btn
+                    background $color_white
+                    padding 0
+                    svg
+                        fill #595959
+                        margin-left 0
+            .sidebar__contact .btn span, .sidebar__logout .btn span
+                display none
+        &__minimize_icon
+            position absolute
+            top 35%
+            z-index 9999
+            right 0
+            svg
+                cursor pointer
+                z-index 9999
+        &__menu
+            padding 10px
+            ul 
+                padding 1px
+                font-size 15px
+                li
+                    margin-bottom 28px
+                    a 
+                        color $dary_grey
+                        display flex
+                        align-items center
+                        div 
+                            visibility visible
+                            width 100%
+                            white-space nowrap
+                            transition 0.5s ease-in-out opacity, 0.5s ease-in-out visibility
+                        svg 
+                            padding-right 5px
+                            fill $dary_grey
+                    &.active,  &:hover
+                        a   
+                            color $primary_normal
+                        svg 
+                            fill $primary_normal
+        &__extras
+            background url('@Images/pro_banner.svg') no-repeat center
+            min-height 288px
+            max-height 100%
+            width 100%
+            margin-top 20px
+            margin-bottom 60px
+            visibility visible
+            transition 0.5s ease-in-out all
+            position relative
+            h6
+                position absolute
+                padding 0 20px
+                bottom 75px
+                font-size 17px
+                color $color_white
+                line-height 23px
+            p
+                position absolute
+                padding 0 20px
+                bottom 45px
+                color $color_white
+                font-size 14px
+
+        &__contact
+            margin-bottom 20px
+            padding 0 10px
+            visibility visible
+            white-space nowrap
+            transition 0.5s ease-in-out all
+            position sticky
+            bottom 130px
+            div[role="button"]
+                background $sky_grey
+                border-radius 2px
+                border none
+                justify-content stretch
+                &:hover
+                    background $sky_grey
+                span 
+                    order 2
+                    padding-left 10px
+                svg
+                    padding-left 0
+                    fill $color_white
+
+        &__logout
+            padding 0 10px
+            visibility visible
+            white-space nowrap
+            transition 0.5s ease-in-out all
+            position sticky
+            bottom 54px
+            div[role="button"]
+                color $carnelian_red
+                background $color_white
+                border none
+                justify-content left
+                span 
+                    order 2
+                    padding-left 10px
+                svg
+                    padding-left 0
+               

@@ -44,6 +44,7 @@ DJANGO_APPS = [
 LOCAL_APPS = [
     "apps.accounts",
     "apps.client",
+    "apps.dashboard",
 ]
 
 THIRD_PARTY_APPS = [
@@ -59,7 +60,7 @@ THIRD_PARTY_APPS = [
     "daphne",
 ]
 
-INSTALLED_APPS = THIRD_PARTY_APPS+ DJANGO_APPS + LOCAL_APPS
+INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

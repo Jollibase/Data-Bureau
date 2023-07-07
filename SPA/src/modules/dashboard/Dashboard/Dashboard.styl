@@ -1,0 +1,93 @@
+@import "@Assets/global_style"
+
+:local(.Dashboard)
+    display flex
+    padding 10px
+    width 100%
+    .dash
+        width 100%
+        &__header
+            display flex
+            justify-content space-between
+            align-items center
+            margin-bottom 18px
+            height 46px
+            .title
+                font-size 16px
+                color $primary_normal
+            .btns
+                display flex
+                justify-content space-between
+                width 360px
+                .create-btn, .delete-btn
+                    padding 11px 10px
+                    width 170px
+                    font-size 14px
+                    border-radius 3px
+                .delete-btn:not(.disabled)
+                    background $bloody_red
+        .grid
+            padding-right 30px
+            .ag-root-wrapper
+                border 1px solid $ashh_grey
+                .ag-header
+                    background transparent
+                    border-bottom 1px solid $ashh_grey
+            .ag-ltr .ag-cell, .ag-header-cell
+                border-right 1px solid $ashh_grey
+            .ag-row-odd
+                background $ashh_grey
+            .ag-row
+                border-bottom 1px solid $ashh_grey
+            .ag-row-hover
+                background-color  #ECF0F1 
+            .ag-cell-focus
+                border none !important
+
+:local(.DeleteModal)
+    .modal-children
+        width 300px
+        color $special_grey
+    .modal-question
+        rfs-font-size(18px)
+        text-align center
+    .modal-btns
+        display flex
+        justify-content space-between
+        margin-top 30px
+        div[role="button"]
+            width 110px
+            &.delete-btn
+                background $bloody_red
+            
+
+:local(.Onboarding)
+    display flex
+    width 100%
+    justify-content center
+    margin-top 40px
+    .welcome
+        display flex
+        flex-direction column
+        width 800px
+        align-items center
+        &__banner
+            background $low_green
+            text-align center
+            width 100%
+        &__text
+            color $dary_grey
+            font-weight 600
+            rfs-font-size(30px)
+            margin 30px 0
+        &__desc
+            text-align center
+            max-width 600px
+            color $sky_grey
+        &__btn
+            margin-top 30px
+            border-radius 3px
+            padding 15px 34px
+
+
+

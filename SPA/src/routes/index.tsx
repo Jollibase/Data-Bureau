@@ -6,8 +6,10 @@ import { LenderSetup } from '@Modules/authentication/LenderSetup'
 import { ContactPage } from '@Modules/base/ContactPage'
 import { AboutPage } from '@Modules/base/AboutPage'
 import { ThankYou } from '@Modules/base/ThankYou'
-import { AuthDashboardLayout } from '@Modules/dashboard/AuthDashboardLayout/AuthDashboardLayout'
+import AuthDashboardLayout from '@Modules/dashboard/AuthDashboardLayout/AuthDashboardLayout'
 import { UserLogin } from '@Modules/authentication/UserLogin'
+import { Dashboard } from '@Home/modules/dashboard/Dashboard'
+import { CustomDashboard } from '@Home/modules/dashboard/CustomDashboard'
 
 import { getUser } from './loader'
 
@@ -47,9 +49,19 @@ const routes = [
     },
   },
   {
-    path: '/dashboard',
+    path: '/dashboards',
     element: <AuthDashboardLayout />,
     loader: getUser,
+    children: [
+      {
+        path: '/dashboards/',
+        element: <Dashboard />,
+      },
+      {
+        path: '/dashboards/:id',
+        element: <CustomDashboard />,
+      },
+    ],
   },
 ]
 

@@ -28,15 +28,13 @@ export const SetupLogin = ({ classname }: SetupLoginProps) => {
     state => state.user,
   )
 
-  const login = value => dispatch(loginAction(value))
-
   const handleSubmit = (values: typeof initialValues) => {
-    login(values)
+    dispatch(loginAction(values))
   }
 
   const noResultOnLoading = !errorMessage || !statusCode
   if (isLoggedIn) {
-    return <Navigate to="/dashboard" />
+    return <Navigate to="/dashboards" />
   }
 
   return (

@@ -3,7 +3,9 @@ import { API, StorageKeys } from '@Home/lib/api'
 import { AppDispatch } from '..'
 
 export const enum UsersAction {
-  LOGIN = 'UsersAction/LOGIN',
+  LOGIN_START = 'UsersAction/LOGIN_START',
+  LOGIN_SUCCESS = 'UsersAction/LOGIN_SUCCESS',
+  LOGIN_FAIL = 'UsersAction/LOGIN_FAIL',
 }
 
 export const loginAction = (data: {
@@ -13,12 +15,7 @@ export const loginAction = (data: {
 }) => {
   return (dispatch: AppDispatch) => {
     dispatch({
-      type: UsersAction.LOGIN,
-      payload: {
-        statusCode: 0,
-        isLoggedIn: false,
-        errorMessage: '',
-      },
+      type: UsersAction.LOGIN_START,
     })
     const jsonData = JSON.stringify(data)
     API.post('client/login/', jsonData)
@@ -33,17 +30,15 @@ export const loginAction = (data: {
         )
 
         dispatch({
-          type: UsersAction.LOGIN,
+          type: UsersAction.LOGIN_SUCCESS,
           payload: {
             statusCode: response.status,
-            isLoggedIn: true,
-            errorMessage: '',
           },
         })
       })
       .catch(err => {
         dispatch({
-          type: UsersAction.LOGIN,
+          type: UsersAction.LOGIN_FAIL,
           payload: {
             statusCode: err.response.status,
             isLoggedIn: false,

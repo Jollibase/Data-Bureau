@@ -5,7 +5,7 @@ interface PortalProps {
   children: React.ReactNode
 }
 
-const DEFAULT_NODE = document.getElementById('portal')
+const DEFAULT_NODE = document.getElementById('portal') as Element
 
 export const Portal = ({ node, children }: PortalProps) => {
   return createPortal(children, node || DEFAULT_NODE)

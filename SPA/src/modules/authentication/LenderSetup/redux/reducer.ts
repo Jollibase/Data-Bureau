@@ -23,7 +23,7 @@ export const initialLenderAccountFormValues = {
 interface LenderSetupState {
   currentStep: number
   lenderAccount?: typeof initialLenderAccountFormValues
-  statusCode?: number
+  statusCode: number
   lenderDetails: LenderDetails | null
 }
 

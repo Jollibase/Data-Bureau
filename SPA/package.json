@@ -4,12 +4,13 @@
   "homepage": "http://localhost/",
   "private": true,
   "dependencies": {
-    "@mui/material": "5.10.15",
     "@reduxjs/toolkit": "1.9.3",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
     "@types/jest": "29.4.0",
+    "ag-grid-community": "30.0.2",
+    "ag-grid-react": "30.0.2",
     "axios": "1.4.0",
     "classnames": "2.3.2",
     "customize-cra": "1.0.0",
@@ -20,7 +21,7 @@
     "react-redux": "8.0.5",
     "react-router-dom": "6.9.0",
     "react-scripts": "5.0.0",
-    "react-use-websocket": "^3.0.0",
+    "react-use-websocket": "3.0.0",
     "redux-persist": "6.0.0",
     "redux-thunk": "2.4.2",
     "rfs": "10.0.0",
@@ -46,6 +47,7 @@
       "react-app/jest"
     ],
     "rules": {
+      "react-hooks/exhaustive-deps": "off",
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "error",
       "space-in-parens": [

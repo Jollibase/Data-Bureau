@@ -34,7 +34,8 @@ const validateSchema = Yup.object({
 
 export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
   const dispatch = useAppDispatch()
-  const createLenderSetup = values => dispatch(createLenderAccount(values))
+  const createLenderSetup = (values: typeof initialLenderAccountFormValues) =>
+    dispatch(createLenderAccount(values))
 
   const onSubmit = (values: typeof initialLenderAccountFormValues) => {
     createLenderSetup({ ...values, phone: `+234${values.phone.slice(1)}` })
@@ -128,7 +129,6 @@ export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
                 ]}
                 containerClassName="input__group__container"
                 label="Business Type"
-                name="businessType"
                 {...getFieldProps('businessType')}
               />
             </div>
@@ -139,7 +139,6 @@ export const LenderSignup = ({ classname, updateStep }: LenderSignupProps) => {
                   ...INDUSTRY_OPTIONS,
                 ]}
                 containerClassName="input__group__container"
-                name="industry"
                 label="Business Industry"
                 {...getFieldProps('industry')}
               />
