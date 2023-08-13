@@ -35,4 +35,63 @@
         display flex
     .authdashboard_sidebar
         height calc(100vh - 120px)
-            
+        
+:local(.LogoutModal)
+    background $color_white
+    z-index 999999
+    .modal-children
+        border-radius 3px
+        box-shadow 0px 0px 10px 0px rgba(0, 0, 0, 0.10)
+        width 450px
+        padding 30px
+        .logo
+            margin-bottom 15px
+            width 100%
+            text-align center
+            height 62px
+        .warning
+            color #174D2D
+            text-align center
+            font-size 13px
+            font-weight 600
+            line-height 18px
+        .profile
+            display flex
+            align-items center
+            justify-content center
+            margin-top 25px 
+            &_image
+                height 100%
+                padding 15px
+                border-radius 50%
+                background $primary_normal
+                margin-right 10px
+                color $color_white
+            &_details
+                div:first-of-type
+                    color rgba(89, 89, 89, 0.80)
+                    font-size 22px
+                    font-weight 500
+                div:nth-of-type(2)
+                    color rgba(89, 89, 89, 0.80)
+                    font-size 11px
+                    font-weight 400
+                    margin-top 6px
+        .logout_btn
+            border-radius 3px
+            font-size 14px
+            margin-top 40px
+        hr 
+            border-top 1px solid #C1C7D0
+            margin-top 25px
+        div.jollibase
+            text-align center
+            width 100%
+            margin 10px 0
+        p
+            color $tesh_blue
+            text-align center
+            font-size 12px
+            font-weight 400
+            line-height 14px
+            margin-top 15px

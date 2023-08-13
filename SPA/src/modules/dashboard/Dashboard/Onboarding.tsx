@@ -38,11 +38,13 @@ export const Onboarding = ({ setShouldShowOnboarding }: OnboardingProps) => {
           data visualizations, our dashboard empowers you to make informed
           decisions. Let's take a quick tour!
         </div>
-        <Button
-          classname="welcome__btn"
-          onclick={() => setRun(true)}
-          text="Let's get Started!"
-        />
+        {!run && (
+          <Button
+            classname="welcome__btn"
+            onclick={() => setRun(true)}
+            text="Let's get Started!"
+          />
+        )}
       </div>
       <Tour steps={steps} run={run} callback={handleJoyrideCallback} />
     </div>
