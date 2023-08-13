@@ -2,10 +2,12 @@ import { API, StorageKeys } from '@Home/lib/api'
 
 import { AppDispatch } from '..'
 
-export const enum UsersAction {
-  LOGIN_START = 'UsersAction/LOGIN_START',
-  LOGIN_SUCCESS = 'UsersAction/LOGIN_SUCCESS',
-  LOGIN_FAIL = 'UsersAction/LOGIN_FAIL',
+export const enum UserActions {
+  LOGIN_START = 'UserActions/LOGIN_START',
+  LOGIN_SUCCESS = 'UserActions/LOGIN_SUCCESS',
+  LOGIN_FAIL = 'UserActions/LOGIN_FAIL',
+  GET_USER = 'UserActions/GET_USER',
+  LOGOUT_USER = 'UserActions/LOGOUT_USER',
 }
 
 export const loginAction = (data: {
@@ -15,7 +17,7 @@ export const loginAction = (data: {
 }) => {
   return (dispatch: AppDispatch) => {
     dispatch({
-      type: UsersAction.LOGIN_START,
+      type: UserActions.LOGIN_START,
     })
     const jsonData = JSON.stringify(data)
     API.post('client/login/', jsonData)
@@ -30,7 +32,7 @@ export const loginAction = (data: {
         )
 
         dispatch({
-          type: UsersAction.LOGIN_SUCCESS,
+          type: UserActions.LOGIN_SUCCESS,
           payload: {
             statusCode: response.status,
           },
@@ -38,7 +40,7 @@ export const loginAction = (data: {
       })
       .catch(err => {
         dispatch({
-          type: UsersAction.LOGIN_FAIL,
+          type: UserActions.LOGIN_FAIL,
           payload: {
             statusCode: err.response.status,
             isLoggedIn: false,
@@ -48,5 +50,15 @@ export const loginAction = (data: {
           },
         })
       })
+  }
+}
+
+export const logoutAction = () => {
+  return (dispatch: AppDispatch) => {
+    dispatch({
+      type: UserActions.LOGOUT_USER,
+    })
+    localStorage.removeItem('JolliRefreshToken')
+    localStorage.removeItem('JolliAccessToken')
   }
 }

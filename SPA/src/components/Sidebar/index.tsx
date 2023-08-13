@@ -19,9 +19,15 @@ interface SidebarProps {
   }[]
   extras?: React.ReactNode
   className?: string
+  logout?: VoidFunction
 }
 
-export const Sidebar = ({ menuItems, className, extras }: SidebarProps) => {
+export const Sidebar = ({
+  menuItems,
+  className,
+  extras,
+  logout,
+}: SidebarProps) => {
   const [minimize, setMinimize] = useState<boolean>(false)
 
   const MinimizeIcon = minimize ? CaretCircleRight : CaretCircleLeft
@@ -38,7 +44,7 @@ export const Sidebar = ({ menuItems, className, extras }: SidebarProps) => {
             {menuItems?.map(item => {
               const Icon = item.icon
               return (
-                <li>
+                <li key={item.link + item.title}>
                   <Link to={item.link}>
                     <Icon />
                     <div>{item.title}</div>
@@ -60,14 +66,16 @@ export const Sidebar = ({ menuItems, className, extras }: SidebarProps) => {
             classname="btn"
           />
         </div>
-        <div className="sidebar__logout">
-          <Button
-            classname="btn"
-            logo={<LogOut />}
-            text="Logout"
-            onclick={() => null}
-          />
-        </div>
+        {logout && (
+          <div className="sidebar__logout">
+            <Button
+              classname="btn"
+              logo={<LogOut />}
+              text="Logout"
+              onclick={logout}
+            />
+          </div>
+        )}
       </div>
     </div>
   )
