@@ -11,6 +11,7 @@ export const enum DashboardActions {
   CREATE_DASHBOARD_START = 'DASHBOARD_ACTIONS/CREATE_DASHBOARD_START',
   CREATE_DASHBOARD_SUCCESS = 'DASHBOARD_ACTIONS/CREATE_DASHBOARD_SUCCESS',
   CREATE_DASHBOARD_FAIL = 'DASHBOARD_ACTIONS/CREATE_DASHBOARD_FAIL',
+  CLEAR_CREATE_DASHBOARD = 'DASHBOARD_ACTIONS/CLEAR_CREATE_DASHBOARD',
   GET_SINGLE_DASHBOARD_SUCCESS = 'DASHBOARD_ACTIONS/GET_SINGLE_DASHBOARD_SUCCESS',
   GET_SINGLE_DASHBOARD_FAIL = 'DASHBOARD_ACTIONS/GET_SINGLE_DASHBOARD_FAIL',
 }
@@ -110,8 +111,12 @@ export const getDashboard = (id: string) => (dispatch: AppDispatch) => {
     type: DashboardActions.CLEAR_STATUS_CODE,
   })
   dispatch({
+    type: DashboardActions.CLEAR_CREATE_DASHBOARD,
+  })
+  dispatch({
     type: DashboardActions.CREATE_DASHBOARD_START,
   })
+
   AuthenticatedAPI.get(`dashboard/${id}`)
     .then(response => {
       dispatch({

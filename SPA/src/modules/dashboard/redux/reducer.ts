@@ -3,10 +3,11 @@ import { createReducer } from '@reduxjs/toolkit'
 import { dashboardListProcessor } from '@Home/lib/processor/dashboardProcessor'
 import type { dashboard } from '@Home/lib/processor/dashboardProcessor'
 import type {
-  clearStatusCode,
-  createDashboard,
-  deleteDashboards,
-  getDashboardListDone,
+  clearStatusCodeActionType,
+  createDashboardActionType,
+  deleteDashboardsActionType,
+  getDashboardListDoneActionType,
+  getSingleDashboardActionType,
 } from './actionTypes'
 
 import { DashboardActions } from './actions'
@@ -26,9 +27,12 @@ interface dashboardInit {
   dashboards: {
     all: dashboard[]
     loading: boolean
-    new: dashboard | null
+    selectedDb: dashboard | null
   }
-  createLoading: boolean
+  createdDashboard: {
+    newDb: dashboard | null
+    createLoading: boolean
+  }
   statusCode: number
 }
 
@@ -36,9 +40,12 @@ const initialState: dashboardInit = {
   dashboards: {
     all: [],
     loading: false,
-    new: null,
+    selectedDb: null,
   },
-  createLoading: false,
+  createdDashboard: {
+    createLoading: false,
+    newDb: null,
+  },
   statusCode: 0,
 }
 
@@ -46,8 +53,9 @@ const dashboardReducer = createReducer(initialState, builder => {
   builder
     .addCase(
       DashboardActions.GET_DASHBOARD_LIST_DONE,
-      (state, action: getDashboardListDone) => {
+      (state, action: getDashboardListDoneActionType) => {
         state.dashboards.all = dashboardListProcessor(action.payload.dashboards)
+        state.dashboards.selectedDb = null
         state.dashboards.loading = false
       },
     )
@@ -56,26 +64,38 @@ const dashboardReducer = createReducer(initialState, builder => {
     })
     .addCase(
       DashboardActions.DELETE_DASHBOARD_SUCCESS,
-      (state, action: deleteDashboards) => {
+      (state, action: deleteDashboardsActionType) => {
         state.dashboards.all = state.dashboards.all.filter(
           item => !action.payload.ids.includes(item.id),
         )
       },
     )
     .addCase(DashboardActions.CREATE_DASHBOARD_START, (state, _) => {
-      state.createLoading = true
+      state.createdDashboard.createLoading = true
     })
     .addCase(
       DashboardActions.CREATE_DASHBOARD_SUCCESS,
-      (state, action: createDashboard) => {
-        state.createLoading = false
-        state.dashboards.new = action.payload.data
+      (state, action: createDashboardActionType) => {
+        state.createdDashboard.createLoading = false
+        state.createdDashboard.newDb = action.payload.data
       },
     )
     .addCase(
       DashboardActions.CLEAR_STATUS_CODE,
-      (state, _: clearStatusCode) => {
+      (state, _: clearStatusCodeActionType) => {
         state.statusCode = 0
+      },
+    )
+    .addCase(DashboardActions.CLEAR_CREATE_DASHBOARD, (state, _) => {
+      state.createdDashboard.newDb = null
+      state.createdDashboard.createLoading = false
+    })
+    .addCase(
+      DashboardActions.GET_SINGLE_DASHBOARD_SUCCESS,
+      (state, action: getSingleDashboardActionType) => {
+        state.dashboards.selectedDb = action.payload.data
+        state.statusCode = action.payload.statusCode
+        state.dashboards.loading = false
       },
     )
 })

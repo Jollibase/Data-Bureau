@@ -26,7 +26,7 @@ import { ReactComponent as Bell } from '@Images/bell.svg'
 import styles from './AuthDashboardLayout.styl'
 
 const sidebarMenu = [
-  { title: 'Dashboard', link: '', icon: Grid },
+  { title: 'Dashboard', link: '/dashboards', icon: Grid },
   { title: 'Credit Scores', link: '', icon: Credit },
   { title: 'Analytics', link: '', icon: Report },
   { title: 'Reports', link: '', icon: Graph },

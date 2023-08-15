@@ -20,13 +20,13 @@ export interface LenderDetails {
   phone: string
 }
 
-export interface getDashboardListDone {
+export interface getDashboardListDoneActionType {
   type: DashboardActions.GET_DASHBOARD_LIST_DONE
   payload: {
     dashboards: []
   }
 }
-export interface deleteDashboards {
+export interface deleteDashboardsActionType {
   type: DashboardActions.DELETE_DASHBOARD_SUCCESS
   payload: {
     statusCode: number
@@ -34,13 +34,21 @@ export interface deleteDashboards {
   }
 }
 
-export interface createDashboard {
+export interface createDashboardActionType {
   type: DashboardActions.CREATE_DASHBOARD_SUCCESS
   payload: {
     data: dashboard
   }
 }
 
-export interface clearStatusCode {
+export interface clearStatusCodeActionType {
   type: DashboardActions.CLEAR_STATUS_CODE
+}
+
+export interface getSingleDashboardActionType {
+  type: DashboardActions.GET_SINGLE_DASHBOARD_SUCCESS
+  payload: {
+    data: dashboard
+    statusCode: number
+  }
 }

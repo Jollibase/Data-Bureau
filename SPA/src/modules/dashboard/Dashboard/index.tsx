@@ -15,6 +15,7 @@ import {
 
 import styles from './Dashboard.styl'
 import { Onboarding } from './Onboarding'
+import { Placeholder } from '@Home/components/Placeholder'
 
 export const Dashboard = () => {
   const [selectedDashboards, setSelectedDashboards] = useState<string[]>([])
@@ -27,8 +28,8 @@ export const Dashboard = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const {
-    dashboards: { all: dashboardList, new: createdDashboard },
-    createLoading,
+    dashboards: { all: dashboardList, loading },
+    createdDashboard: { createLoading, newDb },
   } = useAppSelector(state => state.dashboard)
 
   useEffect(() => {
@@ -36,10 +37,10 @@ export const Dashboard = () => {
   }, [])
 
   useEffect(() => {
-    if (createdDashboard) {
-      navigate(`/dashboards/${createdDashboard?.id}`)
+    if (newDb) {
+      navigate(`/dashboards/${newDb?.id}`)
     }
-  }, [createdDashboard])
+  }, [newDb])
 
   const onCheckboxClick = (id: string) => {
     setSelectedDashboards(prevState => {
@@ -57,7 +58,7 @@ export const Dashboard = () => {
   const createNewDashboard = () => {
     dispatch(
       createDashboard({
-        name: 'new dashboard',
+        name: 'Untitled Dashboard',
       }),
     )
     setShowCreateModal(false)
@@ -120,8 +121,16 @@ export const Dashboard = () => {
         {shouldShowOnboarding && (
           <Onboarding setShouldShowOnboarding={setShouldShowOnboarding} />
         )}
-
-        {!shouldShowOnboarding && (
+        {!shouldShowOnboarding && loading && (
+          <div className="dash__loader_grid">
+            {Array(12)
+              .fill(0)
+              .map((_, ind) => (
+                <Placeholder key={ind} width="100%" height="32px" />
+              ))}
+          </div>
+        )}
+        {!shouldShowOnboarding && !loading && (
           <Grid
             ref={gridRef}
             className="grid"

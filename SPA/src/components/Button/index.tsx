@@ -1,8 +1,7 @@
+import ClassName from 'classnames'
 import { cloneElement } from 'react'
 
 import { ReactComponent as Loader } from '@Images/loading.svg'
-
-import ClassName from 'classnames'
 
 import styles from './Button.styl'
 
