@@ -1,0 +1,45 @@
+@import "@Assets/global_style"
+
+:local(.WidgetContainer)
+    display flex
+    border 1px solid $asher_grey
+    border-radius 8px
+    position relative
+    .widget
+        &__content
+            min-height 90px
+            width 100%
+            box-shadow none
+            .card__header
+                background $primary_normal
+                width 100%
+                height 36px
+                padding 10px 5px
+                border-top-left-radius 7px
+                border-top-right-radius 7px
+                color $color_white
+        &__settings
+            display flex
+            position absolute
+            bottom -14px
+            right 16px
+            width 144px
+            justify-content space-between
+            > div
+                height 24px
+                width 24px
+                border-radius 50%
+                display flex
+                justify-content center
+                align-items center
+                background green
+                cursor pointer
+                &.remove
+                    background $bloody_red
+                &.info
+                    background #1452F1
+                &.duplicate
+                    background #9747FF
+                &.edit
+                    background #9100A9
+

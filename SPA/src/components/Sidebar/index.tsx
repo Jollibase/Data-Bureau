@@ -1,6 +1,6 @@
 import ClassNames from 'classnames'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { Button } from '../Button'
 
@@ -29,6 +29,7 @@ export const Sidebar = ({
   logout,
 }: SidebarProps) => {
   const [minimize, setMinimize] = useState<boolean>(false)
+  const location = useLocation()
 
   const MinimizeIcon = minimize ? CaretCircleRight : CaretCircleLeft
 
@@ -44,7 +45,11 @@ export const Sidebar = ({
             {menuItems?.map(item => {
               const Icon = item.icon
               return (
-                <li key={item.link + item.title}>
+                <li
+                  key={item.link + item.title}
+                  className={ClassNames({
+                    active: item.link === location.pathname,
+                  })}>
                   <Link to={item.link}>
                     <Icon />
                     <div>{item.title}</div>

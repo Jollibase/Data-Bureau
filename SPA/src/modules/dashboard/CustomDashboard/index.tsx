@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 
 import { Button, ExportButton } from '@Home/components'
 import { useAppSelector, useAppDispatch } from '@Home/lib/hooks/redux'
+import { Placeholder } from '@Home/components/Placeholder'
 
 import { ReactComponent as Analytics } from '@Images/analytic.svg'
 import { ReactComponent as Add } from '@Images/add.svg'
@@ -19,14 +20,13 @@ export const CustomDashboard = () => {
   const dispatch = useAppDispatch()
   const { id } = useParams()
   const {
-    dashboards: { new: dashboard },
+    dashboards: { selectedDb: dashboard },
   } = useAppSelector(state => state.dashboard)
 
   useEffect(() => {
     dispatch(getDashboard(id as string))
   }, [])
 
-  console.log(dashboard)
   return (
     <div className={style.CustomDashboard}>
       <div className="custom-dash">
@@ -35,7 +35,11 @@ export const CustomDashboard = () => {
             <span className="title">All Dashboards </span>
             <span className="dash-name">
               | &nbsp; <Star />
-              Untitled
+              {dashboard ? (
+                dashboard?.name
+              ) : (
+                <Placeholder height="20px" width="100px" />
+              )}
             </span>
             <span className="dash-autosave">
               <CheckCircle />
