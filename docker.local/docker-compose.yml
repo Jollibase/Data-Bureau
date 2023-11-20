@@ -6,8 +6,8 @@ services:
     build: ./nginx
     container_name: nginx
     volumes:
-      - staticfiles:/app/staticfiles
-      - mediafiles:/app/mediafiles
+      - staticfiles:/app/data/staticfiles
+      - mediafiles:/app/data/mediafiles
       # - frontend:/var/www/frontend
     ports:
       - 5555:5555
@@ -23,18 +23,18 @@ services:
 
   web_backend:
     build: 
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: ./docker.local/Dockerfile.backend
     container_name: web_backend
-    command: ./start.sh
+    command: ./scripts/start.sh
     volumes:
-      - .:/app
-      - staticfiles:/app/staticfiles
-      - mediafiles:/app/mediafiles
+      - ..:/app
+      - staticfiles:/app/data/staticfiles
+      - mediafiles:/app/data/mediafiles
     ports:
       - 8000:8000
     env_file:
-      - ./.env
+      - ../.env
     environment:
       - REDIS_HOST=redis
       - DB_HOST=postgres
@@ -52,14 +52,13 @@ services:
 
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ../SPA
+      dockerfile: ../docker.local/Dockerfile.frontend
     container_name: web_frontend
     ports:
       - 3000:3000
     volumes:
-      - .:/app
-      # - /app/build:frontend
+      - ..:/app
     networks:
       - djangonetwork
 
@@ -81,25 +80,26 @@ services:
 
   redis:
     image: redis:7-alpine
-    command: --port ${REDIS_PORT}
+    command: --port 6379
+    container_name: redis
     ports:
-      - "${REDIS_PORT}:${REDIS_PORT}"
+      - "6379:6379"
     expose:
-      - "${REDIS_PORT}"
+      - "6379"
     networks:
       - djangonetwork
     
 
   celery_worker:
-    command: ./start-celery.sh
+    command: ./scripts/start-celery.sh
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: ./docker.local/Dockerfile.backend
     container_name: celery_worker
     volumes:
-      - .:/app
+      - ..:/app
     env_file:
-      - ./.env
+      - ../.env
     depends_on:
       - redis
       - postgres
@@ -107,15 +107,15 @@ services:
       - djangonetwork
 
   celery_beat:
-    command: ./start-beat.sh
+    command: ./scripts/start-beat.sh
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: ./docker.local/Dockerfile.backend
     container_name: celery_beat
     volumes:
-      - .:/app
+      - ..:/app
     env_file:
-      - ./.env
+      - ../.env
     depends_on:
       - redis
       - postgres
@@ -123,15 +123,15 @@ services:
       - djangonetwork
 
   flower:
-    command: ./start-flower.sh
+    command: ./scripts/start-flower.sh
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: ./docker.local/Dockerfile.backend
     container_name: celery_flower
     volumes:
-      - .:/app
+      - ..:/app
     env_file:
-      - ./.env
+      - ../.env
     depends_on:
       - redis
       - postgres
@@ -142,7 +142,7 @@ services:
     container_name: rabbitmq
     image: rabbitmq:3-management
     env_file:
-      - ./.env
+      - ../.env
     networks:
       - djangonetwork
 

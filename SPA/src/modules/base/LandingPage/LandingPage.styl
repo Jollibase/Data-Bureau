@@ -90,17 +90,8 @@
           opacity 0.7
           font-weight 300
         .lp__hero__input-group 
-          form
-            display flex
-            margin-top 40px
-            width 100%
-          &__container
-            margin-right 10px
-            width 100%
-            flex-basis 70%
-            > input 
-              &::placeholder
-                color $color_white
+          margin-top 25px
+          max-width 300px
           .hero-btn
             width 100%
             flex-basis 40%
@@ -260,8 +251,8 @@
             color $sky_grey
   @media screen and (max-width: 900px) 
     .lp__hero, .lp__feature, .lp__waitlist, .lp__insights, .lp__testimonial
-      padding-left 50px
-      padding-right 50px
+      padding-left 30px
+      padding-right 30px
       .lp__hero__elems .lp__hero__left .heading-text
         font-size 43px
         line-height 50px
@@ -277,7 +268,8 @@
       display: none
       
   @media screen and (max-width: 600px) 
-    
+    .lp__hero
+      padding-top 30px
     .lp__hero, .lp__feature, .lp__waitlist
       padding-left 16px
       padding-right 16px

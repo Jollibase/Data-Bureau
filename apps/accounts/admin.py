@@ -4,7 +4,7 @@ from django.contrib.auth import forms
 from django.forms import fields
 from hijack.contrib.admin import HijackUserAdminMixin
 
-from .models import User, Lender, UserProfile
+from .models import User, Lender, UserProfile, ContactInfo
 
 
 class UserProfileInline(admin.StackedInline):
@@ -19,5 +19,5 @@ class MyUserAdmin(HijackUserAdminMixin, UserAdmin):
 
 
 admin.site.register(User, MyUserAdmin)
-
 admin.site.register(Lender)
+admin.site.register(ContactInfo)

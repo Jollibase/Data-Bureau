@@ -1,5 +1,3 @@
-import { redirect } from 'react-router-dom'
-
 import { LandingPage } from '@Modules/base/LandingPage'
 import { ErrorPage } from '@Modules/base/ErrorPage'
 import { LenderSetup } from '@Modules/authentication/LenderSetup'
@@ -11,7 +9,7 @@ import { UserLogin } from '@Modules/authentication/UserLogin'
 import { Dashboard } from '@Home/modules/dashboard/Dashboard'
 import { CustomDashboard } from '@Home/modules/dashboard/CustomDashboard'
 
-import { getUser } from './loader'
+import { getUser, getCompanyCount } from './loader'
 
 const routes = [
   {
@@ -40,13 +38,7 @@ const routes = [
   {
     path: '/thank-you',
     element: <ThankYou />,
-    loader: async () => {
-      const isWaitlisted = localStorage.getItem('isWaitlisted')
-      if (!isWaitlisted) {
-        return redirect('/')
-      }
-      return null
-    },
+    loader: getCompanyCount,
   },
   {
     path: '/dashboards',

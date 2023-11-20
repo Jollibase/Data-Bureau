@@ -6,11 +6,14 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 from apps.lib.abstract_models import DatetimeMixin
 
+from datetime import datetime
+
 
 class User(AbstractUser):
     REQUIRED_FIELDS = ["first_name", "last_name"]
     USERNAME_FIELD = "email"
 
+    username = models.CharField(max_length=150, unique=False, blank=False)
     first_name = models.CharField("first name", max_length=150, blank=False)
     last_name = models.CharField("last name", max_length=150, blank=False)
     email = models.EmailField(unique=True, blank=False)
@@ -148,3 +151,19 @@ class EmailWaitList(models.Model):
 
     def __str__(self) -> str:
         return self.email
+
+
+class ContactInfo(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    company = models.CharField(max_length=255)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.company}"
+
+    class Meta:
+        verbose_name = "Contact Information"
+        verbose_name_plural = "Contact Information"

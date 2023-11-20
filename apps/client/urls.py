@@ -7,4 +7,9 @@ urlpatterns = [
     path("login/", views.LenderLoginView.as_view(), name="lender_login"),
     path("me/", views.LenderProfileView.as_view(), name="lender_profile"),
     path("me/add_user/", views.LenderAddUserView.as_view(), name="lender_add_user"),
+    path(
+        "resend_verification/",
+        views.resend_verification,
+        name="resend-verification",
+    ),
 ]

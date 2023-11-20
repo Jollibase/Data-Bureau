@@ -1,7 +1,7 @@
 import { camelize } from '@Home/lib/utils'
 import { store } from '@Home/store'
 
-import { AuthenticatedAPI } from '@Lib/api'
+import { AuthenticatedAPI, API } from '@Lib/api'
 
 export const getUser = async () => {
   return AuthenticatedAPI.get('accounts/me/')
@@ -16,4 +16,10 @@ export const getUser = async () => {
       return user
     })
     .catch(err => 'API Error: Check internet')
+}
+
+export const getCompanyCount = async () => {
+  return API.get('/accounts/join-waitlist/')
+    .then(response => response.data)
+    .catch(_ => 'API Error: Check internet')
 }

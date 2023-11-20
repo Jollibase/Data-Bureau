@@ -10,7 +10,7 @@ urlpatterns = [
     ),
     path("me/", views.UserProfileAPIView.as_view(), name="user_profile"),
     path(
-        "change_password/",
+        "change-password/",
         views.ChangePasswordView.as_view(),
         name="change_password",
     ),
@@ -18,5 +18,10 @@ urlpatterns = [
         "join-waitlist/",
         views.EmailWaitListView.as_view(),
         name="change_password",
+    ),
+    path(
+        "contact-us/",
+        views.ContactView.as_view(),
+        name="contact-us",
     ),
 ]

@@ -133,3 +133,4 @@ dmypy.json
 
 SPA/node_modules
 staticfiles
+mediafiles

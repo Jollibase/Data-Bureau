@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 // import * as Yup from 'yup'
 
+import { joinWaitlist } from '@Modules/base/redux/actions'
 import { useLocalStorage } from '@Home/lib/hooks/useLocalStorage'
+import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
 
-import WaitlistBoth from '@Images/waitlistboth.png'
-import WaitlistTwo from '@Images/waitlist2.png'
 import {
   Button,
   Input,
@@ -16,8 +16,8 @@ import {
   TestimonialCard,
 } from '@Components'
 
-import { FEATURE_CARDS_INFO, TESTIMONIALS } from './constants'
-
+import WaitlistBoth from '@Images/waitlistboth.png'
+import WaitlistTwo from '@Images/waitlist2.png'
 import { ReactComponent as LpDot } from '@Images/lp-dots.svg'
 import { ReactComponent as LpCircle } from '@Images/lp-round.svg'
 import { ReactComponent as LpC } from '@Images/lp-c.svg'
@@ -27,6 +27,8 @@ import { ReactComponent as HeroImg2 } from '@Images/thinkingman.svg'
 import { ReactComponent as HeroImg3 } from '@Images/businessman.svg'
 import { ReactComponent as EclipseGreen } from '@Images/eclispe_green.svg'
 import { ReactComponent as ElipseGreen } from '@Images/elipse_mini.svg'
+
+import { FEATURE_CARDS_INFO, TESTIMONIALS } from './constants'
 import styles from './LandingPage.styl'
 
 const CAROUSEL_IMAGES = [<HeroImg2 />, <HeroImg1 />, <HeroImg3 />]
@@ -34,15 +36,15 @@ const WaitListInitialValues = { name: '', email: '' }
 
 export const LandingPage = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const storage = useLocalStorage()
+  const { loading } = useAppSelector(state => state.base)
+  const isWaitlisted = storage('isWaitlisted').results
 
   const onSubmit = (values: typeof WaitListInitialValues) => {
-    // Api call here
-
-    storage('isWaitlisted', values)
-
-    return navigate('/thank-you')
+    dispatch(joinWaitlist(values, navigate))
   }
+
   return (
     <div className={styles.LP}>
       <div className="lp__hero">
@@ -66,34 +68,15 @@ export const LandingPage = () => {
               decisions and drive growth for your business.
             </p>
             <div className="lp__hero__input-group">
-              <Formik
-                initialValues={WaitListInitialValues}
-                onSubmit={onSubmit}
-                // validationSchema={Yup.object({
-                //   email: Yup.string()
-                //     .email('Email address is invalid')
-                //     .required('Email is required'),
-                // })}
-              >
-                {({ getFieldProps, isSubmitting, handleSubmit }) => (
-                  <form>
-                    <Input
-                      containerClassName="lp__hero__input-group__container"
-                      type="email"
-                      placeholder="Enter Email Address here..."
-                      {...getFieldProps('email')}
-                    />
-                    <Button
-                      text={isSubmitting ? 'Joining....' : 'Join our Waitlist'}
-                      classname="hero-btn"
-                      onclick={handleSubmit}
-                      disabled={isSubmitting}
-                      loading={isSubmitting}
-                      secondary
-                    />
-                  </form>
-                )}
-              </Formik>
+              <a href={!!isWaitlisted ? '#joined' : '#join'}>
+                <Button
+                  text="Join our Waitlist"
+                  classname="hero-btn"
+                  onclick={() => null}
+                  disabled={!!isWaitlisted}
+                  secondary
+                />
+              </a>
             </div>
           </div>
           <div className="lp__hero__right">
@@ -145,7 +128,7 @@ export const LandingPage = () => {
           </div>
           <div className="lp__waitlist__form__group">
             <Formik onSubmit={onSubmit} initialValues={WaitListInitialValues}>
-              {({ isSubmitting, handleSubmit, getFieldProps }) => (
+              {({ handleSubmit, getFieldProps }) => (
                 <form>
                   <Input
                     placeholder="Full name *"
@@ -163,6 +146,8 @@ export const LandingPage = () => {
                     text="Join our waitlist"
                     classname="lp__waitlist__form__group__button"
                     secondary
+                    loading={loading}
+                    disabled={loading || !!isWaitlisted}
                     onclick={handleSubmit}
                   />
                 </form>

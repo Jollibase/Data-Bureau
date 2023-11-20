@@ -61,11 +61,7 @@ export const CustomDashboard = () => {
               onclick={() => null}
               logo={<Calendar />}
             />
-            <ExportButton
-              classname="btns export"
-              onclick={() => null}
-              disabled={false}
-            />
+            <ExportButton classname="btns export" onclick={() => null} />
           </div>
         </div>
         <div className="tabs">

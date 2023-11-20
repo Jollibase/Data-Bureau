@@ -9,8 +9,8 @@
       background $primary_darker
       padding-top 49px
       padding-bottom 190px
-      rfs-padding-right(100px)
-      rfs-padding-left(80px)
+      padding-right 100px
+      padding-left 80px
       position relative
       .lp__C
         position absolute
@@ -133,7 +133,12 @@
           text-align center
           rfs-font-size(16px)
           margin-top 10px
-  @media screen and (max-width: 650px) 
+  @media screen and (max-width: 900px) 
+    .about-us
+      &__hero-page
+        padding-left 30px
+        padding-right 30px
+  @media screen and (max-width: 670px) 
     .about-us
       &__breakdown
         margin 38px 35px
@@ -161,3 +166,9 @@
           flex-direction column
           > div
             margin-bottom 32px
+   @media screen and (max-width: 600px) 
+    .about-us
+      &__hero-page
+        padding-left 16px
+        padding-right 16px
+        padding-top 30px

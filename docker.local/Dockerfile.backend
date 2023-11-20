@@ -25,7 +25,8 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 # `builder-base` stage is used to build deps + create our virtual environment
 FROM python-base as builder-base
-RUN apt-get update \
+RUN apt-get dist-upgrade \
+    && apt-get update \
     && apt-get install --no-install-recommends -y \
     build-essential \
     # psycopg2 dependencies
@@ -40,7 +41,7 @@ RUN apt-get update \
 
 # copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
-COPY ./poetry.lock ./pyproject.toml ./
+COPY ../poetry.lock ../pyproject.toml ./
 
 # install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
 RUN poetry install --no-dev
@@ -59,11 +60,10 @@ RUN poetry install
 
 WORKDIR /app
 
-COPY ./*.sh ./
+COPY ./scripts/*.sh ./
 RUN sed -i 's/\r$//g' ./*.sh
 RUN chmod +x ./*.sh
 
-RUN mkdir /app
 RUN mkdir /app/staticfiles
 RUN mkdir /app/mediafiles
 
@@ -77,4 +77,4 @@ RUN chown -R django:django /app
 
 USER django
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["./docker.local/entrypoint.sh"]

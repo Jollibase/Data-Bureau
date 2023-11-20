@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 
-from .models import EmailWaitList, Lender, User, UserProfile
+from .models import EmailWaitList, ContactInfo, User, UserProfile
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -72,3 +72,8 @@ class EmailWaitListSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmailWaitList
         fields = "__all__"
+
+class ContactInfoSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = ContactInfo
+        fields ='__all__'

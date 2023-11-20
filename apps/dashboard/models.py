@@ -17,7 +17,7 @@ class Dashboard(DatetimeMixin):
         blank=True,
         related_name="shared_dashboard",
     )
-    settings = models.JSONField(default={})
+    settings = models.JSONField(default=dict)
     is_active = models.BooleanField(default=True)
     is_readonly = models.BooleanField(default=False)
     id = models.UUIDField(

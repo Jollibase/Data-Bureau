@@ -22,3 +22,10 @@ export const snakify = (obj: Record<string, unknown>) => {
     },
   )
 }
+
+export const formatErrors = (errors: string[]): string => {
+  if (errors.length === 1) {
+    return errors[0]
+  }
+  return errors.map((item, index) => `${index + 1}. ${item}\n`).join('')
+}

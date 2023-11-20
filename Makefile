@@ -1,11 +1,11 @@
-# Makefile
+# Makefile - Only for local development
 
 BACKEND_CONTAINER=web_backend
 TARGET=$(target)
 # make start
 #             Start containers 
 # 
-# make build
+# make build_p
 #             Build and start containers 
 # 
 # make log
@@ -22,24 +22,22 @@ TARGET=$(target)
 # 
 
 start: 
-	@docker compose up -d 
+	@docker compose -f ./docker.local/docker-compose.yml up -d
 
 build_p: 
-	@docker compose up -d --build
+	@docker compose -f ./docker.local/docker-compose.yml up -d --build
 
 logs:
-	@docker compose logs -f $(TARGET)
+	@docker compose -f ./docker.local/docker-compose.yml logs -f $(TARGET)
 
 stop:
-	@docker compose stop
+	@docker compose -f ./docker.local/docker-compose.yml stop
 
 backend-format:
 	@poetry run isort . && poetry run black *.py
 
-makemigrations:
+migrations:
 	@docker exec $(BACKEND_CONTAINER) python manage.py makemigrations
-
-migrate:
 	@docker exec $(BACKEND_CONTAINER) python manage.py migrate
 
 shell:

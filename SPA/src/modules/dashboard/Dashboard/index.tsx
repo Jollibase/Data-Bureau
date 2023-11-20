@@ -77,6 +77,10 @@ export const Dashboard = () => {
     )
   }
 
+  const noRowRenderer = () => {
+    return '<span style="padding: 10px; border: 2px solid #F5F5F5; color:#595959;">No dashboards in sight 👀</span>'
+  }
+
   const gridRowData = () => {
     return dashboardList?.map(item => ({
       id: item.id,
@@ -134,6 +138,7 @@ export const Dashboard = () => {
           <Grid
             ref={gridRef}
             className="grid"
+            overlayNoRowsTemplate={noRowRenderer()}
             columnDefs={[
               {
                 headerName: '',
