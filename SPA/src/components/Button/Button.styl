@@ -13,9 +13,10 @@
     transition 0.3s ease-in
     cursor pointer
     &.disabled, &.disabled:hover
-        cursor not-allowed
-        background #cccccc
-        border 1px solid #cccccc
+        cursor not-allowed !important
+        background #cccccc !important
+        border none !important
+        color $color_white !important
     &.inverse
         background transparent
 
@@ -31,28 +32,26 @@
 :local(.Primary)
     &:hover 
         background $primary_normal_hover
-        border 1px solid $primary_normal_hover
         cursor pointer
+    &.inverse
+        border 1px solid $primary_normal_hover
     
     &:active
         background $primary_normal_active
-        border 1px solid $primary_normal_active
 
 :local(.Secondary)
     background $sec_normal
     &.inverse
         color $sec_normal
-
+        border 1px solid $sec_normal_hover
 
     &:hover 
         background $sec_normal_hover
-        border 1px solid $sec_normal_hover
         cursor pointer
         color $color_white
     
     &:active
         background $sec_normal_active
-        border 1px solid $sec_normal_active
 
 
 :local(.ExportButton)

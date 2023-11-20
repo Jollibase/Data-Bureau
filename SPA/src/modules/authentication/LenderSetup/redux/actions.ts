@@ -9,6 +9,7 @@ export const enum LenderSetupActions {
   CREATE_LENDER = 'LENDER_SETUP_ACTIONS/CREATE_LENDER',
   CREATE_ADMIN_USER_START = 'LENDER_SETUP_ACTIONS/CREATE_ADMIN_USER_START',
   CREATE_ADMIN_USER_DONE = 'LENDER_SETUP_ACTIONS/CREATE_ADMIN_USER_DONE',
+  RESEND_VERIFICATION = 'LENDER_SETUP_ACTIONS/RESEND_VERIFICATION',
 }
 
 export const updateCurrentStep = createAction<undefined>(
@@ -48,6 +49,30 @@ export const createAdminUser =
       .catch(err => {
         dispatch({
           type: LenderSetupActions.CREATE_ADMIN_USER_DONE,
+          payload: {
+            statusCode: err.response.status,
+            errorMessage: err.response
+              ? err.response.data.details
+              : 'Connection refused',
+          },
+        })
+      })
+  }
+
+export const resendVerification =
+  (email: string) => (dispatch: AppDispatch) => {
+    API.get(`client/resend_verification/?email=${email}`)
+      .then(response => {
+        dispatch({
+          type: LenderSetupActions.RESEND_VERIFICATION,
+          payload: {
+            statusCode: response.status,
+          },
+        })
+      })
+      .catch(err => {
+        dispatch({
+          type: LenderSetupActions.RESEND_VERIFICATION,
           payload: {
             statusCode: err.response.status,
             errorMessage: err.response

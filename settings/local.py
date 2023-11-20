@@ -21,7 +21,8 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.00",
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
@@ -42,7 +43,8 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ["*"]
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(" ")
 AUTH_USER_MODEL = "accounts.User"
 
 SIMPLE_JWT = {
@@ -50,12 +52,10 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=7),
 }
 
-REDIS_HOST = os.getenv("REDIS_HOST", "redis")
-REDIS_PORT = os.getenv("REDIS_PORT", "6379")
 
 # CELERY
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://127.0.0.1:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://127.0.0.1:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND", "django-db")
 CELERY_TASK_DEFAULT_QUEUE = "default"
 CELERY_TASK_CREATE_MISSING_QUEUES = False
 CELERY_TASK_QUEUES = (

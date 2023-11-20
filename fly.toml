@@ -1,0 +1,37 @@
+# fly.toml app configuration file generated for data-bureau on 2023-09-02T07:02:52+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "data-bureau"
+primary_region = "jnb"
+console_command = "/code/manage.py shell"
+
+[build]
+  dockerfile = "./docker.prod/Dockerfile.backend"
+
+[processes]
+  app = "python -m gunicorn --bind :8000 --workers 2 data_bureau.asgi:application -k uvicorn.workers.UvicornWorker"
+  worker = "python -m celery -A data_bureau worker --loglevel=info -Q high_priority,default"
+
+[deploy]
+  release_command = "python manage.py migrate --no-input"
+
+[env]
+  PORT = "8000"
+
+[mounts]
+  source="data_bureau_volume"
+  destination="/app/data"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[statics]]
+  guest_path = "/code/static"
+  url_prefix = "/static/"

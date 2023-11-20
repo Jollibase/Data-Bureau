@@ -1,19 +1,33 @@
 import { Formik } from 'formik'
 
-import { Input, Menu, Textarea, Button, Footer } from '@Home/components'
+import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
+import { Input, Menu, Textarea, Button, Footer, Toast } from '@Home/components'
+import { sendContactInfo, clearBaseInfo } from '@Modules/base/redux/actions'
 
 import { ReactComponent as Mail } from '@Images/mail.svg'
 import { ReactComponent as Whatsapp } from '@Images/whatsapp.svg'
 import { ReactComponent as BtnArrowRight } from '@Images/btn_arrow_right.svg'
 import style from './ContactPage.styl'
+const initValues = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  company: '',
+  message: '',
+}
 
 export const ContactPage = () => {
-  const onSubmit = () => {
-    return
-  }
+  const dispatch = useAppDispatch()
+  const { contact, loading } = useAppSelector(state => state.base)
+
   return (
     <div className={style.ContactPage}>
       <Menu classname="contact_page__menu" showButton />
+      <Toast
+        message={contact?.message}
+        level={contact?.hasSentContactInfo ? 'success' : 'error'}
+        onClear={() => dispatch(clearBaseInfo())}
+      />
       <div className="contact_page">
         <h2>We help financial institutions make informed lending decisions.</h2>
         <div className="contact_page__form">
@@ -22,15 +36,11 @@ export const ContactPage = () => {
             <p>Contact us regarding any concerns or inquiries.</p>
           </div>
           <Formik
-            onSubmit={onSubmit}
-            initialValues={{
-              firstname: '',
-              lastName: '',
-              email: '',
-              country: '',
-              message: '',
-            }}>
-            {({ isSubmitting, getFieldProps, handleSubmit }) => (
+            onSubmit={(values: Record<string, string>, { resetForm }) => {
+              dispatch(sendContactInfo(values, resetForm))
+            }}
+            initialValues={initValues}>
+            {({ getFieldProps, handleSubmit }) => (
               <form>
                 <div className="half">
                   <Input
@@ -77,18 +87,19 @@ export const ContactPage = () => {
                 </div>
                 <div className="contact_page__form__finish_up">
                   <Button
-                    onclick={handleSubmit}
                     primary
+                    onclick={handleSubmit}
                     classname="contact_page__form__btn"
-                    text={isSubmitting ? 'Submitting' : 'Submit'}
-                    loading={isSubmitting}
+                    text="Submit"
+                    loading={loading}
+                    disabled={loading}
                     logo={<BtnArrowRight fill="white" />}
                   />
                   <p>
                     By pressing the submit button, I agree to Jollibase
                     contacting me by email and/or phone to share opportunities
                     exclusively available to Select or Enterprise customers. I
-                    also understand that any information I’ve shared in this
+                    also understand that any information I've shared in this
                     form is subject to Jollibase Privacy Policy.
                   </p>
                 </div>

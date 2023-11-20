@@ -1,9 +1,18 @@
 import os
 
 from celery import Celery
+from dotenv import load_dotenv
+
 from django.conf import settings
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.local")
+load_dotenv()
+
+environment = os.environ.get("ENVIRONMENT")
+
+if environment == "development":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.local")
+else:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.prod")
 
 app = Celery("APP")
 

@@ -9,8 +9,12 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
-from .serializers import EmailWaitListSerializer, UserProfileSerializer
-from .models import UserProfile
+from .serializers import (
+    EmailWaitListSerializer,
+    UserProfileSerializer,
+    ContactInfoSerializer,
+)
+from .models import UserProfile, EmailWaitList
 
 User = get_user_model()
 
@@ -53,6 +57,10 @@ class ChangePasswordView(views.APIView):
 class EmailWaitListView(views.APIView):
     serializer_class = EmailWaitListSerializer
 
+    def get(self, request):
+        count = EmailWaitList.objects.count()
+        return Response({"count": count})
+
     def post(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
@@ -67,3 +75,12 @@ class UserProfileAPIView(generics.RetrieveAPIView):
 
     def get_object(self):
         return UserProfile.objects.get(user=self.request.user)
+
+
+class ContactView(views.APIView):
+    def post(self, request):
+        data = request.data
+        serializer = ContactInfoSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response("Message received")

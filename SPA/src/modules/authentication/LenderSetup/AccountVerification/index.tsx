@@ -3,13 +3,15 @@ import ClassNames from 'classnames'
 import useWebSocket from 'react-use-websocket'
 
 import { Button } from '@Home/components'
-import { useAppSelector } from '@Home/lib/hooks/redux'
+import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
 import { StepComponentsExtraProps } from '@Home/components/Step'
 
 import { ReactComponent as GirlChair } from '@Images/girl_chair.svg'
 import { ReactComponent as BtnArrowRight } from '@Images/btn_arrow_right.svg'
 
 import style from './AccountVerification.styl'
+import { resendVerification } from '../redux/actions'
+
 interface AccountVerificationProps extends StepComponentsExtraProps {}
 
 export const AccountVerification = ({
@@ -18,14 +20,19 @@ export const AccountVerification = ({
 }: AccountVerificationProps) => {
   const [error, setError] = useState<string>('')
   const [wsURL, setWsUrl] = useState<string>('')
-  const lenderDetails = useAppSelector(state => state.lenderSetup.lenderDetails)
+  const { lenderDetails, lenderAccount } = useAppSelector(
+    state => state.lenderSetup,
+  )
   const { lastJsonMessage } = useWebSocket(wsURL, {}, wsURL !== '')
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     setWsUrl(`ws://127.0.0.1:8000/ws/verify/${lenderDetails?.users?.[0]?.id}/`)
   }, [lenderDetails])
 
-  const handleClick = () => {}
+  const handleClick = () => {
+    dispatch(resendVerification(lenderAccount?.email as string))
+  }
 
   useEffect(() => {
     const verified = lastJsonMessage && lastJsonMessage['verified']

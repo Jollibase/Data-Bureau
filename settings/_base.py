@@ -26,7 +26,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 SECRET_KEY = "django-insecure--$dm*%bxl)u3c0c-f^m8*b+8lo9n81(k8@xt(nk^9n0-ls1%eo"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 
 
 # Application definition
@@ -58,12 +58,14 @@ THIRD_PARTY_APPS = [
     "hijack.contrib.admin",
     "corsheaders",
     "daphne",
+    "django_celery_results",
 ]
 
 INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -73,6 +75,12 @@ MIDDLEWARE = [
     "hijack.middleware.HijackUserMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 ROOT_URLCONF = "data_bureau.urls"
 
@@ -142,10 +150,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/staticfiles/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "data/staticfiles")
 
 MEDIA_URL = "/mediafiles/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
+MEDIA_ROOT = os.path.join(BASE_DIR, "data/mediafiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

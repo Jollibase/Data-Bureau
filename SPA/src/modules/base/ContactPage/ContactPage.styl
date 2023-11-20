@@ -15,6 +15,11 @@
       padding 0 14px
     &__menu
       padding 49px 80px 0 
+      .menu__mobile_list
+        right 30px
+        top 133px
+      .menu__hamburger
+        color $sec_normal
       .menu__list
         li a
           color $menu_grey
@@ -69,10 +74,12 @@
                         
           .contact_page__form__btn
             height 100%
-            width fit-content
-            padding 6px 20px
-            border-radius 7px
+            width 330px
+            padding 6px
+            border-radius 4px
             font-size 14px
+            svg
+              margin-left 0
     &__info
       padding 56px
       width 100%
@@ -99,9 +106,14 @@
           line-height 22px
           max-width 350px
           text-align center
+  @media screen and (max-width: 900px)
+    .contact_page__menu
+      padding-left 30px 
+      padding-right 30px 
   @media screen and (max-width: 600px)
     .contact_page__menu
       padding-left 16px 
+      padding-top 30px
       padding-right 16px 
     .contact_page__form
       width calc(100% - 14px)
@@ -113,3 +125,4 @@
           width 100%
         p
           margin-left 0px
+ 

@@ -156,7 +156,7 @@ export const CreateAdminUser = ({
             </p>
 
             <Button
-              text={<p>{isSubmitting ? 'Submitting' : 'Continue'}</p>}
+              text={<p>{isSubmitting && !error ? 'Submitting' : 'Continue'}</p>}
               logo={<BtnArrowRight fill="white" />}
               primary
               classname="form__btn"

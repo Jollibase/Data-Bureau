@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Formik } from 'formik'
 
+import { useLocalStorage } from '@Home/lib/hooks/useLocalStorage'
+
 import { Input } from '../Input'
 import { Button } from '../Button'
 
@@ -33,6 +35,8 @@ const FooterRoutes = {
 }
 
 export const Footer = () => {
+  const storage = useLocalStorage()
+  const isWaitlisted = storage('isWaitlisted').results
   return (
     <div className={styles.Footer}>
       {Object.entries(FooterRoutes).map(([key, value]) => {
@@ -74,7 +78,7 @@ export const Footer = () => {
                   secondary
                   inverse
                   onclick={handleSubmit}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isWaitlisted}
                   loading={isSubmitting}
                   classname="footer__description__input_group__button"
                   text={isSubmitting ? 'Joining....' : 'Join our Waitlist'}

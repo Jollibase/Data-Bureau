@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
 
 import { Button } from '@Home/components'
 
@@ -9,8 +9,13 @@ import { ReactComponent as Linkedin } from '@Images/linkedin.svg'
 import { ReactComponent as LogoGreen } from '@Images/logo_green.svg'
 import { ReactComponent as ThankYouClap } from '@Images/thankyou.svg'
 import style from './ThankYou.styl'
+import { useLocalStorage } from '@Home/lib/hooks/useLocalStorage'
 
 export const ThankYou = () => {
+  const { count } = useLoaderData() as { count: number }
+  const storage = useLocalStorage()
+  const isWaitlisted = storage('isWaitlisted').results
+
   return (
     <div className={style.ThankYou}>
       <div className="thank-you">
@@ -29,9 +34,9 @@ export const ThankYou = () => {
         <div className="thank-you__banner">
           <div className="thank-you__banner__with__logo">
             <h3>
-              <span>200</span> Companies are ahead of you
+              <span>{count}</span> Companies are ahead of you
             </h3>
-            <p>This reservation is held for femi.harley@GlobalMoney.com</p>
+            <p>This reservation is held for {isWaitlisted.email}</p>
           </div>
         </div>
         <div className="thank-you__priority">
