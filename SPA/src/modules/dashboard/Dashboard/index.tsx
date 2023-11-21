@@ -6,16 +6,16 @@ import { useNavigate } from 'react-router-dom'
 import { Grid, Button, Checkbox, Modal } from '@Home/components'
 import { useAppDispatch, useAppSelector } from '@Home/lib/hooks/redux'
 import { dashboard as dLT } from '@Home/lib/processor/dashboardProcessor'
+import { Placeholder } from '@Home/components/Placeholder'
 
 import {
   getAllDashboards,
   deleteDashboards,
   createDashboard,
 } from '../redux/actions'
+import { Onboarding } from './Onboarding'
 
 import styles from './Dashboard.styl'
-import { Onboarding } from './Onboarding'
-import { Placeholder } from '@Home/components/Placeholder'
 
 export const Dashboard = () => {
   const [selectedDashboards, setSelectedDashboards] = useState<string[]>([])

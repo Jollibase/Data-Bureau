@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Data bureau web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting started
 
-## Available Scripts
+### Running development server
 
-In the project directory, you can run:
+To run V2 development server, issue the following command:
 
-### `npm start`
+```bash
+$ make start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You'll be able to access frontend app under `http://localhost/` URL
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Running development tools
 
-### `npm test`
+To run styling code checks, issue:
+```bash
+$ cd app/SPA && npm run check
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Make sure you have Node v19.3.0 installed. You can set current node version using command `nvm use`. 
+It'll automatically take current version from .nvmrc file and apply it (Or run them inside containers created by `make start`)
 
-### `npm run build`
+## Architecture and guidelines
+### Making and styling components
+All of the UI is built using a set of our own components build with React. The preferred way to style them is with stylus-lang classes. 
+So each component consists of 2 files - `ComponentName.styl` and `index.tsx`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`ComponentName.styl` could be something like (notice that indents are 4 spaces): 
+```stylus
+@import "@Assets/global_style"
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+:local(.ComponentName)
+    background-color blue
+```
+`index.tsx`:
+```tsx
+import * as style from './ComponentName.styl'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+interface ComponentNameProps {
+  name: string
+}
 
-### `npm run eject`
+export const ComponentName = ({name}: ComponentNameProps) => {
+    return <div className={style.ComponentName}> Hello {name}</div> 
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### State management
+For "common data" that is used across the app (for example the list of users permissions) we use a Redux container. Async logic is handled by Redux Api Middleware (for API communication) and Redux Thunk (for more complex cases). 
+The goal with that is to load common data just once, when it's needed for the first time.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Local state in the components is stored and processed both on the component level (both with Hooks and Class Based Components) as well as with Redux. Whichever approach results with cleaner code is the preferred one. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+For example imagine a component which display a list of posts from last week coming from one of the Facebook pages that a user has access to. In that case, most likely we would keep the list of Facebook pages that a user has access to in Redux (as that is likely to be used by some other components) and a list of posts inside the component state.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### API
+All the data presented to user should be coming exclusively from Data bureau API v2. User authentication is handled by JWT authentication. If we serve data from non shareablee data sources, we still proxy those through Data bureau API v2. 
 
-## Learn More
+### Presenting data
+For tabular data we tend to use AGGrid, wrapped inside one of our components (`src/components/Grid/`) that add some custom functionalities as well as Shareablee look and feel.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Quality assurance
+All frontend code that is shipped to production must:
+1. be compliant with our ESlint rules (defined in `package.json`)
+2. have .styl files indented with 4 spaces
+3. be (at least partially) covered with frontend tests.
+4. follow a defined import rule
+   ```tsx
+   import ClassNames from 'classnames' // import from installed modules first
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   import { Placeholder } from '@Home/components/Placeholder' // absolute imports except images
 
-### Code Splitting
+   import { ProgressBar } from '../ProgressBar' // relative imports
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   import { ReactComponent as DashWelcome } from '@Images/dashboard_welcome.svg' // image imports
+   import style from './Step.styl' // style imports
+   ```
 
-### Analyzing the Bundle Size
+### Unit testing
+Ongoing.....
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Rules
+1. All the tests should be stored in `src` directory, next to the file they test, with `.spec.ts|tsx` extension (tests for `src/components/TestComponent.tsx` should be located in `src/components/TestComponent.spec.tsx`).
+2. Every component test should contain one snapshot test. We use snapshots to detect for which components the output HTML has changed (and how). Components for snapshots should be rendered in their "default" state, with all necessary data fetched (if applicable).
+3. We use RTL selectors for asserting proper component functioning. Snapshot tests are highly discouraged for functional testing.
+4. Try to use `jest.mock` as little as possible. Our goal is to test components in environment resembling the app in the browser as closely as possible.
 
-### Making a Progressive Web App
+#### Test helpers
+The regular way of testing components with RTL is to import `render` from the `@testing-library/react`. Some of our use cases though are complex enough that we wrote few helper functions wrapping the `render` function to make our job easier.
+All of them are located in `SPA/tests/rtlUtils.tsx`
+Here's how to make the decision what function to use when testing a component:
+1. You are testing a Widget component - In this case you should use the `renderWidgetInWrappers` helper. It takes the name of the widget as an argument, and renders it in the environment similar to the one we use in the application, wrapped in all required Providers.
+2. You are testing a component connected to Redux store or with routing inside - Use `renderWithProviders` function. It will wrap your component in all Providers it needs (except for contexts providers, you need to supply that on your own if it's necessary).
+3. You are testing a simple component not connected to Redux nor containing routing - Go with the unwrapped `render` function from `@testing-library/react`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Both render helpers are wrapping your component in the Redux store. It can preload a user object with permissions (enterprise or noPermissions) into the store if specified.
+You can also inject any object into the store by passing object into the render function, but in most cases it should not be necessary because all the data should be fetched by the component itself from the mocked api (besides the user data which has to be preloaded)
