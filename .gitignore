@@ -131,6 +131,6 @@ dmypy.json
 .vscode
 .DS_Store
 
-SPA/node_modules
+SPA/node_modules/
 staticfiles
 mediafiles
